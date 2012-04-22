@@ -1,0 +1,226 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Teoría de conjuntos}
+La teoría de conjuntos es fundacional para toda la matemática, es decir, desde el punto
+de vista lógico, se puede deducir todo desde la teoría de conjuntos. Sin embargo aquí,
+por falta de tiempo (y tal vez capacidad), nos limitamos a dar un repaso de ésta solo desde el punto de vista
+ingenuo, que, como veremos más tarde, contiene contradicciones y problemas en las definiciones. Por ahora, aceptemos que los conjuntos existen y intentaremos dar una definición (algo intuitiva) de éstos: \\
+
+\begin{defi} %Definicíon de conjunto
+Un conjunto es una colección de objetos. $x \in A$ significa que $x$ pertenece a $A$.
+\end{defi}
+
+Aquí ya empezamos a ver que existen problemas, esta definición es vaga e imprecisa, pero esto es una de las delicadezas que no nos ocuparemos aquí, el lector debe confiar que todos estos conceptos pueden ser formalizados (de una u otra manera) de forma que no posean ninguna vaguedad. Sigamos con el resto de las proposiciones/definiciones que dan los objetos básicos con los que trabajaremos. El lector notará que si bien muchas llevan el nombre de ''Proposición'', éstas en realidad se asemejan más a definiciones y la razón que no llevan demostración alguna es que podria decirse que son claras en si mismas; no discutiremos la cuestiones lógicas de por qué son o no definiciones, proposiciones o bien axiomas. \newpage
+
+\begin{prop} %Igualdad de conjuntos
+Dos conjuntos son iguales si poseen los los mismos elementos \\
+$$ A = B \Longleftrightarrow (x \in A \Leftrightarrow x\in B ) $$
+\end{prop}
+
+\begin{defi} %Definición de inclusión
+Decimos que $A$ está incluido en $B$ o que $B$ contiene a $A$ si:
+$$ \forall x \in A \Rightarrow x\in B $$
+Es decir, que todos los elementos de $A$, también pertencen a $B$. Lo notamos como $ A \subseteq B $.
+\end{defi}
+
+\begin{ej} % Equivalencia entre doble inclusión y igualdad
+Probar que $A \subseteq B$ y $A \supseteq B$, si y sólo si $A=B$
+\end{ej}
+
+\textbf{Notación:} Si $A \subseteq B$ y $A \neq B$ a veces escribimos $A \subset B$ ó $A \subsetneq B$ si queremos enfatizar el hecho que son distintos.
+
+\begin{prop} % Existencia del vacío
+Existe un conjunto sin elementos
+$$ \exists A \slash \forall z , \, z \notin A $$ 
+\end{prop}
+\begin{ej}
+Existe un único conjunto vacío. En base a esto, lo notamos como $\emptyset$.
+\end{ej}
+\begin{prop} % Existencia del conjunto con elementos dados
+Para todo par $x,y$ de elementos, existe un conjunto cuyos elementos son $x$ e $y$.
+$$ \forall x,y \, \exists z \slash t\in z \Leftrightarrow t=x \vee t=y$$
+Notamos al conjunto $z$ como $ \lbrace x,y \rbrace $.
+\end{prop}
+La utilidad de esta ''proposición'', es la de crear conjuntos con elementos dados, de esta manera, considerando finitos elementos, siempre existe un conjunto que los contiene a todos ellos. \\[0.5cm]
+Por cuestiones lógicas, no queda muy claro como definir un ''conjunto de conjuntos'', así, nos referimos en estos casos a una ''familia'' de conjuntos cuando queremos decir simplemente un ''grupo de conjuntos''. \\[0.5 cm]
+Mostramos a continuación la existencia de la unión.
+
+\begin{prop} %Unión
+Dado un conjunto $A$ cuyos elementos son conjuntos, existe un conjunto $B$ que cumple que: \\
+$$ B = \lbrace x \,\vert\, \exists z \in A \mbox{ que } x \in z \rbrace $$
+Notamos a este conjunto $B$ como $\bigcup A$ y lo llamamos unión de los elementos de $A$.
+\end{prop}
+
+\textbf{Notación:} Si $A = \lbrace A_{j} \,\vert\, j \in J \rbrace$ notamos $\bigcup A$ como $\bigcup_{j\in J} A_{j}$.\\[0.5cm]
+\textbf{Observación:} Es obvio que:
+$$\bigcup \lbrace A \rbrace = A$$
+\textbf{Notación:} Generalmente notamos $ \bigcup \lbrace A,B \rbrace$ como $A \cup B$, y esta suele ser la notación usual; en caso que se use ''$\bigcup$'' (a diferencia de ''$\cup$'') y ésta no lleve indices por debajo, nos referimos a la notación inicial, que para unir familias de conjuntos no indexados, resulta más cómoda.\\[0.5cm]
+Ahora procedemos a mostrar la existencia de la intersección.
+
+\begin{prop} %Intersección
+Dado un conjunto $A$ cuyos elementos son conjuntos, existe un conjunto $B$ que cumple que:
+$$ B = \lbrace x \,\vert\, \forall z \in A \mbox{ } x \in z \rbrace $$
+Notamos a este conjunto $B$ como $\bigcap A$ y lo llamamos intersección de los elementos de $A$.
+\end{prop}
+
+\textbf{Notación:} Si $A = \lbrace A_{j} \,\vert\, j \in J \rbrace$ notamos $\bigcap A$ como $\bigcap_{j\in J} A_{j}$.\\[0.5cm]
+\textbf{Observación:} Como antes, es obvio que
+$$\bigcap \lbrace A \rbrace = A$$
+\textbf{Notación:} Al igual que con la unión, generalmente notamos $ \bigcap \lbrace A,B \rbrace$ como $A \cap B.$, y usamos esta notación siempre, exceptuando en el caso que usemos ''$\bigcap$'' ésta y no lleve índices por debajo (a diferencia de ''$\cap$''), que como en la unión, nos referimos a la notación original.\\[0.5 cm]
+\textbf{Observación:} Tanto la unión como la intersección pueden interpretarse como los conjuntos que cumplen propiedades características en cada caso:
+\begin{itemize}
+\item La unión de una familia de conjuntos es el conjunto más ''chico'' que contiene a todos. Y por más chico queremos decir que si $A$ representa la unión de todos y $B$ es otro conjunto que contiene a todos los conjuntos de la familia, resulta que $A \subseteq B$.
+\item La intersección de una familia de conjuntos es el más ''grande'' que está contenido en todos. Por más grande queremos decir que si $A$ es la intersección de todos y $B$ es otro conjunto que está incluido en todos los conjuntos de la famila, resulta que $B \subseteq A$.
+\end{itemize}
+
+Dejamos ahora unas propiedades útiles como ejercicios sencillos.\newpage
+
+\begin{ej} %Propiedades de unión y intersección.
+Probar los siguientes enunciados:
+\begin{enumerate}
+\item $A \cup \emptyset = A$
+\item $A \cup A = A $
+\item $A \cup B = B \cup A$
+\item $(A \cup B) \cup C = A \cup (B \cup C) $
+\item $A \cap \emptyset = \emptyset$
+\item $A \cap A = A $
+\item $A \cap B = B \cap A$
+\item $(A \cap B) \cap C = A \cap (B \cap C) $
+\item $(A \cap B) \cup C = (A \cup C) \cap (B \cup C) $
+\item $(A \cup B) \cap C = (A \cap C) \cup (B \cap C) $
+\item $A \cap (\bigcup_{j \in J} B_{j}) = \bigcup_{j \in J} (B_{j} \cap A)$
+\item $A \cup (\bigcap_{j \in J} B_{j}) = \bigcap_{j \in J} (B_{j} \cup A)$
+\item $ A \cup B = B \Leftrightarrow A \subseteq B$
+\item $ A \cap B = A \Leftrightarrow A \subseteq B$
+\end{enumerate}
+\end{ej}
+
+\begin{defi} %Conjuntos disjuntos
+Dados dos conjuntos $A$ y $B$ decimos que son disjuntos si $A \cap B = \emptyset$. Más generalmente, dada una familia de conjuntos $(A_i)_{i \in I}$, decimos que es disjunta dos a dos (a veces decimos simplemente disjunta) si $A_i \cap A_j = \emptyset$, para todo $i \neq j$
+\end{defi}
+
+\textbf{Notación:} Si tenemos dos conjuntos disjuntos $A,B$ y su correspondiente conjunto unión $A \cup B$, si queremos dar énfasis que su unión es entre dos conjuntos disjuntos, a veces lo notamos como $ A \sqcup B$. De manera análoga para simbolizar lo mismo para una familia de conjuntos disjuntos dos a dos notamos $ \bigcup_{i \in I} A_i$ como $\bigsqcup_{i \in I} A_i $. \\
+Vale aclarar que esto es sólo una notación, es decir, si la familia original no es disjunta, indicar la unión con ''$\sqcup$'', no realiza la operación ''disjuntar la familia''; en tal circunstancia ésta notación está mal utilizada.\\[0.5 cm]
+Mostraremos ahora qué es el conjunto de partes de un conjunto.
+
+\begin{prop}[Partes de un conjunto]
+Dado un conjunto $A$ existe un conjunto llamado partes de $A$ notado por $ \mathcal{P}(A)$ o también por $2^A$ que cumple:
+$$ x \in \mathcal{P}(A) \Leftrightarrow x \subseteq A $$
+Es decir, $\P(A)$ es el conjunto de todos los subconjuntos de $A$.
+\end{prop}
+
+Con esto definimos una partición de un conjunto, cosa que nos será útil luego.
+
+\begin{defi} %Partición
+Dado un conjunto $A$, definimos una partición de $A$ como cualquier subconjunto $P \subseteq \P(A)$ que cumpla:
+\begin{itemize}
+\item $ A = \bigcup P$
+\item Si $X,Y \in P$ y $X \neq Y$, entonces $X \cap Y = \emptyset$
+\end{itemize}
+\end{defi}
+
+\textbf{Ejemplos:}
+\begin{itemize}
+\item Dado $A$, el conjunto $\{A\}$ siempre es una partición. 
+\item Dado el conjunto $\{ 1, 2, 3, 4\}$, una posible partición sería $\{\{1\},\{2,3\},\{4\}\}$.
+\end{itemize}
+
+\begin{defi} %Complemento
+Dado un conjunto $\mathcal{U}$ definimos para todo conjunto $A \in \mathcal{P}(\mathcal{U})$ a $A^c$ (a veces también notado como $A'$) al conjunto que cumple que: $$ A^c = \lbrace x \in \mathcal{U} \,\vert\, x \notin A \rbrace $$
+Llamamos a tal conjunto el complemento de $A$ en $ \mathcal{U}$. Es importante que la noción de complento tiene sentido sobre algún conjunto $\mathcal{U}$ y no de manera universal.
+\end{defi}
+
+\begin{ej} %Propiedades del complemento
+Probar que dado $\mathcal{U}$ y $ A \in \mathcal{P}(\mathcal{U}) $ 
+\begin{itemize}
+\item $(A^c)^c = A $
+\item $A \cap A^c = \emptyset $
+\item $A \cup A^c = \mathcal{U}$
+\item $\mathcal{U}^c = \emptyset$
+\item $\emptyset^c = \mathcal{U}$
+\end{itemize}
+\end{ej}
+
+\begin{defi} %Resta de conjuntos
+Dados $A,B$ incluidos en un conjunto $\mathcal{U}$, definimos la resta de $A$ y $B$ como aquellos elementos de $A$ que no están en $B$:
+$$ A \setminus B = A \cap B^c = \{ x \in A \,\vert\, x \notin B\}$$
+\end{defi}
+
+\begin{teo}[Leyes de De Morgan]
+\hfill
+\begin{itemize}
+\item $(A \cup B )^c = A^c \cap B^c$
+\item $(A \cap B )^c = A^c \cup B^c$
+\end{itemize}
+\begin{proof}
+Demostraremos sólo el primer ítem, el otro es análogo. Para ver la igualdad veremos que ambos conjuntos se contienen mutuamente de acuerdo a la siguiente cadena de equivalencias:
+\begin{align*}
+x \in (A \cup B)^c &\Leftrightarrow x \notin A \cup B \\
+\Leftrightarrow x \notin A \wedge x \notin B &\Leftrightarrow x \in A^c \cap B^c
+\end{align*}
+Por lo que (comprobando rápidamente las definiciones y proposiciones adecuadas) se obtiene la igualdad deseada.
+\end{proof}
+\end{teo}
+
+Definiremos ahora los pares ordenados, que como el lector seguramente sabe, son increíblemente útiles e importantes para construir objetos en matemática, (como ser por ejemplo las relaciones y por lo tanto las funciones). Es considerada una las creaciones más importantes en la matemática, por más sencillo que el objeto pueda parecer.
+
+\begin{defi} %Pares ordenados
+Llamamos pares ordenados a los conjuntos de la forma $\lbrace \lbrace a \rbrace ; \lbrace a,b \rbrace \rbrace$, con $a$ y $b$ dos elementos cualesquiera, notamos a estos conjuntos como $(a,b)$.
+\end{defi}
+
+\begin{teo} %Igualdad de pares ordenados
+$ (a,b) = (c,d) \Leftrightarrow (a = c \wedge b = d) $
+\begin{proof}
+$(\Rightarrow)$  Si $(a,b) = (c,d)$ por definición tenemos que:
+$$ \{ \{ a \} ; \{ a,b \} \} = \{ \{ c \} ; \{ c,d \} \} $$
+Por lo que como ésta es una igualdad entre conjuntos tenemos que, los elementos que estan incluidos deben ser los mismos.\\
+\underline{Si $a=b$:} En este caso tenemos que $\lbrace a \rbrace = \lbrace a,b \rbrace$ \\
+Como la cantidad de elementos de dos conjuntos iguales es la misma debe ser que: 
+$$ \{ a \} = \{ c \} = \{ a,b \} = \{ c,d \}$$
+Así se ve que $ a = c = b = d $ \\
+\underline{Si $a\neq b$:} Suponiendo que $ c \neq d$ se llega a que $\lbrace a \rbrace = \lbrace c \rbrace$ por lo que $ a = c$ rápidamente se ve que $b = d$.\\
+Si $c = d$ se ve que debe pasar que son todos iguales (reduciéndolo al caso anterior), lo cual es absurdo ya que dijimos que $ a \neq b $ \\
+$(\Leftarrow)$ Es claro ya que son los mismos conjuntos.
+\end{proof}
+\end{teo}
+ 
+Ahora definiremos qué es el producto cartesiano en el caso finito
+
+\begin{defi} %Producto cartesiano finito
+Llamamos producto cartesiano de dos conjuntos $A$ y $B$ al conjunto:
+$$ A\times B := \lbrace (a,b) \,\vert\, a \in A \mbox{ y } b \in B \} $$
+En caso de tener conjuntos $A_1, \ldots , A_k$, podemos definir:
+$$ A_1 \times \ldots \times A_k = A_1 \times ( A_2 \times ( \ldots \, A_k) \ldots )$$
+Y para simplificar la notación, podemos notar los elementos de $ A_1 \times \ldots \times A_k$ como $(a_1, \ldots,a_k)$, donde cada $a_i \in A_i$, obviando paréntesis inecesarios.
+\end{defi}
+
+\textbf{Notación:} En general escibimos $A^n = \underbrace{A \times \ldots \times A}_ {n \; veces}$.\\[0.5cm]
+Más adelante generalizaremos la noción de producto cartesiano a infinitos conjuntos.\\[0.5cm]
+Por último, para cerrar esta sección comentaremos porque esta teoría de conjuntos ingenua no es correcta y cual es uno de sus más importantes problemas. Todo se debe a que la concepción de conjunto que posee esta concepción de la teoría, es una idea intuitiva y muy blanda que puede ser manipulada para poder lograr resultados paradójicos. El más común de estos ejemplos es el de la Paradoja de Russell ideada por Bertrand Russell (1872 - 1970), aunque la idea escencial de su construcción remite a la antigua Grecia (Paradoja de Epiménides).\\
+
+\textbf{Paradoja de Russell:} Sea $A = \{ a \,\vert\, a \notin a\}$.\\ Entonces nos preguntamos ¿$A \in A$ ó $A \notin A$?\\Si $ A \in A $ entonces $A \notin A$, lo que es absurdo; pero si $ A \notin A $ entonces $A \in A$ otra vez absurdo. ¡Lo cual es una contradicción, ya que el conjunto $A$ es un conjunto totalmente válido! ¿O no?\\
+La respuesta corta es que no, no es un conjunto, pero la respuesta larga es un poco más complicada que eso:\\
+La solución que encontraron los matemáticos de la época (principios del siglo XX) para resolver la Paradoja de Russell (y otras más) fue dar un sistema formal donde la contrucción de la paradoja (y otras paradojas más) carecieran de sentido y no puediesen establecerse estas contradicciones, así de alguna manera retirando el estatus de conjunto al ''conjunto'' $A$ antes definido y concretando la teoría moderna de conjuntos. El sistema formal que se considera más estándar hoy en día es el formulado por Ernst Zermelo (1871 - 1953) y Abraham Fraenkel (1891 - 1965) así llamado teoría de conjuntos de Zermelo-Fraenkel (abreviada ZF); aún así, existen otras teorías formuladas por Kurt Gödel (1906 - 1978), John Von Neumann (1903 - 1957) y muchos otros. A pesar de que ZF es la más aceptada aún no se sabe si posee contradicciones, es decir, si es consistente. Este proceso motivó fuertemente la filosofía de la matemática moderna motivando resultados muy profundos en lógica (como los teoremas de incompletidtud de Gödel).
+
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

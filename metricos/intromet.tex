@@ -1,0 +1,247 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Introducción, ejemplos y conceptos básicos}
+La motivación detrás de la teoría de espacios métricos es la de generalizar las nociones que se poseen en $\R^n$ acerca de como se comportan los conjuntos y las funciones continuas, además admite muchos resultados útiles acerca de espacios de funciones y sucesiones que veremos llegado el momento. Para esta sección asumiremos conocimientos básicos de análisis de funciones en una variable.\\
+Comenzamos con las definiciones básicas.
+\begin{defi}
+Un espacio métrico es un par $(X,d_X)$, donde $X$ es un conjunto no vacío y $d_X: X \times X \rightarrow \R_{\geq 0}$ es una función llamada distancia o métrica que cumple los siguientes axiomas:\\
+Dados $x,y \in X$:
+\begin{itemize}
+\item $d_X(x,y) = 0$ si y sólo si $x = y$.
+\item $d_X(x,y) = d_X(y,x)$. (Condición de simetría)
+\item $d_X(x,y) \leq d_X(x,z) + d_X(z,y)$, para todo $z \in X$. (Condición de desigualdad triangular).
+\end{itemize}
+Generalmente llamamos al espacio métrico como el conjunto $X$ subyaciente y notamos a su función distancia como $d$ sin subíndice si éstos quedan claros del contexto. Usualmente llamamos a los elementos de $X$ como puntos.
+\end{defi}
+\textbf{Ejemplos:}
+\begin{itemize}
+\item El ejemplo canónico de espacio métrico es $\R^n$ para cualquier $n$ natural con la función distancia dada por 
+$$ d((x_1, \ldots, x_n), (y_1, \ldots, y_n))= \max_{1 \leq i \leq n} \{ | x_i - y_i |\}$$
+\item En el caso de $\R$ la métrica usual del item anterior se reduce a $d(x,y)=|x-y|$. Cuando nos refiramos a $\R$ como espacio métrico, asumiremos que hablamos de esta distancia.
+\item Podemos considerar el conjunto de las funciones acotadas de $\R$ en $\R$ con la métrica dada por
+$$ d(f,g) = \sup_{x \in \R} \{ |f(x) - g(x)|\}$$
+\item Dado un conjunto $X$ no vacío cualquiera podemos definir la distancia discreta $\delta$ dada por:
+$$\delta(x,y)= \begin{cases}
+0 &\si x=y \\
+1 &\mbox{en otro caso}
+\end{cases}
+$$
+\end{itemize}
+\begin{ej} Mostrar que las funciones distancia dadas en los ejemplos anteriores cumplen los axiomas de la definición.\end{ej}
+Mostraremos ahora un juego de distancias sobre $\R^n$, estas son las distancias más utilizadas sobre $\R^n$
+\begin{defi} Dado $p \in [1, +\infty)$ llamamos a la distancia $p$ (notamos $d_p$) sobre $\R^n$ como 
+$$d_p((x_1, \ldots, x_n), (y_1, \ldots, y_n)) = \left( \sum_{i = 1}^n |x_i - y_i|^p \right)^{1/p}$$
+Generalizamos esto y con $p = +\infty$ notamos la distancia $d_\infty$ dada por:
+$$ d_\infty((x_1, \ldots, x_n), (y_1, \ldots, y_n))= \max_{1 \leq i \leq n} \{ | x_i - y_i |\}$$
+\end{defi}
+\begin{prop} Las distancias $p$ sobre $\R^n$ cumplen con las condiciones de espacio métrico \end{prop}
+Dejamos como un ejercicio sencillo mostrar que cumplen las dos primeras condiciones de distancia; para mostrar que satisface la desigualdad triangular requeriremos de algunos resultados previos:
+\begin{defi} Dados $ 1 < p,q < +\infty$ decimos que $p$ y $q$ son conjugados harmónicos si $1/p + 1/q =1$.\end{defi}
+\begin{lem}(Desigualdad de Young)
+Si $1 < p,q < \infty$ son conjugados harmonicos, entonces:
+$$ a \cdot b \leq \frac{a^p}{p} + \frac{b^q}{q} \qquad \forall \; a,b \geq 0$$
+\begin{proof}
+Primero observemos que  $\displaystyle \frac{a^p}{p} + \frac{b^q}{q}$ es una combinación convexa, es decir, es un punto en la recta que une $a^p$ con $b^q$,esto puede verse utilizando que la ecuación, de tal recta es $ t \cdot a^p + (1- t) \cdot b^q$, con $t \in [0,1]$ y debido a que $p$ y $q$ son conjugados harmónicos.\\
+Ahora, si una función $f$ es convexa, dados dos puntos $\alpha,\beta \in \R$ resulta que :
+$$ f(t \cdot \alpha + (1-t) \cdot \beta ) \leq t \cdot f(\alpha) + (1-t) \cdot f(\beta) \qquad \forall t \in [0,1]$$
+Ahora utilizamos la función $ -\ln(x)$ que es convexa (debido a que su derivada segunda es siempre positiva).
+\begin{align*}
+-\ln \left(\frac{a^p}{p} + \frac{b^q}{q}\right) &\leq -\frac{\ln(a^p)}{p} - \frac{\ln(b^q)}{q} \\
+&\leq -(\ln (a) + \ln(b))\\
+&\leq - \ln(a \cdot b)
+\end{align*}
+Y cambiando los signos y aplicando $e^x$ en cada lado llegamos a la desiguladad deseada.
+\end{proof}
+\end{lem}
+Por comodidad definiremos esto aquí sólo porque nos será util como notación para el siguiente teorema
+\begin{defi} Dado $1 \leq p < +\infty$ y una sucesión $a=(a_n)_{n \in \N}$ de números reales, definimos su norma $p$ como:
+$$ \| a \|_p = \left( \sum_{n = 0}^{\infty} | a_n |^p \right)^{1/p}$$
+Si la serie no converge, decimos que tiene norma $p$ infinito. \\
+Si $p = +\infty$ definimos su norma infinito como
+$$ \|a\|_\infty = \sup_{\inn{n}}\{ |a_n|\}$$
+Sea este supremo finito o infinito.
+\end{defi}
+\begin{teo}[Desigualdad de Hölder para series y sumas finitas]
+Si $p$ y $q$ son conjugados harmónicos, y $a=(a_n)_{n \in \N},b=(b_n)_{n \in \N}$ son sucesiones tales que $\|a\|_p$ y $\|b\|_q$ son finitos, entonces:
+$$ \sum_{n=1}^{\infty} | a_n \cdot b_n | \leq \| a \|_p \cdot \| b \|_q$$
+\begin{proof}
+Sin pérdida de generalidad suponemos que $\| a \|_p,\| b \|_q \neq 0$, (de lo contrario la desigualdad vale).\\
+Usando la desigualdad de Young, tenemos que 
+$$ \frac{|a_n \cdot b_n |}{\| a \|_p \cdot \| b \|_q} \leq \frac{| a_n |^p}{p \cdot \| a \|_p^p} + \frac{|b_n |^q}{q \cdot \| b \|_q^q} $$
+Sumando todo:
+$$\sum_{n=1}^{\infty} \frac{| a_n \cdot b_n |}{\| a \|_p \cdot \| b \|_q} \leq \sum_{n=1}^{\infty} \frac{| a_n |^p}{p \cdot \| a \|_p^p} + \frac{| b_n |^q}{q \cdot \| b \|_q^q} $$
+Si consideramos la suma de la derecha tenemos que es igual a:
+$$  = \frac{\| a \|_p^p}{p \cdot \| a \|_p^p} + \frac{\| b \|_q^q}{q \cdot\| b \|_q^q} = 1/p + 1/q = 1 $$
+Y pasando $\| a \|_p \cdot \| b \|_q$, multiplicando, resulta la desigualdad deseada.\\
+Observemos que este resultado vale en sumas finitas tomando sucesiones que son cero a partir de un momento.
+\end{proof}
+\end{teo}
+Ahora el resultado que nos permitirá probar la desigualdad triangular:
+\begin{teo}[Desigualdad de Minkowski] Dados dos puntos de $\R^n$, $x = (x_i)_{1 \leq i \leq n }$, $y = (y_i)_{1 \leq i \leq n}$ y tomamos $x+y = (x_i + y_i)_{1 \leq i \leq n }$ tenemos que:
+$$ \| x + y \|_p \leq \| x \|_p + \| y \|_p $$
+\begin{proof}
+Los casos $p=1$ y $p=+\infty$ son sencillos y quedan como ejercicio.\\
+Supongamos que $1 < p < +\infty$. Es claro que:
+$$\|x + y \|_p = \left( \serie{i}{n} |x_i + y_i|^p \right)^{1/p} \leq \left( \serie{i}{n} (|x_i| + |y_i|)^p \right)^{1/p}$$
+Si $q$ es conjugado armónico de $p$, tenemos:
+\begin{align*}
+\serie{i}{n} (|x_i| + |y_i|)^p &= \serie{i}{n} (|x_i| + |y_i|)^{p-1} \cdot (|x_i| + |y_i|)\\
+&= \serie{i}{n} |x_i| \cdot (|x_i| + |y_i|)^{p-1} + \serie{i}{n} |y_i| \cdot (|x_i| + |y_i|)^{p-1} \\
+&\leq \left(\serie{i}{n} |x_i|^p\right)^{1/p}  \left( \serie{i}{n} (|x_i| + |y_i|)^{(p-1)q} \right)^{1/q} + \\ &\quad\, \left(\serie{i}{n} |y_i|^p\right)^{1/p} \left( \serie{i}{n} (|x_i| + |y_i|)^{(p-1)q} \right)^{1/q}\\
+&=\left[\left(\serie{i}{n} |x_i|^p\right)^{1/p} + \left(\serie{i}{n} |y_i|^p\right)^{1/p}\right] \left( \serie{i}{n} (|x_i| + |y_i|)^{(p-1)q} \right)^{1/q}
+\end{align*}
+Para la desigualdad en el tercer paso hemos usado la desigualdad de Hölder del teorema anterior. Ahora como $1/p+1/q=1$, también $pq = p+q$, por lo que $(p-1)q=p$, así que podemos reemplazarlo en la última igualdad y tenemos:
+$$ \serie{i}{n} (|x_i| + |y_i|)^p \leq \left[\left(\serie{i}{n} |x_i|^p\right)^{1/p} + \left(\serie{i}{n} |y_i|^p\right)^{1/p}\right] \left( \serie{i}{n} (|x_i| + |y_i|)^p \right)^{1/q}$$
+Podemos ahora suponer que ni $x$ ni $y$ son $0$, ya que en ese caso la desigualdad deseada vale trivialmente, por lo que también tenemos que $\left( \serie{i}{n} (|x_i| + |y_i|)^p \right)^{1/q}$  es no nulo y lo podemos pasar dividiendo:
+$$ \left(\serie{i}{n} (|x_i| + |y_i|)^p \right)^{1-1/q}\leq \left(\serie{i}{n} |x_i|^p\right)^{1/p} + \left(\serie{i}{n} |y_i|^p\right)^{1/p}$$
+Si finalmente observamos que $1-1/q = 1/p$, tenemos la desigualdad deseada.
+\end{proof}
+\end{teo}
+\begin{cor} Si $x = (x_n)_{\inn{n}}$, $y=(y_n)_{\inn{n}}$ son sucesiones de números reales con $\|x\|_p$ y $\|y\|_p$ finitos, si tomamos $ x + y = (x_n + y_n)_{\inn{n}}$, entonces $\| x + y \|_p \leq \|x\|_p + \|y\|_p$.
+\begin{proof}
+Usando que vale para el caso finito, es simplemente tomar límite debido a todas las series convergen.
+\end{proof}
+\end{cor}
+Ahora finalmente podemos dar el resultado que queríamos:
+\begin{cor} La métrica $d_p$ en $\R^n$ cumple la desigualdad triangular.
+\begin{proof} Dados $x,y,z \in \R^n$, aplicar la desigualdad de Minkowski para $x-z$ y $y-z$.\end{proof}\end{cor}
+Ahora podemos generalizar al caso siguiente:
+\begin{defi} Si $1 \leq p \leq \infty$, definimos el el conjunto 
+$$ \ell^p = \{ (x_n)_{\inn{n}} \subseteq \R \sep \|(x_n)\|_p < +\infty\}$$
+Si $p < +\infty$, éste es el conjunto de las sucesiones de números reales que elevadas a la $p$ son absolutamente sumables (es decir, su serie es absolutamente convergente); si $p = +\infty$, es el conjunto de las sucesiones acotadas. 
+\end{defi}
+\begin{prop}$\ell^p$ junto con la distancia $d_p(x,y) = \| x - y \|_p$ es un espacio métrico.
+\begin{proof} La distancia $p$ está bien definida debido a la desigualdad de Minkowski, y por ésta misma cumple la desigualdad triangular, mostrar que cumple las otras condiciones es muy sencillo y queda como ejercicio.
+\end{proof}
+\end{prop}
+Procedemos a dar algunos resultados básicos como ejercicios y demostramos algunos.
+\begin{ej} Si $ X_1, \ldots X_n$ son espacios métricos con distancias $d^1, \ldots, d^n$ respectivamente, entonces probar que para todo $1 \leq p \leq +\infty$, $\prod_{i=1}^n X_i$ es un espacio métrico con la distancia por:
+$$ d((x_1,\ldots, x_n), (y_1, \ldots, y_n)) = \| (d^i(x_i,y_i))_{1 \leq i \leq n} \|_p$$
+En otras palabras, el producto finito de espacios métricos es un espacio métrico.\end{ej}
+Por lo general, cuando nos refiramos al producto de dos espacios métricos utilizaremos la metrica del producto dada por el ejercicio anterior y $p = +\infty$.
+\begin{ej} Si $(X,d)$ es un espacio métrico y $Y \subseteq X$, entonces $Y$ es un espacio métrico con la función distancia restringida a $Y \times Y$. Llamamos a $Y$ un subespacio métrico.\end{ej}
+\begin{prop} Si $X$ es un espacio métrico con distancia $d$ entonces vale que para todos $x,y,z \in X$:
+$$ |d(x,z) - d(y,z)| \leq d(x,y)$$
+\begin{proof}
+Como por desigualdad triangular tenemos que $ d(x,z) \leq d(x,y) + d(y,z)$ y $d(y,z) \leq d(y,x) + d(x,z)$, si pasamos restando en cada desigualdad el término adecuado y usando que la distancia es simétrica, tenemos que:
+$$ - d(x,y) \leq d(x,z) - d(y,z) \leq d(x,y)$$
+Que nos dá la desigualdad deseada.
+\end{proof}
+\end{prop}
+\begin{ej}
+Dados $x_1, \ldots , x_n$ puntos de un espacio métrico $X$ entonces:
+$$ d(x_1 , x_n) \leq \serie{i}{n} d(x_i,x_{i+1})$$
+\end{ej}
+Damos ahora algunas de las definiciones básicas que nos permitirán dar los primeros resultados importantes acerca de los espacios métricos.
+\begin{defi} Dado un espacio métrico $X$ y $r > 0$ un número real y un punto $x$ de $X$, definimos la bola abierta de radio $r$ centrada en $x$ como el conjunto:
+$$ B^X_r(x) = \{ y \in X \sep d(x,y)<r\}$$
+También definimos la bola cerrada como:
+$$ \bar{B}^X_r(x) = \{y \in X \sep d(x,y)\leq r\}$$
+Definimos la bola pinchada abierta centrada en $x$ de radio $r$ como:
+$$ {B_r^*}^X(x)= B^X_r(x) \setminus \{x\}$$
+Analogamente definimos la bola pinchada cerrada centrada en $x$ de radio $r$ como:
+$$ {\bar{B^*}^X}_rX(x) = \bar{B}^X_r \setminus \{x\} $$
+En los casos que el espacio métrico quede claro del contexto notaremos estos conjuntos sin la $X$ en el supraíndice.
+\end{defi}
+\begin{defi} Dado un subconjunto $A$ no vacío de un espacio métrico $X$ definimos:
+\begin{itemize}
+\item Dado $x \in X$, la distancia de $x$ a $A$ como $d(x,A)= \inf\{d(x,y) \sep y \in A\}$.
+\item El diámetro de $A$ como $diam(A)=\sup \{ d(x,y) \sep x,y \in A\}$. Tomamos $diam(\emptyset)=0$.
+\item Decimos que $A$ es acotado si $diam(A) < +\infty$.
+\end{itemize}
+\end{defi}
+\begin{ej} Si $A$ es acotado entonces existe un punto $x \in X$ y $r>0$ tal que $A \subseteq B_r(x)$\end{ej}
+\textbf{Observaciones:} la distancia de un punto $x$ a algún conjunto $A$ no siempre tiene porque realizarse, por ejemplo, si tomamos a $\R$ como espacio métrico, a distancia de $0$ a $(1,2)$ es claramente $d(0,(1,2))=1$, sin embargo, no existe ningún elemento en $(1,2)$ que esté a distancia $1$ del $0$.\\
+También notemos que dados conjunto $A \subseteq B$ tenemos que $diam(A) \leq diam(B)$, por lo que $diam(A)$ es infinito si y sólo si $diam(B)$ es infinito.\\
+Otra observación, aunque tal vez tonta, es que existen espacios métricos $X$ donde $diam(X)<+\infty$, esto es facil de ver tomando cualquier subconjunto acotado de un espacio métrico cualquiera como subespacio métrico.\\[0.5cm]
+Ahora damos la definición de convergencia de sucesiones que distingue a los espacios métricos:
+\begin{defi} Dada una sucesión de puntos de $X$, $(x_n)_{\inn{n}}$, decimos que esta converge a un punto $x$ en $X$ si la sucesión $(d(x_n,x))_{\inn{n}}$ de números reales, converge a 0. En general, si tal punto existe decimos simplemente que la sucesión converge.\\
+A veces decimos que $x$ es el límite de $(x_n)_{\inn{n}}$.\\
+Si $(x_n)_{\inn{n}}$ converge a $x$ escribimos $\lim_{n \to \infty} x_n = x$ o también $ x_n \rightarrow x$.
+\end{defi}
+\begin{prop} El límite es único, es decir, si $x_n \rightarrow x$ y $x_n \rightarrow y$, entonces $x =y$.
+\begin{proof}
+Por desigualdad triangular tenemos que, para todo $n \in \N$:
+$$ d(x,y) \leq d(x,x_n) + d(y,x_n)$$
+Como en el miembro derecho ambos términos tienden a 0, entonces $d(x,y)=0$, lo que implica que $x=y$.
+\end{proof}
+\end{prop}
+\begin{prop}
+Dada una sucesión $(x_n)_{\inn{n}}$. Son equivalentes:
+\begin{itemize}
+\item[1] $x_n \rightarrow x$
+\item[2] Para todo $\varepsilon > 0$, existe $n_0 \in \N$ tal que $x_n \in B_\varepsilon(x)$ para todo $n \geq n_0$
+\end{itemize}
+\begin{proof}
+(1 $\Rightarrow$ 2) Como $d(x_n,x)$ converge a 0, dado $\varepsilon >0$, existe $n_0 \in \N$ tal que $d(x_n,x)<\varepsilon$ para todo $n \geq n_0$, pero entonces $x_n \in B_\varepsilon(x)$ para todo $n \geq n_0$\\
+(2 $\Rightarrow$ 1) Dado $\varepsilon >0 $, tomemos el $n_0 \in \N$ tal que $x_n \in B_\varepsilon(x)$ para todo $n \geq n_0$, entonces $d(x_n,x)<\varepsilon$ para todo $n \geq n_0$, por lo que $\lim_{n \to \infty} d(x_n,x) = 0$, y por lo tanto $x_n \rightarrow x$.
+\end{proof}
+\end{prop}
+Antes de cerrar esta sección haremos una observación interesante sobre construir una métrica nueva de una ya dada:
+\begin{prop}
+Sea $(X,d)$ un espacio métrico, $f : \R_{\geq 0} \rightarrow \R$ convexa, creciente y que cumple que $f(x) = 0$ si y sólo si $x = 0$. Entonces $ (X, f \circ d)$ es un espacio métrico.
+\begin{proof}
+Tenemos que ver que $ f \circ d$ es una distancia:
+\begin{enumerate}
+\item Como $f(0) = 0$ y $f$ es creciente, resulta que $f \circ d (x,y) \geq 0, \;  \forall x,y \in X$.\\
+Ahora si $f \circ d (x,y) = 0$ por la condición impuesta sobre $f$ resulta que $d(x,y) = 0$ pero como $d$ es distancia, $x = y$.
+\item Es simétrica debido a que $d$ es distancia
+\item Veamos la desigualdad triangular:
+\end{enumerate}
+$$ f \circ d (x,z) \leq f \left( d(x,y) + d(y,z) \right)$$
+Esto se debe a que $f$ es creciente y la desigualdad triangular es cierta para $d$, ya que es una distancia.\\
+Ahora llamemos a $d(x,y) = a$ y $d(y,z) = b$. Supongamos sin perdida de generalidad que $0 \leq a \leq b$ y que $b \neq 0$. Entonces:
+$$ b = \frac{a}{b} \cdot a + \left(1 - \frac{a}{b} \right)(a+b)$$
+Además $ 0 \leq a/b \leq 1$, por lo que esto resulta una combinación covexa entre $a$ y $a+b$, usando que $f$ es convexa queda que:
+\begin{align*}
+f\left(\frac{a}{b} \cdot a + \left(1- \frac{a}{b}\right) \cdot a+b \right) &\geq \frac{a}{b} \cdot f(a) + \left( 1 - \frac{a}{b} \right) \cdot f(a+b) \\
+f(b) &\geq \frac{a}{b} \cdot f(a) + \left( 1 - \frac{a}{b} \right) f(a+b)\\
+f(a)+f(b) &\geq \left(1 +\frac{a}{b} \right) \cdot f(a) + \left( 1 - \frac{a}{b} \right) f(a+b)\\
+\end{align*}
+Ahora como:
+$$ a = \left( 1 - \frac{a}{a+b} \right) \cdot 0 + \frac{a}{a+b} \cdot (a+b)$$
+Debido a la convexidad de $f$ y que $f(0) =0$:
+$$ f(a) \geq \frac{a}{a+b} \cdot f(a+b)$$
+Esto implica que:
+$$ \left(1 + \frac{b}{a} \right) \cdot f(a) \geq f(a+b)$$
+Multiplicando por $a/b$ a ambos lados:
+$$\left(1 + \frac{a}{b} \right) \cdot f(a) \geq \frac{a}{b} \cdot f(a+b)$$
+Si ahora reemplazamos en la desiguldad que teniamos antes, resulta que 
+\begin{align*}
+f(a)+f(b) &\geq \left(1 +\frac{a}{b} \right) \cdot f(a) + \left( 1 - \frac{a}{b} \right) f(a+b)\\
+f(a)+f(b) &\geq \underbrace{\left(1 +\frac{a}{b} \right) \cdot f(a) - \frac{a}{b} \cdot f(a+b)}_{\geq 0} + f(a+b)\\
+f(a)+f(b) &\geq f(a+b)
+\end{align*}
+Por lo que vale la desigualdad triangular.
+
+\end{proof}
+\end{prop}
+\begin{prop}
+Si $f$ con las hipótesis de la proposición anterior, es continua en el $0$, cualquier sucesión convergente en $(X,d)$ será convergente en $(X,f \circ d)$
+\begin{proof}
+Debido a la continuidad de $f$, es evidente.
+\end{proof}
+\end{prop}
+
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

@@ -1,0 +1,495 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Cardinalidad}
+
+A partir de aquí nos centraremos en la parte escencial de éste capitulo que refiere a la teoria de los números cardinales, ideada originalmente por Georg Cantor (1845 - 1918).\\[0.5cm]
+Veamos algunas definiciones útiles que usaremos:
+\begin{defi}
+Un conjunto $A$ se dice finito, si existe $n \in \N$ tal que, existe una función biyectiva entre el conjunto $\{ 1, \ldots ,n\}$ y $A$.
+\end{defi}
+\begin{ej}
+Mostrar que dado un conjunto finito $A$, existe un único $n \in \N$ tal que existe una función biyectiva entre $\{1, \ldots, n\}$ y $A$. Observar que la función en cuestión puede no ser única (y en la mayoría de los casos no lo es).
+\end{ej}
+Esto motiva la siguiente definición:
+\begin{defi}
+Dado un conjunto finito $A$, decimos que $n \in \N$ es el cardinal de $A$ si es el único tal que existe una función biyectiva entre $\{1, \ldots, n\}$ y $A$. Lo notamos $n = \sharp A$, a veces tal vez como $|A|$.
+\end{defi}
+De manera complementaria a los conjuntos finitos, tenemos:
+\begin{defi}
+Decimos que un conjunto es infinito, si no es finito.
+\end{defi}
+\begin{defi}
+Decimos que un conjunto $A$ es numerable si existe una función biyectiva entre $\N$ y $A$.
+\end{defi}
+\begin{ej}
+Mostrar que si $A$ es numerable, entonces es infinito.
+\end{ej}
+\begin{defi}
+Decimos que un conjunto es contable (o a veces ''a lo sumo numerable'') si es finito o numerable
+\end{defi}
+Dada la noción de cardinalidad para conjuntos finitos, buscamos extenderla para conjuntos infinitos, así comenzamos para tratar de observar que debería suceder para conjuntos que poseen el mismo cardinal, esto nos lleva a la siguiente definición:
+\begin{defi}
+Dos conjuntos son equipotentes si existe una función biyectiva entre ambos. Si $A$ es equipotente con $B$ escibimos $ A \simeq B$ y decimos que ambos conjuntos tienen el mismo cardinal.
+\end{defi}
+\begin{ej}
+Pruebe que $\simeq$ es una relación de equivalencia.
+\end{ej}
+Escencialmente, para aquel que conozca resultados acerca de las relaciones de equivalencia, la motivación detrás de los cardinales es la de dar no sólo las clases de equivalencia por la relación $\simeq$ antes definida, sino además dar operaciones y un orden sobre estas clases de manera que se refleje la idea intuitiva del caso finito para conjuntos infinitos. Desde este punto de vista, aclaramos que la ''existencia'' de un cardinal es equivalente a decir que existe un conjunto en esa clase de equivalencia, y que por lo tanto, no admite una biyección con ningún otro conjunto de otra clase; de esta manera cuando nos referimos al cardinal ''5'', queremos decir ''Todos los conjuntos con 5 elementos'', la idea de cardinal busca generalizar esa noción para el caso infinito. 
+\begin{defi}
+Llamamos a la clase de equivalencia de $A$ bajo relación $\simeq$ al el cardinal de $A$, sea este finito o no, y lo notamos como $\sharp A$ o a veces como $|A|$. 
+\end{defi}
+Para quien no conozca resultados acerca de las relaciones de equivalencia, debe comprender que es simplemente una manera de referirnos a una propiedad del conjunto que lo caracteriza: con quién puede ser emparejado a través de una función biyectiva y con quién no.\\[0.5cm]
+Definimos ahora un orden sobre los cardinales:
+\begin{defi}
+Dados dos conjuntos $A$ y $B$, decimos que:
+\begin{itemize}
+\item $\sharp A \leq \sharp B$ si existe una función inyectiva de $A$ en $B$.
+\item $\sharp A = \sharp B$ si existe una función biyectiva de $A$ en $B$, es decir $A \simeq B$.
+\end{itemize}
+\end{defi}
+Queda claro que en los casos de que nos restrijamos a trabajar con conjuntos finitos, la noción de orden de cardinales que recién definimos. es la misma que siempre. Si un conjunto $A$ tiene 10 elementos y otro $B$ tiene 100, entonces $\sharp A \leq \sharp B$ ya que existe una manera de hacer una función inyectiva de $A$ en $B$ en tanto podemos elegir 10 elementos distintos de $B$ y asignarlos con $A$; esto refleja, como sabemos, que $10 \leq 100$.
+\begin{ej} La relación $\leq$ recién definida es reflexiva y transitiva.\end{ej}
+Deseamos demostrar que $\leq$ es un orden, para eso utilizaremos el siguiente teorema para luego dar un resultado que mostrará la antisimetría de $\leq$
+\begin{teo}[Punto fijo para conjuntos]
+Sea $A$ un conjunto, y una función $f : \P(A) \rightarrow \P(A)$ tal que si $A \subseteq B$ resulta que $f(A) \subseteq f(B)$ (es decir, preserva las inclusiones), entonces $f$ posee un punto fijo, en otras palabras, existe $X_0 \in \P(A)$ tal que $f(X_0)=X_0$
+\begin{proof}
+Consideremos el conjunto $ \mathcal{C} = \{  C \in \P(A) \,\vert\, C \subseteq f(C) \}$. Como $ \emptyset \in \mathcal{C}$ resulta que $\mathcal{C}$ es no vacío. Si tomamos $X_0 = \bigcup_{C \in \mathcal{C}} C$, veamos que sucede con $f(X_0)$.
+$$ f(X_0) = f\left( \bigcup_{C \in \mathcal{C}} C \right) = \bigcup_{C \in \mathcal{C}} f(C) \supseteq \bigcup_{C \in \mathcal{C}} C = X_0$$
+Asi sucede que $X_0 \subseteq f(X_0)$, pero como $f$ preserva la inclusión, sucede que $f(X_0) \subseteq f(f(X_0))$, entonces $f(X_0) \in \mathcal{C}$. Por lo que $f(X_0) \subseteq X_0$. Asi queda que $f(X_0) = X_0$.
+\end{proof}
+\end{teo} 
+Ahora con este último resultado podemos demostrar de manera sencilla el siguiente:
+\begin{teo}[Teroema de Cantor–Bernstein–Schröeder]
+Dados conjuntos $A$ y $B$, y funciones $f: A \rightarrow B$ y $g:B \rightarrow A$ ambas inyectivas, existe una función biyectiva entre $A$ y $B$.
+\begin{proof}
+Definimos la función $ \sigma: \P(A) \rightarrow \P(A)$:
+$$ \sigma(X) = A \setminus g(B \setminus f(X))$$
+Observamos que si $X \subseteq Y$, entonces: 
+\begin{align*}
+f(X) &\subseteq f(Y) \\
+B \setminus f(X) &\supseteq B \setminus f(Y) \\
+g(B \setminus f(X)) &\supseteq g( B \setminus f(Y))\\
+A \setminus g(B \setminus f(X)) &\subseteq A \setminus g( B \setminus f(Y))\\
+\sigma(X) &\subseteq \sigma(Y)
+\end{align*}
+Por lo que $\sigma$ preserva el orden, entonces por el teorema del punto fijo para conjuntos, $\sigma$ posee un punto fijo, $X_0$\\
+Entonces observamos que:
+\begin{align*}
+X_0 &= A \setminus g(B \setminus f(X_0))\\
+A \setminus X_0 &= g(B \setminus f(X_0))
+\end{align*}
+Entonces definimos $h: A \rightarrow B$ como:
+$$ h(x)
+\begin{cases}
+f(x) &\mbox{  si } x \in X_0 \\
+g^{-1}(x) &\mbox{  si } x \in A \setminus X_0
+\end{cases}
+$$
+Observemos que $g^{-1}$ en esta circunstancia está bien definida ya que $g$ restringida a $B \setminus f(X_0)$ y restringiendo a $A \setminus X_0$ en su codominio es biyectiva porque $g$ es inyectiva y como vimos antes $A \setminus X_0 = g(B \setminus f(X_0))$. 
+Entonces, $h$ restrinida a $X_0$ en su dominio y a $f(X_0)$ en su codominio, es biyectiva ya que $f$ es inyectiva y estamos restringiendo su imagen, además $h$ restringida a $A \setminus X_0$ en su dominio y restringida a $B \setminus f(X_0)$ en su imagen, es biyectiva ya que $g$ asigna biyectivamente este conjunto como aclaramos antes. Considerando que en cada parte de $A$ sea  $X_0$ ó $A \setminus X_0$, $h$ es biyectiva, $h$ es biyectiva en todo $A$.
+\end{proof}
+\end{teo}
+\begin{cor} La relación $\leq$ antes definida es un orden.
+\begin{proof} Si $\sharp A \leq \sharp B$ y $\sharp B \leq \sharp A$ entonces, de acuerdo al teorema anterior, como existen funciones inyectivas en cada dirección, existe una función biyectiva entre $A$ y $B$, y por lo tanto $\sharp A = \sharp B$, de manera que $\leq$ es antisimétrica, además de reflexiva y transitiva, por lo que es un orden.
+\end{proof}
+\end{cor}
+Ahora nos dedicaremos a probar algunas propiedades del orden de los cardinales como por ejemplo:
+\begin{teo}
+El orden dado por  $\leq$ es total, en otras palabras dados $A$ y $B$ conjuntos, existe una función inyectiva de uno en el otro.
+\begin{proof}
+Consideremos el siguiente conjunto:
+$$ \mathcal{F} = \{ (f,C) \,\vert\, C \in \P(A) \mbox{ y } f: C \rightarrow B \mbox{ inyectiva} \}$$
+Con el orden dado por $(f,C) \leq (g,B)$ si y sólo si $C \subseteq B$ y $f(x) = g(x)$ para todo $x \in A$.
+Este conjunto no es vacío ya que la función vacía $\emptyset:\emptyset \rightarrow B$, que manda nada en nada, es trivialmente inyectiva y por lo tanto pertenece al conjunto.\\
+Consideremos una cadena en $\mathcal{F}$, $L = \{ (f_i,A_i) \}_{i \in I}$, si consideramos el conjunto de $ \Lambda = \bigcup_{i \in I} A_i$ la función $\sigma: \Lambda \rightarrow B$ dada por:
+$$ \sigma(x) =
+\begin{cases}
+f_i(x) \;\si x \in A_i
+\end{cases}$$
+Que es unir las funciones como pares ($\sigma = \bigcup_{i\in I} f_i$). $\sigma$ está bien definida ya que, si dado un $x\in \Lambda$, $f_i(x)=f_j(x)$ para todos $i,j$ tales que $x \in A_i, A_j$, debido a que $L$ es una cadena.\\
+Debemos mostrar que $\sigma$ es inyectiva. Supongamos que $\sigma(x)=\sigma(y)$, entonces como $L$ es una cadena, existe un $A_i$ tal que $x,y \in A_i$, entonces $\sigma(x)=\sigma(y)=f_i(x)=f_i(y)$, pero $f_i$ es inyectiva, por lo que $x=y$. Por lo que $\sigma$ es inyectiva. Ahora es claro que $(\Lambda, \sigma)$ es cota superior de la cadena $L$, entonces de acuerdo al Lema de Zorn, existe un elemento maximal de $\mathcal{F}$, llamemoslo $ (\bar{f},\bar{A})$. Esta es una función inyectiva que no puede ser extendida.\\
+Ahora si $\bar{f}(\bar{A})=B$ entonces existe una función inyectiva de $B$ en $A$ (la inversa a izquierda de $\bar{f}$).Si no fuera asi, entonces debe ser que $\bar{A} = A$, para probar esto, supongamos que es falso,entonces existe $a \in A \setminus \bar{A}$ y además $b\in B \setminus f(\bar{A})$. Así podemos construir $\hat{f}: \bar{A} \cup \{a\} \rightarrow B$  dada por:
+$$ \hat{f}(x) = 
+\begin{cases}
+\bar{f}(x) &\mbox{si } x\in \bar{A}\\
+b &\mbox{si } x = a
+\end{cases}$$
+Que es inyectiva y extiende a $\bar{f}$, pero esto es absurdo porque $\bar{f}$ era maximal. Entonces $\bar{A}=A$ y $\bar{f}$ es inyectiva de $A$ en $B$.
+\end{proof}
+\end{teo}
+En realidad podíamos concluir el teorema anterior como corolario de este próximo, pero por cuestiones de que las demostraciones no se relacionan, preferimos darlos como teoremas separados.
+\begin{teo}
+El conjunto de los cardinales con el orden $\leq$, está bien ordenado. Es decir dada una familia de conjuntos $\{A_j \,\vert\, j \in J\}$, existe un conjunto en la familia donde se puede establecer una inyección de ese conjunto a todos los demás
+\begin{proof}
+Sin pérdida de generalidad, suponemos que todos los $A_i$ son no vacíos, de lo contrario el enunciado vale trivialmente. Consideremos el producto cartesiano $\mathcal{A} = \prod_{i \in I} A_j $, que no es vacío debido a AC. Para facilitar la notación escribiremos los elementos del conjunto como $(x_i) \in \mathcal{A}$ donde $x_i \in A_i$.\\
+Consideremos el conjunto dado por:
+$$ \mathcal{B} = \{ B \subseteq \mathcal{A}\,\vert\, \mbox{ si }  (x_i),(y_i) \in B \mbox{ sucede que } (x_i) \neq (y_i) \Leftrightarrow x_i \neq y_i \forall i \}$$
+Es decir, el conjunto de los subconjuntos de $\mathcal{A}$ donde si dos uplas son distintas, entonces todos sus elementos son distintos.\\
+Ordenamos este conjunto por la inclusión, si consideramos una cadena $L$, entonces $\bigcup L$ es claramente cota superior de ésta ya que todos sus elementos serán uplas con elementos distintos, así según el Lema de Zorn, podemos afirmar que existe un elemento $B \in \mathcal{B}$ que es maximal respecto a la inclusión.\\
+Lo que nosotros afimamos es que existe un $j_0$ tal que la proyección de $B$ sobre la coordenada $j_0$ es $A_{j_0}$. De no ser asi, tenemos que (si notamos como $ \pi_{i}$ a la proyección $i$-ésima):
+$$ A_i \setminus \pi_i(B) \neq \emptyset \: \forall i \in J $$
+Entonces dada esta familia de conjuntos, debido al axioma de elección, existe una función elección $\sigma$ que cumple que: $\sigma( A_i \setminus \pi_i(B)) = z_i \in A_i \setminus \pi_i(B).$\\
+Entonces si consideramos la upla formada por $(z_i) \in \mathcal{A}$ resulta que $ B \cup \{(z_i)\}$ pertenece a $\mathcal{B}$ debido a que todos los elementos $z_i$ son distintos de todas las uplas de $B$ (ya que no pertenecen a la proyección por ninguna coordenada), pero esto es absurdo ya que $B$ era maximal, entonces existe tal $j_0$.\\
+Intuitivamente, lo que hemos logrado es conseguir el $A_i$ más ''pequeño''.\\
+Ahora definimos la siguiente función $f_i: A_{j_0} \rightarrow A_i$ para cada $ i \in J$:
+$$ f_i(x) = \pi_i((x_i)) \mbox{ si } \pi_{j_0}((x_i))=x \mbox{ con } (x_i) \in B$$
+Veamos ahora que es inyectiva. Si sucede que $f_i(x)=f_i(y)$ entonces significa que $\pi_i((x_i))=\pi_i((y_i))$ pero por la condición que habiamos puesto sobre $B$ esto implica que todas sus coordenadas son iguales, por lo que también $x = y$, y así $f_i$ es inyectiva para todo $i$, probando lo que queríamos.
+\end{proof}
+\end{teo}
+El siguiente teorema nos permite afirmar que es correcta la noción intuitiva de que los números naturales forman el primer infinito posible.
+\begin{teo}
+Si existe una función $f: \N \rightarrow A$ sobreyectiva o bien una función $g: A \rightarrow \N$ inyectiva, entonces $A$ es contable, y si $A$ es infinito, entonces es numerable.
+\begin{proof}
+Supongamos que existe tal $g$, y sea $\Ima(g) = \{ n_1 < n_2 < \ldots \} \subseteq \N$. Definimos una función $h: \N \rightarrow \N$:
+$$
+h(n) =
+\begin{cases}
+1 &\mbox{   si $n < n_1$}\\
+j &\mbox{   si $n_{j-1} \leq n \leq n_j$}\\
+1 &\mbox{   en otro caso}
+\end{cases}
+$$
+Así $h\circ g$ es inyectiva y su imagen está ordenada. Como claramente hay una función biyectiva entre $A$ e $\Ima(g)$, y otra entre $\Ima(g)$ e $\Ima(h \circ g)$, como ésta última es de la forma $\{1, \ldots , k\}$ si $A$ es finito o es $\N$ si es infinito, sucede que $A$ es contable con cardinal $k$ si es finito y si es infinito, es numerable.\\
+En el caso de que exista tal $f$ se reduce al caso anterior, usando la función inyectiva que existe en sentido inverso.
+\end{proof}
+\end{teo}
+Como deseábamos:
+\begin{cor}
+Dado un conjunto infinito $A$, existe una función inyectiva $f:\N \rightarrow A$
+\begin{proof}
+Si no fuese así, según el teorema visto antes, como los cardinales están totalmente ordenados, debe existir una función inyectiva de $A$ en $\N$, pero según el teorema anterior, esto implica que $A$ es numerable (por que es infinito), lo que implica que existe una función biyectiva entre $\N$ y $A$, y esto es absurdo porque en particular es una función inyectiva, por lo que debe existir tal $f$.
+\end{proof}
+\end{cor}
+\begin{cor}
+$\sharp \N = \min \{ \sharp A \,\vert\, A \mbox{ es infinito}\}$
+\end{cor}
+\textbf{Notación:} Notamos a $\sharp \N$ como $ \aleph_0$, esto es, la letra hebrea ''aleph'' con subíndice cero.\\[0.5cm]
+Ahora veamos algunos resultados que son útiles:
+\begin{teo}
+$\N \times \N$ es numerable.
+\begin{proof}
+Hacemos la asingación
+\begin{align*}
+\N \times \N &\longrightarrow \N \\
+(i,j) &\longmapsto 2^i \cdot 3^j
+\end{align*}
+Que debido al teorema fundamental de la Aritmética, es inyectiva. Debido al teorema anterior y como $\N \times \N$ es infinito, es numerable
+\end{proof}
+\end{teo}
+\begin{ej} Pruebe que $\N^n$ es numerable para todo $n \in \N$.\end{ej}
+Este último teorema parece sencillo pero repercute fuerte por los siguientes resultados:\\[0.5cm]
+\textbf{Observación:} Es claro que es equivalente decir que existe una inyección de $A$ en $B$ como que existe una suryección de $B$ en $A$. Entonces si existe esta última podemos afirmar que $\sharp A \leq \sharp B$.
+\begin{ej} Si $B \subseteq A$ entonces $\sharp B \leq \sharp A$.\end{ej}
+\begin{ej}Si $A$ es un conjunto contable y $B \subseteq A$, entonces $B$ es contable.\end{ej}
+\begin{cor}
+$\Q_{>0}$ y $\Q_{<0}$ son numerables
+\begin{proof}
+La aplicación:
+\begin{align*}
+\N \times \N &\longrightarrow \Q \\
+(m,n) &\longmapsto \frac{m}{n}
+\end{align*}
+Es sobreyectiva, por lo que $\Q_{>0}$ es numerable, para $\Q_{<0}$ es análogo con un menos.
+\end{proof}
+\end{cor}
+\begin{cor}
+El conjunto $\bigcup_{n \in \N} A_n$ donde los $A_n$ son contables, es contable. (También si los uniendos son finitos)
+\begin{proof}
+Si tenemos una familia de funciones sobreyectivas $f_n: \N \rightarrow A_n$, la función:
+\begin{align*}
+\N \times \N &\longrightarrow \bigcup_{n \in \N} A_n \\
+(i,j) &\longmapsto f_i(j)
+\end{align*}
+Es sobreyectiva. En el caso de que haya finitos uniendos tenemos que $\bigcup_{i=1}^k A_i = \bigcup_{i \in \N} A_i$ donde $A_i = \emptyset$, para todo $i > k$. Como una observación poco evidente, notemos que debemos elegir tales funciones $f_n$, por lo que discretamente hemos usado AC.
+\end{proof}
+\end{cor}
+\begin{cor}
+$\Q$ es numerable.
+\begin{proof}
+$$\Q = \Q_{>0} \cup \Q_{<0} \cup \{0\}$$
+Por el corolario anterior se deduce que $\Q$ es numerable.
+\end{proof}
+\end{cor}
+Esto nos dá un resultado bastante antiintuitivo que nos dice que hay tantos números racionales como naturales, a pesar de que parece que hay muchos más de estos últimos.
+
+Veamos ahora el famoso argumento diagonal de Cantor, aunque el resultado es válido, esta demostración es algo intuitiva, lo demostraremos un poco mejor cuando tengamos más elementos.
+\begin{teo}[Cantor]
+$\R$ no es numerable.
+\begin{proof}
+Supongamos que si lo es, entonces podemos enumerar los numeros del $[0,1]$ de la siguiente forma
+\begin{align*}
+&0,a_{11} \, a_{12} \, a_{13} \, a_{14} \, \ldots \\
+&0,a_{21} \, a_{22} \, a_{23} \, a_{24} \, \ldots \\
+&0,a_{31} \, a_{32} \, a_{33} \, a_{34} \, \ldots \\
+&0,a_{41} \, a_{42} \, a_{43} \, a_{44} \, \ldots \\
+&\vdots   
+\end{align*}
+Donde cada $a_{ij}$ representa el digito decimal $j$-ésimo del $i$-ésimo elemento.
+Ahora construyamos un numero de la forma $0,b_{1} \, b_{2} \, b_{3} \, b_{4} \, \ldots$, donde cada $b_i \neq a_{ii}$ y $b_i \in \{0, \ldots, 9\}$, por construcción, este numero es distinto a todos los de la lista, por lo tanto no puede estar ésta, sin embargo es un número en $[0,1]$, lo que es absurdo ya que habíamos enumerado todos. Por lo tanto $\R$ no es numerable.
+\end{proof}
+\end{teo}
+Ahora daremos el resultado que realmente marca un antes y un después en la comprensión matemática del infinito.
+\begin{teo}
+$$\sharp A < \sharp \P(A) $$
+\begin{proof}
+Es claro que $\sharp A \leq \sharp \P(A) $, lo que mostraremos es que $\sharp A \neq \sharp \P(A)$. Supongamos que existe una función $f: A \rightarrow \P(A)$ sobreyectiva. Consideremos el siguiente conjunto:
+$$ B = \{ a \in A \,\vert\, a \notin f(a) \}$$
+Como $B \in \P(A)$, existe algún $b \in A$, tal que $f(b) = B$.\\
+Si $b \in B \Rightarrow b\notin B$, lo que es absurdo\\
+Si $b \notin B \Rightarrow b\in B$, también es absurdo. Como de cualquiera de las dos maneras llegamos a una contradicción, no puede existir tal $b$, por consiguiente tampoco $f$ sobreyectiva, indicando que no puede ser que $ \sharp A = \sharp \P(A)$
+\end{proof}
+\end{teo}
+El resultado interesante de por si es el siguiente:
+\begin{cor}
+Existen infinitos cardinales infinitos.
+\begin{proof}
+$$ \aleph_0 = \sharp\N < \sharp \P(\N) < \sharp \P(\P(\N)) < \ldots$$
+\end{proof}
+\end{cor}
+\textbf{Notación:} Como vimos antes el conjunto de los cardinales está bien ordenado, por esta razón podemos afirmar que exisiste un cardinal inmediato posterior a $\aleph_0$ usualmente llamado $\aleph_1$, y uno inmediato posterior a éste llamado $\aleph_2$, y así sucesivamente. De esta manera podemos ordenar los cardinales como:
+$$ \aleph_0 < \aleph_1 < \aleph_2 < \ldots$$
+Donde no existen cardinales intermedios entre ellos, es decir, no existe ningún conjunto que tenga cardinal estrictamente mayor a uno y estrictamente menor al siguiente. Es conveniente aclarar que: 
+$$\sharp \displaystyle \underbrace{\P(....\P}_{n \mbox{ veces}}(\N)) \dots ) \neq \aleph_n$$
+Haremos una digresión importante al respecto después. También es importante aclarar que el ''conjunto de los cardinales'' no existe como tal por cuestiones lógicas (es lo que se llama una clase propia), por lo tanto no tiene sentido definir el cardinal de todos los cardinales. El lector puede entretenerse pensando alguna paradoja que se deduzca de asumir que existe un cardinal que indica el ''tamaño'' del ''conjunto'' de todos los cardinales.\\[0.5cm]
+Ahora empezaremos con las operaciones correspondientes a los cardinales, que serán muy útiles a la hora de calcular cardinales de conjuntos más complejos en construcción.
+\begin{defi}
+Dados dos conjuntos $A$ y $B$ disjuntos definimos el cardinal de $A \cup B$ como $\sharp A + \sharp B$. 
+\end{defi}
+Queda bastante claro que en el caso de que $A$ y $B$ sean finitos, esta definición es la misma que siempre.\\[0.5cm]
+\textbf{Observación:} De manera inversa, dados dos cardinales $\alpha$ y $\beta$, siempre existen dos conjuntos disjuntos $A$ y $B$, tales que $A \cap B = \emptyset$, con $\sharp A = \alpha$ y $\sharp B=\beta$: Por ejemplo, si tomamos dos conjuntos $A'$ y $B'$ con los cardinales adecuados, los conjuntos $A =\{0\} \times A'$ y $B=\{1\} \times B'$, satisfacen las condiciones.
+\begin{ej}
+Si $\alpha$, $\beta$ y $\gamma$ son cardinales probar que:
+\begin{itemize}
+\item $\alpha + \beta = \beta + \alpha$
+\item $(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$
+\item Dado un conjunto $A$ infinito de cardinal $\alpha$ y uno finito $B$ entonces $\sharp (A \cup B) = \alpha$.
+\item La suma se comporta bien con el orden, es decir que dados $A$ ,$B$ y $C$ y $ A \leq B$, entonces $A + C \leq B +C$
+\end{itemize}
+\end{ej}
+Veremos ahora un teorema sobre la suma de cardinales, pero será más facil de demostrar con dos lemas previos que son resultados interesantes por si solos.
+\begin{lem}
+Sea $A$ un conjunto infinito, entonces existe una partición de $A$ donde cada elemento de la partición tiene cardinal $\aleph_0$.
+\begin{proof}
+Consideremos
+$$ \mathcal{F}= \{ \mathcal{A} \subseteq \P(A)\,\vert\, \mbox{$\mathcal{A}$ es una familia disjunta dos a dos y } \sharp B = \aleph_0, \; \forall B \in \mathcal{A} \}$$
+Como existe al menos un conjunto numerable en $A$, debido a que es infinito, $\mathcal{F}$ no es vacío.\\
+Si ordenamos $\mathcal{F}$  por la inclusión, dada una cadena $L$, la unión de todos los elementos de $L$ será una familia disjunta dos a dos y todos sus elementos serán numerables, por lo que pertenece a $F$ y es claramente cota superior de la cadena. De esta manera según el Lema de Zorn y podemos decir que existe una elemento maximal $\mathfrak{A} = (A_{\alpha})_{\alpha \in I}$, para algún conjunto de índices $I$.\\
+Ahora afirmamos que $\sharp A \setminus \bigcup \mathfrak{A} < \aleph_0$, ya que si fuese mayor o igual, significa que existe un conjunto numerable en $A$ que no pertence a la familia, lo cual, añadiendolo a la familia $\mathfrak{A}$, es una familia de $\mathcal{F}$ que contiene estrictamente a $\mathfrak{A}$, lo que contradice el hecho que sea maximal. Ahora, si elegimos un $A_{\alpha_0}$ particular y consideramos la familia dada por $(\hat{A}_{\alpha})_{\alpha \in I}$ donde $\hat{A}_{i}=A_{i}$ si $i \neq \alpha_0$ y $\hat{A}_{\alpha_0}= A \setminus \bigcup \mathfrak{A} \cup A_{\alpha_0}$ que tiene cardinal numerable por ser unión de un numerable con un finito, claramente $\bigcup_{\alpha \in I} \hat{A}_{\alpha} = A$, y por lo tanto esta familia cumple todo lo pedido en el enunciado.
+\end{proof}
+\end{lem} 
+\begin{lem}
+Dado un conjunto infinito $B$, existe una partición en dos conjuntos, donde cada conjunto tiene el cardinal de $B$
+\begin{proof}
+Si consideramos la partición de en conjuntos numerables que nos brinda el lema anterior, podemos escribir $B = \bigsqcup_{i \in I} B_i$, donde los $B_i$ son numerables y disjuntos dos a dos. Luego dada cada función biyectiva $f_i:\N \rightarrow B_i$ definimos $C_i = \{f_i(k)\,\vert\,k\mbox{ es par}\}$ y $D_i = \{f_i(k)\,\vert\, k \mbox{ es impar}\}$, de esta manera resulta que $B_i \simeq C_i \simeq D_i$ y $C_i \cap D_i = \emptyset$. Uniendo todo tenemos que:
+$$\bigcup_{i \in I} B_i \simeq \bigcup_{i \in I} C_i \simeq \bigcup_{i \in I} D_i$$ Pero además:
+$$ \bigcup_{i \in I} B_i = \bigcup_{i \in I}C_i \sqcup \bigcup_{i \in I}D_i$$
+Luego considerando $C = \bigcup_{i \in I} C_i$ y $D = \bigcup_{i \in I} D_i$. Resulta que $B \simeq C \simeq D$, $C$ y $D$ son disjuntos, y $B = C \sqcup D$ que era lo que buscabamos.
+\end{proof}
+\end{lem}
+Ahora con este último resultado podemos dar el siguiente teorema.
+\begin{teo}
+Si $\alpha$ y $\beta$ son cardinales infinitos, entonces $ \alpha + \beta = \max \{ \alpha , \beta \}$
+\begin{proof}
+Si $\alpha \leq \beta$:
+$$\beta \leq \alpha + \beta \leq \beta + \beta$$
+Pero debido al lema anterior, sabemos que como $\beta$ es infinito, $\beta + \beta = \beta$
+\end{proof}
+\end{teo}
+Para aquellos interesados, la demostración del teorema anterior puede hacerse sin utilizar AC. \\[0.5cm]
+Definimos ahora el producto de cardinales
+\begin{defi}
+Definimos el cardinal  $\sharp (A \times B)$ como $\sharp A \cdot \sharp B$
+\end{defi}
+Esta definición conincide con el cardinal usual en el caso finito.
+\begin{ej}
+Si $a$, $b$ y $c$ son cardinales probar:
+\begin{enumerate}
+\item $ a \cdot b = b \cdot a$
+\item $(a \cdot b) \cdot c = a \cdot (b \cdot c)$
+\item $ a \cdot 0 = 0$
+\item $a \cdot 1 = a$
+\item $a \cdot (b + c) = (a \cdot b + a \cdot c)$
+\end{enumerate}
+\end{ej}
+Ahora probaremos un resultado análogo a la suma para la multiplicación de cardinales infinitos, pero requerimos un lema previo.
+\begin{lem}
+Dado un conjunto infinito $B$, existe una función biyectiva entre $B$ y $ B \times B$.
+\begin{proof}
+Veremos primero que existe un subconjunto $\tilde{B} \subseteq B$ y existe una función biyectiva $\tilde{B} \rightarrow \tilde{B} \times \tilde{B}$. Pero luego veremos que $\tilde{B}$ posee el mismo cardinal que $B$, con lo que concluiremos el enunciado.
+Ya vimos antes que $\aleph_0 \cdot \aleph_0 = \aleph _0$ ya que $\N \times \N \simeq \N$. Con esto en mente consideremos el conjunto:
+$$ \F = \{ (f_{\alpha},B_{\alpha})\,\vert\, B_{\alpha} \subseteq B \mbox{ y es infinito, } f_{\alpha} : B_{\alpha} \rightarrow B_{\alpha} \times B_{\alpha} \mbox{ es biyectiva} \}$$
+El conjunto no es vacío ya que vale para conjuntos numerables y $B$ es infinito.\\
+Asignamos el orden de la inclusión de los conjuntos y de las funciónes como pares. Dada una cadena, la unión de los dominios y de las funciones (que pertenecen a la cadena) como pares, cumple todas las propiedades de $\mathcal{F}$ y por lo tanto es cota superior de la cadena, entonces utilizando el Lema de Zorn, vemos que existe un conjunto $\tilde{B}$ y una función $f$ maximales en $\mathcal{F}$.\\
+Ahora considerando que $B = \tilde{B} \sqcup ( B \setminus \tilde{B})$, existen ahora dos opciones: $\sharp \tilde{B} \leq \sharp B \setminus \tilde{B}$ o bien $\sharp \tilde{B} > \sharp B \setminus \tilde{B}$.\\
+Si fuese el primer caso, entonces existe un conjunto $ C \subseteq B \setminus \tilde{B}$ tal que $ C \simeq \tilde{B}$. Pero entonces debido a que $C$ tiene el mismo cardinal que $\tilde{B}$ tenemos que existe una función $g:C \rightarrow C \times C$ biyectiva. Por lo que podemos definir:
+\begin{align*}
+\tilde{B} \sqcup C &\longrightarrow \tilde{B} \sqcup C \times \tilde{B} \sqcup C \\
+x &\longmapsto \begin{cases} f(x) &\mbox{ si } x \in \tilde{B} \\ g(x) &\mbox{ si } x \in C \end{cases}
+\end{align*}
+que es biyectiva, pero esto contradice la maximalidad de $f$, por lo que debe ser que que $ \sharp B \setminus \tilde{ B}  < \sharp \tilde{B}$ y entonces:
+$$ \sharp B = \sharp B \setminus \tilde{B} + \sharp \tilde{B} = \tilde{B}$$
+De esta manera entonces debe existir una función biyectiva de $B$ en $B \times B$.
+\end{proof}
+\end{lem}
+\begin{teo}
+Si $a$ y $b$ son cardinales infinitos entonces $a \cdot b = \max \{a,b\}$.
+\begin{proof}
+Si $a \leq b$, y considerando que $b \leq a \cdot b \leq b \cdot b$. Con el lema que vimos antes podemos decir que $b \cdot b = b$, por lo que resulta que $ a \cdot b = b$.
+\end{proof}
+\end{teo}
+Al igual que antes, la demostración de este teorema puede realizarse sin el axioma de elección.\\[0.5cm]
+Ahora defimos el cardinal del conjunto de partes y del conjunto de funciones entre dos conjuntos.
+\begin{defi}\label{card-partes}
+Si $A$ es un conjunto definimos el cardinal de $\P(A)$ como $2^{\sharp A}$
+\end{defi}
+\begin{defi}\label{card-funciones}
+Si consideramos el conjunto $B^A$ definimos el cardinal $\sharp B^A$ como $(\sharp B)^{(\sharp A)}$
+\end{defi}
+En ambos casos el lector puede verificar que en los casos finitos las definiciones coinciden.
+\begin{prop}
+Las definiciones \ref{card-partes} y \ref{card-funciones} son consistentes, es decir:
+$$ \sharp \P(A) = \sharp \{0,1\}^A$$
+\begin{proof}
+Veamos que podemos crear una función de $ \sharp \{0,1\}^A $ en $ \sharp \P(A)$ biyectiva.\\
+Consideremos la función $\sigma : \{0,1\}^A \rightarrow \P(A)$ definida por:
+$$ \sigma (f) = f^{-1}(\{1\})$$
+Veamos que es inyectiva:\\
+Si $\sigma(f)= \sigma(g)$ significa que $f^{-1}(\{1\}) = g^{-1}(\{1\})$, pero podemos escribir al conjunto $A$ de la siguiente forma: $A = \displaystyle f^{-1}(\{1\}) \sqcup f^{-1}(\{0\})$, ya que todos los elementos de $A$ se asignan o bien al $1$ o bien al $0$, asi sucede también que $f^{-1}(\{0\}) = g^{-1}(\{0\})$, pero entonces asignan de la misma manera, por lo que $f = g$.\\
+Ahora veamos que es sobreyectiva: Dado un conjunto $C \in \P(A)$, debemos buscar una función $f$ tal que $\sigma(f)=C$. Efectivamente definiendo $f: A \rightarrow \{0,1\}$ como 
+$$f(x) = \begin{cases} 
+0 &\mbox{ si } x \notin C \\ 1 &\mbox{ si } x\in C \end{cases}$$
+Entonces $\sigma(f) = C$, por lo que $\sigma$ es sobreyectiva.\\
+Así resulta que $$ \sharp \P(A) = \sharp \{0,1\}^A$$
+\end{proof}
+\end{prop}
+Haremos una pausa para hacer una demostración más rigurosa del siguiente teorema:
+\begin{teo}[Cantor]
+$$ \sharp \{0,1\}^{\N} = 2^{\aleph_0} = \sharp (0,1)$$
+Y por lo tanto $(0,1)$ no es numerable.
+\begin{proof}
+Primero observemos que $\{0,1\}^{\N}$ son, escencialmente las sucesiones de ceros y unos.\\
+Si consideramos que todo número real en el intervalo $(0,1)$ puede escribirse en notación binaria como una sequencia de ceros y unos infinita podemos intuir como construir la biyección que nos sirve; el incoveniente para realizarla es que existen notaciones binarias distintas que refieren al mismo número, para dar un ejemplo:
+$$ 0,0111111 \ldots = 0,100000 \ldots$$
+Por lo que para construir la biyección debemos retirar las escrituras repetidas:
+$$ A = \{ (a_n) \in \{0,1\}^{\N}\mbox{ que terminan en secuencias infinitas de unos o es nula}\} $$
+Es sencillo ver que este conjunto es numerable, debido a que consideramos la siguiente inyección:
+\begin{align*}
+ A &\longrightarrow\ \{0,1\}^1 \cup \{0,1\}^2 \cup \{0,1\}^3 \cup \{0,1\}^4 \ldots = \bigcup_{n \in \N}\{0,1\}^n\\
+ (a_n) &\longmapsto \begin{cases} (a_1, \ldots, a_k)  \mbox{ si $k$ es el mínimo tal que para todo } n > k,  a_n = 1 \\ 0 \mbox{ si es nula} \end{cases}
+\end{align*}
+Entonces $\sharp A \leq \sharp \bigcup_{n \in \N} \{0,1\}^n$ y $\sharp \bigcup_{n \in \N} \{0,1\}^n = \a0$ porque es una unión numerable de contables. Por lo que el conjunto $\{0,1\}^{\N} \setminus A$ tiene cardinal estrictamente mayor que $\aleph_0$ (ya que si fuese igual, $\{0,1\}^{\N}$ sería numerable como unión de conjuntos numerables y no lo es). Considerando la siguiente función:
+\begin{align*}
+\{0,1\}^{\N} \setminus A &\longrightarrow (0,1) \\
+(a_n) &\longmapsto \sum_{n=1}^{\infty} \frac{a_n}{2^n}
+\end{align*}
+Que es biyectiva debido a que toma el desarollo binario de cada numero en el $(0,1)$ y no tiene las escrituras repetidas. Esto muestra que $\sharp (0,1) > \a0$.\\
+Para mostrar la igualdad deseada solo queda ver que según el teorema que vimos antes.
+\begin{align*}
+\sharp \{0,1\}^{\N} \setminus A  + \sharp A &= \sharp \{0,1\}^{\N} \\
+= \sharp (0,1) + \sharp A &= \sharp \{0,1\}^{\N} \\
+= \sharp (0,1) + \aleph_0 &= 2^{\aleph_0} \\
+= \sharp (0,1) &= 2^{\aleph_0}
+\end{align*}
+\end{proof}
+\end{teo}
+\begin{cor}
+$$ 2^{\aleph_0}=\sharp (0,1) = \sharp \R$$
+\begin{proof}
+Alcanza ver que 
+$$ tan\left(\pi x+\frac{\pi}{2}\right): (0,1) \rightarrow \R$$
+es biyectiva
+\end{proof}
+\end{cor}
+\textbf{Notación:} $ \sharp \R = \mathfrak{c}$ \\[0.5cm]
+Damos esta proposición que muestra que exponenciar se preserva por orden de cardinales como en el caso finito:
+\begin{prop}
+Si $a$, $b$ $c$ son cardinales y $ a \leq b$ entonces $a^c \leq b^c$
+\begin{proof}
+Sean $A$, $B$ y $C$, conjuntos con cardinales $a$ ,$b$ y $c$ respectivamente. Sabemos que existe una función inyectiva de $A$ a $B$, llamemosla $f$, definimos la siguiente función $\varphi:A^C \rightarrow B^C$ dada por
+$$ \varphi(g) = f \circ g$$
+Queremos ver que ésta es inyectiva, supongamos que $\varphi(g)=\varphi(h)$, entonces $f(g(x)) = f(h(x))$, pero $f$ es inyectiva, lo que implica que $g(x)=h(x)$, por lo que $g=h$. Entonces $\varphi$ es inyectiva. Así $\sharp A^C \leq \sharp B^C$.
+\end{proof}
+\end{prop}
+\begin{ej}
+Si $a$, $b$ y $c$ son cardinales probar:
+\begin{enumerate}
+\item $0^b = \begin{cases} 0 &\si b \neq 0 \\ 1 &\si b = 0 \end{cases}$
+\item $1^b = 1$
+\item $a^1 = a$
+\item $(a \cdot b)^c = a^c \cdot b^c$
+\item $ a^{b+c} = a^b \cdot a^c$
+\item $ (a^b)^c = a^{b \cdot c}$
+\end{enumerate}
+\end{ej}
+Ahora algunos resultados curiosos:
+\begin{prop}
+\begin{align}
+\a0^{\a0} = \c \\
+\c^{\a0} = \c \\
+\a0^{\c} = 2^{\c} \\
+\c^{\c} = 2^{\c}
+\end{align}
+\begin{proof}Teniendo en cuenta la proposición anterior:
+\begin{align*}
+2 \leq &\; \aleph_0\leq 2^{\aleph_0} \\
+2^{\a0} \leq &\;\a0^{\a0}\leq 2^{\a0 \cdot \a0} = 2^{\a0} = \c
+\end{align*}
+Lo que prueba la primera igualdad
+\begin{align*}
+2 \leq &\c \leq 2^{\a0} \\
+2^{\a0} \leq &\c^{\a0} \leq 2^{\a0 \cdot \a0} = 2^{\a0} = \c
+\end{align*}
+Que muestra la segunda igualdad
+\begin{align*}
+2 \leq &\a0 \leq 2^{\c} \\
+2^{\c} \leq &\a0^{\c} \leq 2^{\c \cdot \c} = 2^{\c}
+\end{align*}
+Que muestra la tercera
+\begin{align*}
+2^{\a0} \leq &\c \leq 2^{\c}\\
+2^{\a0 \cdot \c} = 2^{\c} \leq &\c^{\c} \leq 2^{\c \cdot \c} = 2^{\c}
+\end{align*}
+Que muestra la última
+\end{proof}
+\end{prop}
+\begin{prop}
+Si $A$ y $B$ son conjuntos, $B$ es infinito, y $\sharp A \leq \sharp B$, entonces existe un conjunto $I \simeq B$, una familia de conjuntos $\{ B_i \,\vert\, i \in I \}$ disjuntos dos a dos, tales que cada $B_i \simeq A$, que cumplen:
+$$ B = \bigsqcup_{i \in I} B_i$$
+\begin{proof}
+Sabemos que $A \times B \simeq B$, si considramos $\varphi : A \times B \rightarrow B$ biyectiva, observamos que 
+$$ A \times B = \bigsqcup_{b \in B} A \times \{b\}$$
+Aplicando $\varphi$ a ambos lados y teniendo en cuenta que ésta es biyectiva
+$$B = \varphi(A \times B) = \varphi \left(\bigsqcup_{b \in B} A \times \{b\}\right) = \bigsqcup_{b \in B} \varphi(A \times \{b\})$$
+Pero además $A \times \{b\} \simeq A$, por lo que $\varphi (A \times \{b\}) \simeq A$
+\end{proof}
+\end{prop}
+\begin{cor}
+Sea $\{A_i \,\vert\, i \in I\}$ familia de conjuntos disjunta dos a dos, donde $\sharp I = \alpha \geq \a0$, si $\sharp A_i \leq \alpha$ para todo $i$, entonces $\sharp \bigsqcup_{i \in I} A_i \leq \alpha$\\
+Además si existe un $A_i$ con cardinal $\alpha$, entonces $\sharp \bigsqcup_{i \in I} A_i = \alpha$ y si $\sharp \{ j \in I : A_j = \emptyset\} < \alpha$ entonces $\sharp \bigsqcup_{i \in I} A_i = \alpha$.
+\end{cor}
+Para terminar haremos una digresión acerca del buen orden del los cardinales. Hemos visto que $ \mathfrak{c} = 2^{\aleph_0}$ y además hemos visto que el conjunto de los cardinales está bien ordenado, por lo que existe un cardinal $\aleph_1 > \a0$ y no existe ningún cardinal entre ellos. Observando estas dos cosas uno puede preguntarse: ¿Será que $ \c = \aleph_1$? Esta pregunta, llamada la Hipótesis del Continuo (CH), persiguió a Georg Cantor hasta el día de su muerte, hasta el punto en el que perdió la cordura. Años más tarde Kurt Gödel y Paul Cohen (1934 - 2007), en 1963 probaron que con los axiomas de ZF y AC no se puede demostrar la verdad o falsedad de CH, asumiendo que ZF es consistente. Entonces se puede asumir que no existe ningún conjunto con cardinal entre $\c$ y $\a0$, o bien, que sí existen tales cardinales (cualquier cantidad de ellos) y no llegar a ninguna contradicción (sin que hubiese una contradicción en ZF antes).\\
+Otra conjetura, llamada la Hipótesis Generalizada del Continuo (GCH), que establece que $2^{\aleph_{\alpha}} = \aleph_{\alpha+1}$ para todo $\alpha$. Ésta fue estudiada también y se demostró que tampoco puede ser probada por cierta o falsa dentro de ZF con AC, asumiendo la consistencia de ZF, sin embargo, Wacław Sierpiński (1882 - 1969), demostró que en un sistema axiomático formado por ZF y GCH, podía demostrarse AC, con lo que GCH es más fuerte (desde un punto de vista lógico en ZF) que AC, y así mostrando que un sistema formado por ZF, GCH y la negación de AC es inconsistente.\\
+En el transcurso del apunte intentaremos probar los resultados sin asumir ninguna de estas dos hipótesis, aunque si tuviesemos el caso de que tenemos un conjunto con cardinal mayor estricto que $\aleph_0$ y menor o igual que $\mathfrak{c}$, lo lógico es que tenga el cardinal de este último, en el caso contrario existe una contradicción en ZF, esto se debe a que no se puede construir tal conjunto (incluso usando el axioma de elección).\\
+
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

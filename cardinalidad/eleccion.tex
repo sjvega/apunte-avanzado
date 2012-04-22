@@ -1,0 +1,148 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{El Axioma de elección y sus equivalencias}
+
+Aquí mostramos que es el axioma de elección y ,más importante aún, cuales son sus equivalencias lógicas. Como afimamos antes, la teoría de conjuntos que presentamos en este apunte es inconsistente, pero aclararemos que dentro de la teoría de conjuntos de Zermelo-Fraenkel, la gran mayoría de los conceptos usados aquí son similares en interpretación.\\
+Definiremos antes que nada qué es una función elección:
+
+\begin{defi} %Función elección
+Una función elección de una familia de conjuntos no vacíos $\{A_j \,\vert\, j \in J\}$, es una función de $\{A_j\}_{j \in J}$ en $ \bigcup_{j \in J} A_j $ que cumple que para todo $A_j$, $f(A_j) \in A_j$. Es decir una función que asigna un elemento de si mismo a cada conjunto $A_j$ (de ahí que se llame ''de elección'' o ''selectora'').
+\end{defi}
+
+Ahora expresaremos la formulación usual del axioma de elección\\[0.5cm]
+\textbf{Axioma de Elección:} Toda familia de conjuntos no vacíos posee una función elección. (abreviado AC, del inglés, ''Axiom of Choice'') \\[0.5cm]
+Precisamente porque la noción intuitiva de este postulado resulta razonable, se lo considera un axioma (es decir, verdadero porque sí). Su mayor importancia radica en los resultados importantes que puede producir y si lo queremos como cierto. debe asumirse como axioma, ya no puede ser deducido lógicamente de los Axiomas de Zermelo-Fraenkel (abreviado ZF), suponiendo que estos son consistentes (libres de contradicciones). Como veremos a continuación, los resultados que produce este axioma producen que se cuestione que tan ''razonable'' es.\\
+La principal razón de por qué no puede deducirse del sistema ZF, es que en el caso de que la familia de conjuntos sea infinita, como los elementos elegidos son ''al azar'', se necesitaría una infinita cantidad de pasos para construir tal función, por lo que la demostración de tal ''teorema'' tendría longitud infinita y obviamente no se admiten demostraciones tales. Si los elementos pudiesen ser elegidos en base a un algoritmo, entonces no habría problema. En definitva, es una herramienta muy útil para afirmar existencia de ciertos tipos de elementos, cuando estos son incostructibles desde el punto de vista algorítmico.\\[0.5cm]
+Veamos otras formulaciones de AC\newpage
+\textbf{ACII:} Dado un conjunto $A \neq \emptyset$, existe una función elección de la familia $\P(A) \setminus \{\emptyset\}$.\\[0.5cm]
+\textbf{ACIII:} Dada una familia de conjuntos no vacíos $\{A_j \,\vert\, j \in J\}$ el producto cartesiano cumple que
+$$ \prod_{j \in J} A_j \neq \emptyset$$\\
+Y ahora veamos su equivalencia:
+
+\begin{prop} %Equivalencia de las caracterizaciones de AC
+AC, ACII y ACIII, son equivalentes (en el marco de ZF)
+\begin{proof}
+(AC $\Rightarrow$ ACII) Si AC es cierto, y $A\neq \emptyset$ entonces $\P(A) \setminus \{\emptyset\}$ es una familia conjuntos no vacía, por lo que ésta posee función elección y así ACII es cierto.\\
+(ACII $\Rightarrow$ ACIII) Dada la familia $\{A_j : j \in J\}$ de conjuntos no vacíos y consideramos $\mathcal{A}$, su unión, ésta es no vacía, por lo que existe, según ACII, una función elección $f$ de $\P(\mathcal{A}) \setminus \{\emptyset\}$, en particular, como cada $A_j \in \P(\mathcal{A}) \setminus \{\emptyset\}$, tenemos que $f(A_j) \in A_j$ por ser ésta una función elección, pero entonces $f \in \prod_{j \in J} A_j$, lo que muestra que $\prod_{j \in J} A_j$ es no vacío.
+(ACIII $\Rightarrow$ AC) Dada una familia $\{A_j : j \in J\}$ de conjuntos no vacíos y tomamos $f \in \prod_{j \in J} A_j$ (que es no vacío por hipotesis), entonces $f(A_j) \in A_j$ por lo que $f$ es una función elección.
+\end{proof}
+\end{prop}
+Dejamos dos ejercicios útiles:
+\begin{ej} Asumiendo que AC (o cualquiera de sus equivalencias antes vistas) demostrar que dada una función $f: A \rightarrow B$ sobreyectiva, existe una función $g:B \rightarrow A$ (no necesariamente única) tal que $f \circ g = Id_B$. Llamamos a $g$ la inversa a derecha de $f$.
+\end{ej}
+\begin{ej}
+Demostrar que si asumimos como cierto el hecho de que toda función sobreyectiva admite una inversa a derecha entonces AC debe ser cierto.
+\end{ej}
+Veamos otros postulados: \\[0.5cm]
+\textbf{Axioma (Principio de Buena Ordenación):} Dado un conjunto $A$ no vacío, existe una relación de orden $\leq$, tal que $(A,\leq)$ es un poset bien ordenado. (Abreviado WOP del inglés ''Well-Ordering Principle'')\\[0.5cm]
+\textbf{Axioma (Principio Maximal de Hausdorff):} Dado un poset $(A,\leq)$ no vacío, existen cadenas que son maximales en el sentido de la inclusión, es decir, existe una cadena $L$, tal que si existe otra cadena $S \supseteq L$, entonces $S = L$. (Abreviado HMP del inglés ''Hausdorff Maximal Principle'', debido al matemático Felix Hausdorff (1868 - 1942))\\[0.5cm]
+\textbf{ Axioma (Lema de Zorn):} Dado un poset $(A,\leq)$, no vacío, que cumple que para toda cadena $L \subseteq A$, ésta posee máximo, entonces $A$ posee al menos un elemento maximal. (abreviado ZL del inglés ''Zorn's Lemma'', debido al matemático Max Zorn (1906 - 1993)) \\[0.5cm]
+Analicemos un poco estos axiomas. El más ''controversial'' por así llamarlo, es WOP, esto se debe a que hay conjuntos (como $\R$) que son dificiles de imaginar que posean un buen orden. Tanto HMP como ZL son má complejos de comprender su verdadera escencia, ya que refieren a conjuntos ordenados arbitrarios. Una buena manera de visualizar conjuntos ordenados es pensarlos como arboles en sentido creciente hacia arriba donde dos elementos estan relacionados por una rama y el mayor se encuentra por encima del menor. De esta manera podemos reinterpretar HMP como que existe una rama más larga que todas y podemos reinterpretar ZL como que si dada una rama, existe un punto donde la rama termina, entonces el árbol entero tiene puntos donde termina. Estos postulados crearon en su época mucha discordia en entre los matemáticos debido a que la rama constructivista con rechaza profundamente. Jerry Bona (1945 - ), matemático estadounidense dijo: ''The Axiom of Choice is obviously true, the Well-Ordering principle obviously false, and who can tell about Zorn's lemma?'' (''El axioma de elección es claramente cierto, el Principio de Buena Ordenación es claramente falso, ¿y quién puede saber al respecto del Lema de Zorn?''), esto es una broma que hace referencia al siguiente teorema que relaciona todos los postulados aquí expuestos:
+
+\begin{teo}
+AC, WOP, HMP y ZL son equivalentes en el marco de ZF.
+\begin{proof} 
+
+(AC $\Rightarrow$ WOP) Esta implicación se la conoce también como ''Teorema de Zermelo''.\\
+Sea $X$ un conjunto, y $f$ una función elección de $\P(X) \setminus \{\emptyset\}$. Definimos la función $\alpha: \P(X) \setminus \{X\} \rightarrow X$ como $\alpha(A)= f(X \setminus A)$. Dado un conjunto $ P \subseteq \P(X)$, decimos que éste está $\alpha$-ordenado si:
+\begin{itemize}
+\item Si con el orden provisto por la inclusión $\subseteq$ está bien ordenado.
+\item Cumple que dado un $x \in P\setminus \{\emptyset\}$, definiendo $ p = \bigcup \{ a \in P \,\vert\, a \subsetneq x \}$, tenemos que $x = p \cup \{\alpha(p)\}$
+\item $\emptyset \in P$.
+\end{itemize}
+Existen conjuntos $\alpha$-ordenados como ser $\{\emptyset\}$ y $\{\emptyset, \{\alpha(\emptyset)\}\}$.\\
+Ahora consideremos conjuntos $\alpha$-ordenados $P_1$ y $P_2$ distintos. Tomemos el conjunto:
+$$ P_3 = \{ x \in P_1 \cap P_2 \,\vert\, \{ y \in P_1 \,\vert\, y \subsetneq x\} = \{ y \in P_2 \,\vert\, y \subsetneq x\}\}$$
+Este conjunto es la intersección de los elementos de $P_1$ y $P_2$, pero que además que poseen los mismos subconjuntos tanto en $P_1$ como en $P_2$. Veremos que $P_3 = P_1$ o $P_3 = P_2$.\\
+Supongamos que es falso, y entonces tanto $P_1 \setminus P_3$ como $P_2 \setminus P_3$ son no vacíos. Consideremos $r_1$ como el mínimo de $P_1 \setminus P_3$ y $r_2$ como el mínimo de $P_2 \setminus P_3$. Ahora, debido a su condición de mínimo, tenemos que si $x \subsetneq r_1$, $x$ no puede pertenecer a $P_1 \setminus P_3$ ya que sino sería menor que el mínimo, por lo que $x \in P_3$. En el caso de que $x \subsetneq r_2$ es análogo y tenemos que:
+$$\{x \in P_1 \,\vert\, x \subsetneq r_1\},\{x \in P_2 \,\vert\, x \subsetneq r_2\} \subseteq P_3$$
+Mostraremos que $P_3$ es igual a ambos conjuntos, de lo que deduciremos una contradicción. Para ver la inclusión opuesta, tomemos un elemento $p \in P_3$. Supongamos que $r_1 \subsetneq p$, como por construcción de $P_3$, $\{ y \in P_1 \,\vert\, y \subsetneq p\} = \{ y \in P_2 \,\vert\, y \subsetneq p\}$, los subconjuntos de $p$ que estén en $P_1$ deben ser los mismos que los que estén en $P_2$,  así tenemos que $r_1 \in P_2$, además, cualquier subconjunto de $r_1$ pertenece a $P_1$ si y sólo si pertence a $P_2$. De esta manera tenemos que $r_1 \in P_3$, pero esto es absurdo ya que contradice la condición que $r_1 \in P_1 \setminus P_3$, por lo que no puede ser que $r_1 \subsetneq p$, y debe ser que $p \subseteq r_1$, de la misma manera $p \subseteq r_2$. Como claramente ni $r_1$ ni $r_2$ pueden pertenecer a $P_3$, tenemos que $P_3 \subseteq \{x \in P_1 \,\vert\, x \subsetneq r_1\} ,\{x \in P_2 \,\vert\, x \subsetneq r_2\}$.  Y entonces tenemos la igualdad.
+$$P_3 = \{x \in P_1 \,\vert\, x \subsetneq r_1\} = \{x \in P_2 \,\vert\, x \subsetneq r_2\}$$
+Pero entonces, debido a que $P_1$ y $P_2$ son $\alpha$-ordenados $r_1 = \bigcup P_3 \cup \{\alpha(P_3)\} = r_2$, entonces $r_1 = r_2 \in P_1 \cap P_2$ y ya vimos que todos tienen los mismos subconjuntos en $P_1$ y en $P_2$, por que que $r_1 = r_2 \in P_3$, que es absurdo. De esta manera tenemos que $P_3 = P_1$ o $P_3 = P_2$, por lo que por construcción de $P_3$ implica que $P_1 \subseteq P_2$ o viceversa y es más $P_1 = \{ y \in P_2 \,\vert\, y \subsetneq x\}$ para algún $x \in P_2$ o bien intercambiando $P_1$ y $P_2$ .\\
+Consideremos ahora:
+$$\mathcal{C}= \bigcup \{C \subseteq \P(X) \,\vert\, C \mbox{ Está $\alpha$-ordenado} \}$$
+Mostraremos que $\mathcal{C}$ está $\alpha$-ordenado. Es claro que $\emptyset \in \mathcal{C}$.
+Sea $A \subseteq \mathcal{C}$ no vacío, entonces existe algún $C$ $\alpha$-ordenado, tal que $C \cap A$ es no vacío y éste posee un elemento mínimo $a$. Como los ordenes de inclusión se mantienen entre conjuntos $\alpha$-ordenados, $a$ es el mínimo de $A$ en $\mathcal{C}$. Por la misma razón, dado un elemento $p \in \mathcal{C}$, debe estar en algún $\alpha$-orden $C$ y por lo tanto cumple la condición 
+$$p = \bigcup \{ x \in C\,\vert\, x \subsetneq p\} \cup  \{ \alpha \left( \{ x \in C\,\vert\, x \subsetneq p\} \right) \}$$
+Pero $\{ x \in C\,\vert\, x \subsetneq p\} = \{ x \in \mathcal{C}\,\vert\, x \subsetneq p\}$, de manera que $\mathcal{C}$ está $\alpha$-ordenado.\\
+Consideremos $ Z = \bigcup \mathcal{C}$, si $Z \neq X$, podemos considerar $\mathcal{C}' = \mathcal{C} \cup \{Z , \{\alpha(Z)\}\}$, que está $\alpha$-ordenado, pero esto es absurdo ya que debería ser entonces $\mathcal{C}' = \mathcal{C}$. De esta manera, $Z = X$.\\
+Ahora consideremos $\alpha$ como función desde $\mathcal{C}$ a $X$. \\
+Tomemos $x \neq y$ en $\mathcal{C}$, podemos considerar que $x \subsetneq y$. Ahora tomemos $x + 1$ como el elemento inmediato posterior a $x$, como $\mathcal{C}$ está $\alpha$-ordenado, $x+1 = x \cup \{\alpha(x)\}$, además, $x+1 \subseteq y$, por lo que $\alpha(x) \in y$, pero por construcción de $\alpha$, $\alpha(y) \notin y$, por lo que debe ser que $\alpha(x) \neq \alpha(y)$.
+Tomemos ahora un elemento cualquiera de $a \in X$, como $\bigcup \mathcal{C} = X$, el conjunto $\{p \in \mathcal{C} : a \in p\}$, es no vacío. Consideremos a $r$ como el mínimo de tal conjunto y a $\hat{r} = \bigcup \{ q \in \mathcal{C} : q \subsetneq r\}$, entonces por $\alpha$-ordenación, $r = \hat{r} \cup \{\alpha(\hat{r})\}$. Como $r$ es el conjunto más chico que contiene a $a$, $a \notin \hat{r}$, por lo que debe ser que $a = \alpha(\hat{r})$.\\
+De esta manera vemos que $\alpha$ es una función biyectiva entre $\mathcal{C}$ y $X$, por lo que tiene inversa $\alpha^{-1}$ y usando esto definimos el orden $\leq$ en $X$ como:
+$$ x \leq y \Leftrightarrow \alpha^{-1}(x) \subseteq \alpha^{-1}(y)$$
+Es un ejercicio sencillo ver que $\leq$ resulta ser un buen orden sobre $X$.\\[0.5cm]
+(WOP $\Rightarrow$ HMP)\\
+Sea $(X,\leq)$ un conjunto ordenado, $\unlhd$ un buen orden en $X$ y $t$ el mínimo de $X$ bajo el orden $\unlhd$.\\
+Definimos 
+\[ f(x) = 
+\begin{cases}
+   x   \text{  si } \{x\} \cup \{f(y)\,\vert\, y \lhd x\} \text{ es una cadena en} (X,\leq) \\
+   t   \text{  en otro caso } 
+  \end{cases}
+\]
+Provemos que $Im(f)$ es una cadena en el orden $\leq$. Obvservemos que $f(t)=t$ ya que $\{t\} \cup \{f(y): y \lhd t\} = \{t\}$ que es una cadena trivialmente. Consideremos $y \lhd x$ que pertenecen a la imagen de $f$, entonces $f(x)=x$ y $f(y)=y$, porque, por definición, $f(x)=x$ ó $f(x)=t$, si $x$ ya pertenece a la imagen, debe ser imagen de si mismo. Esto quiere decir que $\{x\} \cup \{f(z) \,\vert\, z \lhd x\}$ es una cadena pero como $y \in \{f(z)\,\vert\, z \lhd x\}$ tenemos que $x$ e $y$ están relacionados.\\
+Sea $L$ una cadena (en el orden $\leq$) tal que $Im(f) \subseteq L$. Sea $l \in L$, como $f(y) \in L$, para todo  $y \in X$, resulta que $\{ l \} \cup \{f(y)\,\vert\, y \lhd l \} \subseteq L$, como es un subconjunto de una cadena, también es una cadena, por lo que $f(l) = l \in Im(f)$. Entonces $L \subseteq \Ima(f)$, y así queda que $L = Im(f)$\\[0.5cm]
+(HMP $\Rightarrow $ ZL)\\
+Sea $(X,\leq)$ un conjunto ordenado, y sea $L$ su cadena maximal, como por hipotesis toda cadena tiene máximo, existe $x = m\acute{a}x(L)$.
+Si $ x < y, \Rightarrow L \cup \{y\} \supset L$ pero $L$ era maximal, absurdo. Asi $x$ es maximal.\\[0.5cm]
+(ZL $\Rightarrow$ AC)\\
+Demostraremos en realidad que ZL implica ACII.\\
+Sea $X$ un conjunto no vacío. Definimos:
+$$ C = \{(f,F) \,\vert\, F \subseteq \P(X) \smallsetminus \{\emptyset\}, F \neq \emptyset, f: F \rightarrow X \mbox{ selectora} \}$$
+definimos el orden que $(f,F) \unlhd (g,G)$ si $F \subseteq G$ y $f \subseteq g$ vistas como pares, es decir $f(x) = g(x)$ en donde los dominios coinciden. Este conjunto es no vacío ya que como $X$ es no vacío, el conjunto con un único elemento $a$ y la función que manda el conjunto $\{a\}$ en $a$ pertenece a $C$.\\
+Sea $L = \{(f_i, F_i)\}_{i \in I}$ una cadena en $C$, consideremos:
+$$ S = \bigcup_{i \in I} F_i $$
+Y definimos $\sigma: \P(S) \rightarrow S$ como 
+$$ 
+\sigma(B) = 
+\begin{cases}
+   f_i(B)   \text{  si } B \in F_i \\
+  \end{cases}
+$$
+$\sigma$ está bien definida porque las $f_i$ coinciden en el medio de sus respectivos dominios. De esta forma se ve claramente que el par $(\sigma,S)$ es cota superior de la cadena. Entonces por hipotesis, existe un par $(m,M)$ maximal en $C$.
+Si $\P(X)\smallsetminus \{\emptyset\} \neq M$, entonces sea $A \in \P(A)\smallsetminus \{\emptyset\} \smallsetminus M$, como $A \neq \emptyset$, podemos tomar un $a \in A$. Si definimos $ M' = A \cup M$ y $m':M' \rightarrow A$ dada por:
+$$ 
+m'(B) = 
+\begin{cases}
+   m(B)   \text{  si } B \in M \\
+   a   \text{            si } B = A 
+  \end{cases}
+$$
+Se ve claramente que $(m,M) \unlhd (m',M')$ pero esto es absurdo porque $(m,M)$ era maximal y $M' \neq M$, entonces debe ser que $\P(X)\smallsetminus \{\emptyset\} = M$ y $m$ es la función elección que buscamos.
+\end{proof}
+\end{teo}
+Veamos algunas razones de porque es útil el axioma de elección, muchos de estos teoremas son más sencillos de demostrar utilizando alguna de las equivalencias nombradas recién:\\
+\textbf{Resultados útiles de AE:}
+\begin{itemize}
+\item Una función $f$ es continua en un punto $x$ de su dominio $\Leftrightarrow$\\ $\forall (x_n)_{n \in \N} \slash x_n \rightarrow x \Rightarrow f(x_n) \rightarrow f(x)$
+\item Todo espacio vectorial posee base.
+\item Dados dos conjuntos existe una función inyectiva de uno en el otro.
+\end{itemize}
+Existen muchos otros resultados más, y durante el transurso del apunte utilizaremos el Lema de Zorn sobretodo para poder demostrar muchos resultados relacionados a la cardinalidad. Existe un resultado, muy particular, que no demostraremos obviamente aquí, pero muestra alguna de las propiedades extrañas que posee este axioma.
+\begin{teo}[Teorema de Banach-Tarski]
+Si $B \subseteq \R^3$ es la bola de radio 1 centrada en el $(0,0,0)$, existen finitos subconjuntos de $B$, tales que pueden ser transladados y rotados de forma que formen 2 bolas de radio 1. En otras palabras, podemos ''partir'' una esfera en dos esferas exactamente iguales, sin que a estas les falte ningún pedazo.
+\end{teo}
+Debido a lo antiintuitivo de este teorema, a veces se lo nombra como ''Paradoja'' de Banach-Tarski. 
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

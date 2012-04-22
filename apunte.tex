@@ -1,0 +1,443 @@
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\newcommand{\isEmbedded}{true}
+
+\input{definitions}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+\hrule 
+{ \huge \bfseries Apunte Cálculo Avanzado}\\[0.4cm]
+\hrule 
+\Large
+\emph{Autor:} Santiago Vega\\[0.4cm]
+\emph{Versión} 2.0
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+\vspace*{465pt}
+Copyright \copyright  
+2011-2012 Santiago Vega \\
+\includegraphics[scale=0.5]{cc.eps}\\
+his work is licensed under the Creative 
+Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License. To
+view a copy of this license, visit\\
+ http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to
+Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
+
+\chapter*{Introducción}
+\thispagestyle{empty}
+La idea de este apunte es sobretodo cubrir los temas de la materia Cálculo Avanzado de la carrera de Licenciatura en Ciencias Matemáticas de la Universidad De Buenos Aires. Bien puede ser utilizado por cualquier persona que busque una introducción a la teoría de espacios métricos, espacios normados y diferenciación en espacios de Banach. Contiene también un tratamiento en ligera profundidad de la teoría de cardinales, comenzando por un repaso básico de teoría de conjuntos. Decidí concretar esta presentación a la teoría de conjuntos desde el punto de vista ingenuo ya que requiere un tratamiento con menos delicadeza y profundidad que en su versión formal (léase Axiomas de Zermelo-Fraenkel), que no es el objetivo de este apunte, la sección de teoría de conjuntos está solo como un repaso y para marcar la notación del resto del apunte. \\
+Originalmente este apunte fue concebido con tal de cubrir las faltas de bibliografía concreta en la parte de cardinalidad solamente y hacer unos comentarios abreviados sobre las otras secciones del programa de la materia, debido a la buena respuesta que obtuvo la primera versión, decidí tratar de completar y ampliar todos los temas de la materia.
+\newpage
+\thispagestyle{empty}
+\setcounter{chapter}{0}
+\pagenumbering{arabic}
+
+\chapter{Cardinalidad}
+
+\input{cardinalidad/conjuntos}
+\newpage
+\input{cardinalidad/ordenes}
+\newpage
+\input{cardinalidad/eleccion}
+\newpage
+\input{cardinalidad/cardinalidad}
+
+\chapter{Espacios Métricos}
+
+\input{metricos/intromet}
+\newpage
+\input{metricos/topmet}
+\newpage
+\input{metricos/funcmet}
+\newpage
+\input{metricos/separables}
+
+
+\section{Sucesiones de puntos en espacios métricos y completitud}
+Ahora que ya hemos hecho introducción a la topología de los espacios métricos concentrémonos más en propiedades de las sucesiones de un espacio métrico que le dá más riqueza de estructura por sobre su condición de espacio topológico.
+% Sucesión de cauchy
+% sucesion convergente es de cauchy
+% sucesi´on de cauchy es acotada
+% defi completitud
+% defi completacion (categoricamente y normal)
+% X comleto B(Z,X) completo y C(Y;X) completo
+% punto fijo de banach
+% Teo de picard
+
+\section{El teorema de categoría de Baire}
+Una demostración un poco más clara de la siguiente proposición.
+%Cambiar Aisl_X(U) por Aisl(X) \cap U
+\begin{prop}
+Si $X$ es un espacio métrico completo, $U$ es un abierto numerable y $Aisl_X(U)$ representa los puntos de $U$ que son aislados en $X$, entonces:
+$$ U \subseteq \overline{Aisl_X(U)}$$
+\begin{proof}
+Supongamos que $U \setminus \overline{Aisl_X(U)}$ es no vacío. Si es finito, como $U \setminus \overline{Aisl_X(U)}$ es abierto (abierto menos cerrado), existe $y \in U \setminus \overline{Aisl_X(U)}$ y $\delta > 0 $ tal que $B_{\delta}(y)\subseteq U \setminus \overline{Aisl_X(U)}$, tomando $\delta' = \min\{\delta , d(y,x): x \in U \setminus \overline{Aisl_X(U)}\}$, resulta que $B_{\delta'}(y)=\{y\} \subseteq U \setminus \overline{Aisl_X(U)}$, lo que es absurdo. \\
+Si tiene infinitos numerables, podemos escribir $U \setminus \overline{Aisl_X(U)} = \bigcup_{i \in \N} \{x_i\}$, ahora debido al teorema de Baire, debe ser que al menos un $\{x_i\}^{\circ} = \{x_i\}$, por que de lo contrario, resultaria que:
+$$ (U \setminus \overline{Aisl_X(U)})^{\circ} = U \setminus \overline{Aisl_X(U)} = \bigcup_{i \in \N} \{x_i\}^{\circ} = \emptyset$$
+Lo que es absurdo, pero entonces posee un punto aislado, que también es absurdo.
+\end{proof}
+\end{prop}
+%Banach-Marsukievich?
+
+
+\section{Compacidad}
+\begin{defi}[Principio de intersección finita (PIF)]
+Decimos que un espacio métrico satisface la condición de intersección finita si, dada una familia de conjuntos cerrados $\F = (F_i)_{i \in I}$
+que satisface que, si para todo conjunto finito $J \subseteq I$, $\displaystyle \bigcap_{i \in J} F_i \neq \emptyset$, 
+entonces $\displaystyle \bigcap_{i \in I} F_i \neq \emptyset$
+\end{defi}
+\begin{prop}
+Un espacio métrico $(X,d)$ es compacto si y sólo si satisface PIF.
+\begin{proof}
+($\Rightarrow$) Consideremos una familia de cerrados  $\F = (F_i)_{i \in I}$ que satiface que todas las intersecciones finitas son no vacías, pero su intersección entera es vacía, es decir que  $\displaystyle \bigcap_{i \in I} F_i = \emptyset$. Pero entonces, tomando complemento:
+$$\bigcup_{i \in I} F_i^c = X$$
+Pero como $X$ es compacto podemos considerar finitos $F_{i_j}$, con  $ 1 \leq j \leq k$, tales que 
+$$\bigcup_{j = 1}^{k} F_{i_j}^c = X$$
+Así tomando complemento
+$$\bigcap_{j = 1}^{k} F_{i_j} = \emptyset $$
+Lo cual es absurdo debido a que contradice su condición de PIF. \\
+($\Leftarrow$) Sea $\mathcal{U}$ una familia de abiertos que cubren $X$, entonces: $ \bigcup_{U \in \mathcal{U}} U = X$, entonces tomando complemento $ \displaystyle \bigcap_{U \in \mathcal{U}} U^c = \emptyset$, así debe ser que esta familia no satisface la PIF, asi existe un subconjunto finito $\mathcal{B} \subseteq \mathcal{U}$ tal que $ \displaystyle \bigcap_{U \in \mathcal{B}} U^c = \emptyset$, por lo que tomando complemtento, $ \displaystyle \bigcup_{U \in \mathcal{B}} U = X$, que muestra la compacidad de $X$
+\end{proof}
+\end{prop}
+
+\begin{defi}
+Sea $\mathcal{U} = (U_i)_{i \in I}$ un cubrimiento por abiertos de un espacio métrico $(X,d)$. Definimos a $\delta \in \R_{>0}$ como número de Lebesgue de $\mathcal{U}$ si:
+$$ \forall x,y \in X \: \slash \: d(x,y) < \delta \Rightarrow \exists i \in I \: \slash \: x,y \in U_i$$
+\end{defi}
+\begin{prop}
+Si $(X,d)$ es un espacio métrico compacto, entonces todo cubrimiento por abiertos $\mathcal{U} = (U_i)_{i \in I}$ de $X$ admite un número de Lebesgue.
+\begin{proof}
+Como $\mathcal{U}$ es un cubrimiento por abiertos, podemos afirmar que:
+$$ \forall x \in X, \; \exists i\in I \: \slash \: x \in U_i$$
+además por ser abiertos:
+$$\forall x\in X, \; \exists r_x \in \R_{>0} \: \slash \: B_{r_x}(x) \subseteq U_i$$
+Por lo que podemos escribir:
+$$ X = \bigcup_{x\in X} B_{r_x/2}(x)$$
+Y usando que $X$ es compacto, existen finitos $ x_1, \ldots x_n \in X $ tales que :
+$$ X = \bigcup_{i=1}^n B_{r_{x_i}/2}(x_i)$$
+Si consideramos $\delta = \min \{r_i/2\,\vert\,  1\leq i \leq n \}$ y si sucede que $d(x,y) < \delta$, podemos decir que existe un $i_0$ tal que
+$ x \in B_{r_{x_{i_0}}/2}(x_{i_0})$, por lo que $ x, x_{i_0} \in U_j$ para algún $j$. Ahora si observamos que:
+$$d(y,x_{i_0}) \leq d(y,x) + d(x,x_{i_0}) < \frac{r_{x_{i_0}}}{2} + \frac{r_{x_{i_0}}}{2} = r_{x_{i_0}}$$
+por lo que:
+$$ y \in B_{r_{x_{i_0}}}(x_{i_0}) \subset U_j$$
+\end{proof}
+\end{prop}
+Una demostración más sencilla de la siguiente proposición.
+\begin{prop}
+Si $X$ es un espacio métrico compacto, entonces es separable.
+\begin{proof}
+Como todo cubrimiento por abiertos admite un subcubrimento finito, es, en particular, contable. Por lo que usando la propiedad de Lindelöf, $X$ resulta separable.
+\end{proof}
+\end{prop}
+\section{Conexión y arcoconexión}
+Daremos unas demostraciones alternativas de unas proposiciones relacionada con conexión, utilizando la equivalencia de que no puede existir una función continua no constante de un conjunto conexo en el conjunto $(\{0,1\},\delta)$.
+\begin{prop}
+Si $A$ es un conjunto conexo, y $B$ cumple que $A \subseteq B \subseteq \overline{A}$, entonces $B$ es conexo.
+\begin{proof}
+Consideremos una función $f: B \rightarrow (\{0,1\},\delta)$ continua. Debido a la conexidad de $A$, resulta que $f \vert_A$ es constante.
+Ahora, debe ser entonces que $A \subseteq f^{-1}(\{i\})$ con $i = 0$ ó $1$, además por la continuidad de $f$ resulta que $f^{-1}(\{i\})$ es cerrado,
+entonces, $\overline{A} \subseteq \overline{f^{-1}(\{i\})} = f^{-1}(\{i\})$, por lo que $B \subseteq f^{-1}(\{i\})$
+\end{proof}
+\end{prop}
+\begin{prop}
+Si $X$ es un espacio métrico conexo y $f : X \rightarrow X'$ es continua, entonces $f(X)$ es conexo
+\begin{proof}
+Supongamos una función continua $g : f(X) \rightarrow (\{0,1\},\delta)$, si $g$ fuese no constante, entonces $ g \circ f$ es una función no constante de $X$ al $\{0,1\}$, lo que es absurdo porque $X$ era conexo, asi resulta que $g$ debe ser constante y por lo tanto $f(X)$ es conexo.
+\end{proof}
+\end{prop}
+\begin{prop}
+El producto cartesiano finito (con la métrica infinito) de espacios métricos conexos (respectivamente arcoconexos) es conexo (respectivamente arcoconexo).
+\begin{proof}
+Esto se deduce de que dado un conjunto $X$ conexo, contra un punto $\{y\}$, es siempre conexo, se generaliza a través de inducción. Con arcoconexos es simil.
+\end{proof}
+\end{prop}
+
+\section{Espacios métricos de funciones}
+\begin{teo}[Teorema de Dini]
+Sea $(X,d)$ un espacio métrico compacto. Y sea $(f_n)_{n\in  \N} \subseteq C(X,\R)$ una sucesión monotona puntual (i.e. $(f_n(x))_{n \in \N}$ es una sucesión monotona en $\R$) tal que converge puntualmente a $f \in C(X,\R)$ (i.e. $\forall x \in X, \; f_n(x)\rightarrow f(x) \in C(X,\R)$) entonces la sucesión converge uniformemente.
+\begin{proof}
+Si consideramos la sucesión $ g_n = f - f_n$, si $(f_n)$ es creciente o bien $g_n = f_n - f$, si $(f_n)$ es decreciente, asi podemos asegurar que $(g_n)$ es decreciente y converge puntualmente a $0$ y por lo tanto es positiva.\\
+Sea $\varepsilon > 0$, consideramos $E_n = g_n^{-1}((- \infty, \varepsilon))$, como $g_n$ es continua para todo $n$, $E_n$ resulta abierto, además, como $g_n$ converge puntualmente a 0, para cada $x\in X$, existe un $n$, tal que $x \in E_n$, por lo que $X = \displaystyle \bigcup_{n \in \N}
+ E_n$.
+ De esta manera los $(E_n)$ son un cubrimiento por abiertos. Como $(g_n)$ es decreciente, los $E_n$ están encajados. Usando la compacidad de $X$
+  existen $E_{n_1} \cup \ldots \cup E_{n_k} = X$, pero con $N = \max \{n_1, \ldots , n_k \}$, debido a que están encajados tenemos que $E_N = X$,
+   por lo que $ g_n(x) < \varepsilon \: \forall x \in X $, $\forall n \geq N$. Por lo que $(g_n)$ converge uniformemente a 0, y así $(f_n)$ uniformemente a $f$.
+\end{proof}
+\end{teo}
+
+\chapter{Espacios Normados}
+Una demostración un poco más detallada del siguiente teorema
+\begin{teo}[Caso particular del teorema de representación de Riesz]
+Si $p$ y $q$ son conjugados harmonicos ($ 1 < p,q < \infty $) entonces  $\l_p^* \simeq \l_q$ donde $\simeq$ significa que existe un isomorfismo lineal que además es isométrico con sus respectivas normas.
+\begin{proof}
+Consideremos la aplicación $\varphi$ dada por:
+\begin{align*}
+\l_q &\longrightarrow \l_p^* \\
+(x_n) &\longmapsto \left((y_n) \mapsto \sum_{n \in \N} x_n \cdot y_n\right)
+\end{align*}
+Veamos que está bien definida:
+$$ \left| \sum_{n \in \N} x_n \cdot y_n \right| \leq \sum_{n \in \N} |x_n| \cdot |y_n| $$
+Usando la desigualdad de Hölder:
+$$ \sum_{n \in \N} |x_n| \cdot |y_n| \leq \|x_n\|_p \cdot \|y_n\|_q$$
+Por lo que la serie siempre converge, ya que, por sus respectivos dominios, tanto $ \|x_n\|_p$ como $\|y_n\|_q$ son finitos.\\
+Esto también prueba que $\varphi$ es continua, además vemos fácilmente que es lineal. Veamos que es una isometría:
+$$ \|\varphi(x_n)\| = \sup_{\|y_n\|_p = 1} \left\lbrace \left| \sum_{n \in \N} x_n \cdot y_n \right|  \right\rbrace \leq \|x_n\|_q$$
+Si además consideramos:
+$$ y_n =
+\begin{cases}
+\dfrac{|x_n|^{q}}{x_n} &\si x_n \neq 0 \\
+0 &\si x_n=0 
+\end{cases}
+$$
+Vemos que :
+$$\left\|y_n\right\|_p = \left( \sum_{n \in \N} |y_n|^p \right)^{1/p} = \left( \sum_{n \in \N} \dfrac{|x_n|^{pq}}{|x_n|^p}\right)^{1/p} = \left( \sum_{n \in \N} |x_n|^{p(q-1)}\right)^{1/p}$$
+Y como $p+q = pq$:
+$$ = \left( \sum_{n \in \N} |x_n|^{pq-p}\right)^{1/p} = \left( \sum_{n \in \N} |x_n|^{q}\right)^{1/p} = \|x_n\|_q^{q/p}$$
+Por lo que $(y_n) \in \l^p$, aplicando $\varphi(x_n)$
+$$\varphi(x_n)\left(\dfrac{y_n}{\|y_n\|_p}\right) = \|x_n\|_q^{-q/p} \sum_{n\in\N} x_n \dfrac{|x_n|^q}{x_n} = \|x_n\|_q^{-q/p} \sum_{n\in\N} |x_n|^q = \|x_n\|_q^{-q/p} \|x_n\|_q^q$$
+Usando que $q-(q/p)= q \cdot (1-1/p)= q \cdot 1/q =1$
+$$\|x_n\|_q^{-q/p} \|x_n\|_q^q = \|x_n\|_q^{q-q/p} = \|x_n\|_q$$
+Asi terminamos de ver que $\|\varphi(x_n)\| = \|x_n\|_q$, por lo que $\varphi$ es una isometría y en particular es inyectiva.\\
+Sólo falta ver que es sobreyectiva.\\
+Sea $f \in \l_p^*$, consideremos la siguiente sucesión de sucesiones.
+$$ x_n^{(k)} =
+\begin{cases}
+f(e_n)^{q-1} \cdot sg(f(e_n)) &\si n \leq k \\
+0 &\si n > k
+\end{cases}
+$$
+Donde $(e_n)$ es la sucesión con todos ceros excepto en el lugar $n$, y $sg$ es la función signo $ sg(x) = |x|/x$ con $x \neq 0$ y $sg(0)=0$.\\
+Estas sucesiones pertenecen tanto a $\l^p$ como a $\l^q$ debido a que son de soporte finito.
+Asi podemos considerar $f(x_n^{(k)})$, y usando que $f$ es continua, tenemos que:
+\begin{align*}
+|f(x_n^{(k)}) |&\leq \|f\| \|(x_n^{(k)})\|_p \\
+&= \|f\| \left(\sum_{n = 1}^k |f(e_n)|^{pq-p}\right)^{1/p}\\
+&= \|f\| \left(\sum_{n = 1}^k |f(e_n)|^q\right)^{1/p} \\
+&= \|f\| \|x_n^{(k)}\|_q^{q/p}
+\end{align*}
+Ahora observando que podemos escibir esta sucesion como:
+$$f(x_n^{(k)})= f\left(\sum_{n=1}^k x_n^{(k)} \cdot e_n \right)= \sum_{n=1}^k |f(e_n)|^{q-1} \cdot sg(f(e_n)) f(e_n) = \sum_{n=1}^k |f(e_k)|^q$$
+Ahora, según la desigualdad de antes,
+$$ \sum_{n=1}^k |f(e_n)|^q \leq \|f\| \left( \sum_{n = 1}^k |f(e_k)|^q \right)^{1/p}$$
+Si pasamos dividiendo.
+$$ \left(\sum_{n=1}^k |f(e_n)|^q \right)^{1-1/p} = \left(\sum_{n=1}^k |f(e_n)|^q \right)^q \leq \|f\|$$
+Esto implica que las sumas parciales están acotadas, y como la suma es positiva, entonces converge. Por lo que la sucesión $(f(e_n)) \in \l^q$.\\
+Ahora si consideramos
+$$ \varphi(f(e_n))(e_n) = f(e_n) \quad \forall n \in \N$$
+Por lo que:
+$$ \varphi(f(e_n))|_{\langle \{ e_n : n \in \N \}\rangle}  = f |_{\langle \{ e_n : n \in \N \}\rangle}$$ 
+Pero como $\langle \{ e_n : n \in \N \}\rangle$ es denso en $\l^p$ y tanto $\varphi$ como $f$ son continuas, resulta que $\varphi(f(e_n))=f$, con lo que $\varphi$ es suryectiva.
+\end{proof}
+\end{teo}
+Un resultado acerca de series de funciones que tiene mucha utilidad.
+\begin{prop}[Criterio de Weierstrass]
+Sea $X$ un espacio métrico, $\bb{F}$ un espacio de Banach, y una familia de funciones $(f_n)_{n \in \N} : X \rightarrow \bb{F}$, tales que para todo $n \in \N$, existe $ M_n > 0$ tal que  $\|f_n(x)\| \leq M_n $, para todo $x \in X$. Si $\sum_{n=1}^{\infty} M_n$ converge, entonces:
+$$ \sum_{n=1}^{N} f_n \overrightarrow{\rightarrow} \displaystyle \sum_{n=1}^{\infty} f_n$$
+\begin{proof}
+$$\left\| \sum_{n=N+1}^{M} f_n \right\| < \sum_{n=N+1}^{M} \|f_n\| < \sum_{n=N+1}^{M} M_n$$
+Por lo que la serie es una sucesión de Cauchy y por lo tanto, como $F$ es de Banach, converge uniformemente.
+\end{proof}
+\end{prop}
+\begin{defi} Un espacio vectorial se dice espacio de Hilbert si es un espacio vectorial con producto interno y es completo con la norma inducida por el producto interno.
+\end{defi}
+\textbf{Observación:} En algunos textos, se habla de ''el'' espacio de Hilbert, este es un espacio de Hilbert con la definición de arriba, pero además es separable. Se lo llama el espacio de Hilbert, debido a un teorema que muestra que todos espacios de Hilbert separables son isomorfos (lineales), en particular, suele usarse el espacio $\ell^2$ como representante de todos. Acá solo usaremos la definición general.\\
+Demostramos ahora un resultado interesante para los espacios de Hilbert:
+\begin{lem}
+Sea $\bb{H}$, un espacio de Hilbert, $C \subseteq \bb{H}$ un subconjunto cerrado y convexo. Entonces existe un único punto de $C$ que es el más cercano al origen.
+\begin{proof}
+Llamemos a $r = \inf \{ \|x\| \,\vert\, x \in C\} $. Y sea $(x_n)_{n \in \bb{N}}$ una sucesión de puntos de $C$ tal que $\displaystyle \| x_n \| \overrightarrow{_{n \rightarrow \infty} } \, r$. Para mostrar que es una suceción de Cauchy usaremos la identidad del paralelogramo:
+$$ \| x_n - x_m \|^ 2 + \|x_n + x_m \|^2 = 2 (\|x_n\|^2 + \|x_m\|^2)$$
+Despejando:
+$$\|x_n - x_m\|^2 = 2 (\|x_n\|^2 + \|x_m\|^2) - 4\left\| \frac{x_n + x_m}{2} \right\|^2$$
+Como $\dfrac{x_n + x_m}{2}$ es el punto medio entre $x_n$ y $x_m$ que están en $C$, y éste es convexo, $\dfrac{x_n + x_m}{2}$ pertence a $C$, por lo que $\left\| \dfrac{x_n + x_m}{2} \right\| \geq r$. Entonces
+$$\|x_n - x_m\|^2 \leq 2 (\|x_n\|^2 + \|x_m\|^2) - 4r^2$$
+Cuando $n$ y $m$ tienden a infinito, el termino de la derecha tiende a 0, por lo que la sucesión es de Cauchy.\\
+Como $C$ es cerrado y $\bb{H}$ es completo, la sucesión converge a $x$ en $C$, que necesariamente su norma será $r$, por lo que es el punto más cercano al origen en $C$. Su unicidad se desprende usando la desigualdad anterior, si $y$ es otro que minimiza la norma:
+$$\|x - y\|^2 \leq 2 (\|x\|^2 + \|x\|^2) - 4r^2 = 2r^2+2r^2 - 4r^2 =0$$
+Por lo que son iguales.
+\end{proof}
+\end{lem}
+\begin{cor}
+Con las hipótesis del Lema anterior, dado un punto $c \in \bb{H}$, existe un único punto $x \in C$, tal que $\|x - c\|$ es mínimo.
+\begin{proof}
+Si consideramos $ c - C = \{ c - z \,\vert\, z \in C\}$, éste es covexo y cerrado porque $C$ lo es y aplicando el lema anterior, existe un único $z \in  c- C$ que minimiza la distancia a 0. Como $z = c- x$ (para un $x$), tenemos que $x$ minimiza la distancia a $c$.
+\end{proof}
+\end{cor}
+Ahora demostramos el teorema importante que le dá importancia a estos espacios.
+\begin{teo}[Proyección ortogonal para subespacios cerrados]
+Sea $\bb{H}$ un espacio de Hilbert y $S$ un subespacio (lineal) cerrado de $\bb{H}$. Entonces existe una función lineal continua
+$\pi_S: \bb{H} \rightarrow S$, que cumple que:
+\begin{itemize}
+\item $\| x - \pi_S(x)\|$ es mínimo.
+\item $ \langle x - \pi_S(x) , s \rangle = 0 \quad \forall s \in S$
+\item Existe una función lineal continua $\pi^{\perp}_S: \bb{H} \rightarrow \bb{H}$ tal que $\pi_S + \pi^{\perp}_S = Id$
+\end{itemize}
+\begin{proof}
+Como $S$ es un subespacio, es convexo, por lo que ya hemos probado que la aplicación que a cada punto de $\bb{H}$ le asigna el único en $S$ que minimiza la distancia existe y cumple con la primera propiedad.\\
+Como $\pi_S(x)$ minimiza la distancia a $x$, tenemos que para todo $s \in S$:
+$$\| x - \pi_S(x) \|^2 \leq \| x - \pi_S(x) + s \|^2 = \|x- \pi_S(x) \|^2 - 2 \Re(\langle x - \pi_S(x),s \rangle) + \|s\|^2 $$
+Donde $\Re$ es la parte real.\\
+Como esto vale para todo $s \in S$, considerando $s$ de norma 1 y $\alpha \in \bb{C}$
+$$\| x - \pi_S(x) \|^2 \leq \|x- \pi_S(x) \|^2 - 2 \Re(\alpha \langle x - \pi_S(x),s \rangle) + |\alpha|^2$$
+Si tomamos $\alpha$ como $\langle s , x - \pi_S(x) \rangle$:
+
+\begin{align*}
+\| x - \pi_S(x) \|^2 &\leq \|x- \pi_S(x) \|^2 - 2 |\langle s , x - \pi_S(x) \rangle|^2  + |\langle s , x - \pi_S(x) \rangle|^2 \\
+&= \| x - \pi_S(x) \|^2 - |\langle s , x - \pi_S(x) \rangle|^2
+\end{align*}
+Por lo que $ 0 \geq |\langle s , x - \pi_S(x) \rangle|^2$ y así $\langle s , x - \pi_S(x) \rangle = 0$, lo que prueba el segundo item\\
+\\
+Ahora consideremos $\pi^{\perp}_S = Id - \pi_S$. Claramente $\pi_S + \pi^{\perp}_S = Id$. Mostraremos la linealidad simultáneamente.
+Primero observemos que:
+$$ \langle \pi_S(x) , \pi^{\perp}_S(y) \rangle = \langle \pi_S(x), y - \pi_S(y) \rangle = 0$$
+Por lo que $\Ima(\pi_S) \perp \Ima(\pi^{\perp}_S)$.\\
+Entonces:
+\begin{align*}
+\pi_S(ax+y) + \pi^{\perp}_S(ax+y) &= ax+y  \\
+&= a (\pi_S(x)+\pi^{\perp}_S(y)) + \pi_S(y)+ \pi^{\perp}_S(y) \\
+&= a\pi_S(x)+\pi_S(y) + a\pi^{\perp}_S(x)+\pi^{\perp}_S(y)
+\end{align*}
+Reordenando:
+$$\pi_S(ax+y)-(a\pi_S(x)+\pi_S(y)) = \pi^{\perp}_S(ax+y) - (a\pi^{\perp}_S(x) + \pi^{\perp}_S(y))$$
+Pero el miembro izquierdo pertence a $\Ima(\pi_S)$ y el segundo a $\Ima(\pi^{\perp}_S)$, por lo que ambos deben ser 0 ya que son ortogonales. Asi queda mostrada la linealidad. \\
+Nos falta ver que son continuas, si observamos que:
+$$ \| x \|^2 = \|\pi_S(x) + \pi^{\perp}_S(x) \|^2 = \|\pi_S(x) \|^2 + \|\pi^{\perp}_S(x) \|^2$$
+Debido a la ortogonalidad pero entonces:
+\begin{align*}
+\| x \|^2 = \|\pi_S(x) \|^2 + \|\pi^{\perp}_S(x) \|^2 &\geq \|\pi_S(x) \|^2 \\
+\| x \|^2 = \|\pi_S(x) \|^2 + \|\pi^{\perp}_S(x) \|^2 &\geq \|\pi^{\perp}_S(x) \|^2
+\end{align*}
+Por lo que tanto $\pi_S$ como $\pi^{\perp}_S$ son lineales acotadas.
+
+\end{proof}
+\end{teo}
+\begin{cor}
+Si $\bb{H}$ es un espacio de Hilbert y $S$ es un subespacio cerrado de $\bb{H}$, entonces existe un único subespacio $S^{\perp}$ que es ortogonal a $S$ y que además: $$ \bb{H} = S \oplus S^{\perp}$$
+\begin{proof}
+Usando la notación de la demostración anterior, y vemos que $S = \Ima(\pi_S)$, tomando $ S^{\perp} = \Ima(\pi^{\perp}_S)$ sirve.\\
+La unicidad se sigue de la unicidad de $\pi_S$
+\end{proof}
+\end{cor}
+\textbf{Observación:} $\pi_S \circ \pi_S = \pi_S$. Esto se sigue de la condición de minimizar la distancia: para un punto en $S$, el que minimiza la distancia en $S$ es si mismo.\\[0.5cm]
+\textbf{Observación:} $S^{\perp} = \ker \pi_S$ es cerrado por ser núcleo de una función lineal continua.\\[0.5cm]
+\textbf{Observación:} Se puede mostrar (no lo haremos aquí) que toda función lineal continua $P$ tal que $ P \circ P = P$ es la proyección ortogonal de un subespacio cerrado. Estableciendo una biyección entre todas las proyecciones ortogonales y los subespacios cerrados de $\bb{H}$
+\chapter{Cálculo diferencial}
+\section{Teoremas de la función implicita e inversa}
+Demostraremos los teoremas de la función implícita e inversa.
+\begin{lem}
+Sean $\bb{E},\bb{F}$, espacios de Banach $B = B_{\alpha}(0) \subseteq \bb{E}$,  $B' = B_{\beta}(0) \subseteq \bb{F}$ y $T: B \times B' \rightarrow \bb{F}$ continua que satisface:
+\begin{enumerate}
+\item[i] Existe $0 \leq k < 1$ tal que $\| T(x,y_1) - T(x,y_2)\| \leq k \cdot \|y2-y1\|$\\$ \forall x \in B,\, y_1,y_2 \in B'$
+\item[ii] Existe $\beta' < \beta$ tal que $ \|v(x,0)\| < \beta' \cdot (1-k) \quad \forall x \in B$
+\end{enumerate}
+Entonces existe una única función continua $y: B \rightarrow B'$ tal que $y(x) = v(x,y(x))$
+\end{lem}
+\begin{proof}
+Consideremos la función dada por $K(f)(x) = T(x,f(x))$. y definimos también la sucesión de funciones en dada por:
+\begin{align*}
+y_0(x) &= 0 \\
+y_n(x) &= K(y_{n-1}) = T(x,y_{n-1}(x))
+\end{align*}
+observemos que, debido a la condicion $ii$, $y_1(x) \subseteq B'$, $\forall xin B$. Si también observamos que:
+\begin{align*}
+\| K(f)(x) - K(g)(x)\| &= \| v(x,f(x)) - v(x,g(x)) \| \\
+&= k \| f(x) - g(x) \|
+\end{align*}
+Por lo que como $k<1$ el operador $K$, es una contracción. Debido a esto último tenemos que:
+$$ \|y_n -y_{n-1}\| \leq k^{n-1} \|y_1-y_0\| = k^{n-1} \|y_1\| \leq \beta'$$
+por lo que la sucesión se correstringe bien, es decir que podemos considerar la sucesión en $C(B,\overline{B'})$, que es un espacio completo. Como $K$ es contractivo, usando la misma desmotración que para el Teorema del punto fijo de Banach, tenemos que $(y_n) \rightrightarrows y$, que cumple todas las condiciones.
+\end{proof}
+
+\textbf{ Observación} Si consideramos la funciones inclusión  $i_{\bb{E}}: \bb{E} \rightarrow \bb{E} \times \bb{F},i_{\bb{F}}:\bb{F} \rightarrow \bb{E} \times \bb{F}$, tenemos que la función 
+\begin{align*}
+\bb{E} \times \bb{F} &\longrightarrow \bb{E} \times \bb{F}\\
+(a,b) &\longmapsto i_{\bb{E}}(a)+i_{\bb{F}}(b) = (a,b)
+\end{align*}
+resulta ser la identidad, por lo que podemos escribir a una función $f: \bb{E} \times \bb{F} \rightarrow \bb{G}$:
+$$f = f \circ (i_{\bb{E}} +  i_{\bb{F}}) = f \circ i_{\bb{E}} + f \circ i_{\bb{F}}$$
+Si $f$ es diferenciable, usando regla de la cadena:
+$$Df_{(x_0,y_0)} = Df_{(x_0,y_0)} \circ i_{\bb{E}} + Df_{(x_0,y_0)} \circ i_{\bb{F}}$$
+Identificamos así a $Df_{(x_0,y_0)} \circ i_{\bb{E}}$ como $D_xf_{(x_0,y_0)}$ y a $Df_{(x_0,y_0)} \circ i_{\bb{F}}$ como $D_yf_{(x_0,y_0)}$, de esta manera, $D_xf_{(x_0,y_0)}: \bb{E} \rightarrow \bb{G}$ y $D_yf_{(x_0,y_0)}:\bb{F} \rightarrow \bb{G}$, esto es, escencialmente, calcular los diferenciales de $f(\cdot, y_0)$ y $f(x_0, \cdot)$ en $x_0$ y $y_0$ respectivamente.
+
+\begin{teo}[De la función implícita]
+Sean $\bb{E},\bb{F},\bb{G}$ espacios de Banach $f:A \subseteq \bb{E} \times \bb{F} \rightarrow \bb{G}$, con $A$ abierto. \\
+Si sucede que:
+\begin{itemize}
+\item $u_0 = (x_0,y_0)$  es tal que: $f(u_0)=0$
+\item $D_yf_z$ existe para todo $z$ y es un isomorfismo lineal continuo en $z=u_0$
+\item La función dada por:
+\begin{align*}
+\bb{E} \times \bb{F} &\longrightarrow \mathcal{L}(\bb{F},\bb{G}) \\
+u &\longmapsto D_yf_u
+\end{align*}
+es continua en $u_0$
+\end{itemize}
+Entonces existen entornos abiertos $U$ de $x_0$ y $V$ de $y_0$, y una única función continua $\varphi: U \rightarrow V$ tal que $f(x,\varphi(x))=0, \; \forall x \in U$. \\
+%Además si $f$ es diferenciable y de clase $C^k$  entonces $\varphi$ es de diferenciable y de clase $C^k$ y sucede que:
+%$$D\varphi_z = - (D_yf_{(z,\varphi(z))})^{-1} \circ D_xf_{(z,\varphi(z))}$$
+
+\begin{proof}
+Sin pérdida de generalidad podemos suponer que $u_0 = (0,0) = 0$.
+Consideremos la función $T(x,y) = y - (D_yf_0)^{-1} \circ f(x,y)$, observemos que dado un $x_0$, fijo en $A$, tenemos que
+\begin{align*}
+&\| T(x_0,y) - T(x_0,z)\| = \| (y - z) - (D_yf_0)^{-1} \circ (f(x_0,y)-f(x_0,z)) \| \\
+&\leq\|D_yf_0\| \cdot \left[ \| f(x_0, y ) - f(x_0,z) - D_yf_{x_0}(y-z) \| + \| D_yf_{x_0}(y-z) - D_yf_0(y-z) \| \right]\\
+&= \|D_yf_0\| \cdot \dfrac{\| f(x_0, y ) - f(x_0,z) - D_yf_{x_0}(y-z) \|}{\| y-z \|} \cdot \| y-z \| \\
+&+ \|D_yf_0\| \cdot \|D_yf_{x_0} - D_yf_0\| \cdot \| y-z\|\\
+\end{align*}
+Ahora podemos elegir $\beta>0$ de forma que 
+$$\|D_yf_0\| \cdot \dfrac{\| f(x_0, y ) - f(x_0,z) - D_yf_{x_0}(y-z) \|}{\| y-z \|} < 1/4$$
+para todo $y,z \in B_{\beta}^{\bb{F}}(0)$ que existe debido a que $f$ es diferenciable en esa coordenada.\\
+Como por hipótesis $D_yf$ es continua en 0, existe un $\alpha > 0$ tal que si $x_0 \in B_{\alpha}^{\bb{E}}(0)$, entonces $\|D_yf_0\| \cdot\| D_yf_{x_0} - D_yf_0 \| < 1/4$ y además que $\| T(x,0) \| = \| f(x,0) \| < \beta/2 = \beta (1-1/2)$, para todo $x \in B_{\alpha}^{\bb{E}}(0)$, que podemos debido a la continuidad de $f$ en ese punto.\\
+Así tenemos que:
+$$ \|T(x_0,y)-T(x_0,z)\| \leq \frac{1}{2} \| y -z \|$$
+Usando el lema anterior, tenemos que existe una única función $\varphi: B_{\alpha}^{\bb{E}}(0) \rightarrow B_{\beta}^{\bb{F}}(0)$ que cumple que:
+$$ \varphi(x) = T(x, \varphi(x)) = \varphi(x) - (D_yf_0)^{-1} \circ f(x,\varphi(x))$$
+Si pasamos restando y componemos con $D_yf_0$ a ambos lados, tenemos que $f(x,\varphi(x))=0$, que era lo que buscabamos.\\
+%Si $f$ es diferenciable, calculamos lo siguiente:\\
+%(Notamos $Df:= Df_{(x_0,\varphi(x_0))}$ , $D_yf:= D_yf_{(x_0,\varphi(x_0))}$ y $D_xf:=D_xf_{(x_0,\varphi(x_0))}$):
+%\begin{align*}
+%&\dfrac{\|\varphi(x) - \varphi(x_0) + (D_yf^{-1} \circ D_xf(x-x_0)\|}{\|x-x_0\|} \\
+%&=\|(D_yf)^{-1}\| \cdot \dfrac{\|D_yf(\varphi(x)-\varphi(x_0)) + D_xf(x - x_0)\|}{\| x - x_0\|}\\
+%&=\|(D_yf)^{-1}\| \cdot \dfrac{\|Df(x-x_0,\varphi(x)-\varphi(x_0))\|}{\|x-x_0\|}\\
+%\end{align*}
+%Como $f(x,\varphi(x))=0$ para todo $x$, podemos sumar y restar indistintamente en la igualdad de arriba y obtenemos que:
+%$$= \|(D_yf)^{-1}\| \cdot \dfrac{\|f(x,\varphi(x))-f(x_0,\varphi(x_0)) -Df(x-x_0,\varphi(x)-\varphi(x_0))\|}{\|x-x_0\|}$$
+%Entonces si multiplicamos y dividimos por $\|x-x_0, \varphi(x)-\varphi(x_0)\|$ tenemos (ignorando $\|(D_yf)^{-1}\|$, ya que está acotado ):
+%$$ \underbrace{\dfrac{\|f(x,\varphi(x))-f(x_0,\varphi(x_0))- Df(x-x_0,\varphi(x)-\varphi(x_0))\|}{\|x-x_0,\varphi(x)-\varphi(x_0)\|}}_{A} \cdot %\underbrace{\dfrac{\|x-x_0,\varphi(x)-\varphi(x_0)\|}{\|x-x_0\|}}_{B}$$
+%Como $f$ es diferenciable y $\varphi$ continua, el factor $A$ tiende a 0, solo falta ver que el factor $B$ está acotado.
+%$$\dfrac{\|x-x_0,\varphi(x)-\varphi(x_0)\|}{\|x-x_0\|} = \dfrac{\max\{\|x-x_0\|,\|\varphi(x)-\varphi(x_0)\|\}}{\|x-x_0\|}$$
+%$$ = \max \{ 1 ,\dfrac{\|\varphi(x) - \varphi(x_0)\|}{\|x-x_0\|}\} \leq \max \{ 1 ,\dfrac{\|(D_yf)^{-1}\| \cdot \|f(x,\varphi(x))-f(x_0,%\varphi(x_0))\|}{\|x-x_0\|}\} < \infty$$
+%Donde la ultima desigualdad vale ya que $f$ es diferenciable y $\varphi$ continua. Esto muestra que $\varphi$ es diferenciable.
+
+%Esto se puede ver también observando que como $f(x,\varphi(x))=0$ diferenciando en un punto y usando la regla de la cadena, tenemos que:
+%$$D(f(x,\varphi(x))_{x_0} = D( f \circ (i_{\bb{E}} + i_{\bb{F}} \circ \varphi) )_{x_0} = 0$$
+%$$ = Df_{(x_0,\varphi(x_0))} \circ i_{\bb{E}} + Df_{(x_0,\varphi(x_0))} \circ i_{\bb{F}} \circ D\varphi_{x_0} = 0$$
+%$$ = D_xf_{(x_0,\varphi(x_0))} + D_yf_{(x_0,\varphi(x_0))} \circ D\varphi_{x_0} = 0$$
+%Y despejando se obtiene lo deseado, pero, en este caso, estamos asumiendo que $\varphi$ es diferenciable.\\
+%Ahora observamos que de esta igualdad podemos deducir que si $f$ es de clase $C^k$, entonces $\varphi$ también lo es, ya que los diferenciales restrigidos serán de clase $C^{k-1}$ cada uno. Otro detalle (que no demostraremos aquí) es que si $f$ es entera, también lo es $\varphi$.
+\end{proof}
+\end{teo}
+\begin{teo}[De la función inversa]
+Sea $\bb{E}$ un espacio de Banach, $f:A \subseteq \bb{E} \rightarrow \bb{E}$ de clase $C^1$ $(k \geq 1)$ con $A$ abierto. Si existe un punto $x$ de $A$ donde $Df_x$ es inversible, entonces existe un entorno abierto de $x$ donde $f$ es biyectiva y y posee inversa.
+%Además, si $f$ es de clase $C^k$, entonces su inversa en ese entorno es de clase $C^k$ y vale que:
+%$$D(f^{-1})_{f(z)} = Df_z%
+\begin{proof}
+Aplicar el teorema de la función implícita a la función $F(x,y)= f(y) - x$
+\end{proof}
+\end{teo}
+\end{document} 

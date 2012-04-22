@@ -1,0 +1,40 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Espacios métricos separables}
+Dos resultados acerca de la cardinalidad de conjuntos separables.
+\begin{prop}
+Si $X$ es un espacio métrico separable entonces $\sharp X \leq \c$
+\begin{proof}
+Como $X$ es separable, significa que existe un conjunto $D \subseteq X$ tal que $ \overline{D} = X$ y que $\sharp D = \a0$, debido a que $D$ es denso significa que todo elemento en $X$ puede escribirse como sucesiones de $D$, por lo que existe una funcion inyectiva de $X$ a $D^{\N}$, lo que termina la demostración.
+\end{proof}
+\end{prop}
+\begin{prop}
+Si $X$ es separable y completo y además toda bola es infinita, entonces $\sharp X > \a0$
+\begin{proof}
+La demostración es bastante técnica y por eso la voy a obviar. Es fácil ver que $\sharp X > \a0$ debido a la completitud y usando que toda bola es infinita creando una sucesión de bolas cerradas encajadas, lo técnico es mostrar que el cardinal es exactamente $\c$. La idea intuitiva para esto, es que puede crearse una sucesión en ''binario'' de las bolas tomando una mitad de la primera y luego una mitad de la mitad y asi sucesivamente, creando una biyección entre $\{0,1\}^{\N}$ y $X$.
+\end{proof}
+\end{prop}
+
+
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

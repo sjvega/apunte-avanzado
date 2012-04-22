@@ -1,0 +1,181 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Relaciones, órdenes y funciones}
+Repasaremos los resultados de relaciones ya que serán necesarios para la sección siguiente, estableciendo resultados acerca del axioma de elección y sus equivalencias.
+
+\begin{defi} %Definición de relación
+Una relación de $A$ en $B$ es un subconjunto de $A \times B$
+\end{defi}
+
+\begin{defi} %Definición de función
+Una función de $A$ en $B$ es una relación $f$ de $A$ en $B$ que cumple que:
+$$ \forall a \in A \mbox{ , } \exists ! b \in B \mbox{ tal que } (a,b) \in f$$
+Es decir, $f$ es una función si todos los elementos de $A$ estan relacionados con un único elemento en $B$ vía $f$. Al conjunto $A$ se lo llama dominio de $f$ y al conjunto $B$ codominio de $f$. Notamos a una función $f$ de $A$ en $B$ como $f:A \rightarrow B$.
+\end{defi}
+
+\textbf{Notación:} Si el par $(a,b)$ pertenece a la función $f$, escribimos $f(a)=b$. En algunas oportunidades, por comodidad, utilizaremos el hecho de que una función es un conjunto de pares, pero en general no lo utilizaremos nunca.\\[0.5cm]
+Asociamos la idea de igualdad de funciones a que tienen exactamente los mismos pares que las forman:
+\begin{defi} Dadas dos funciones $f,g:A \rightarrow B$ decimos que $f = g$ si y sólo si $f(x) = g(x)$ para todo $x \in A$.
+\end{defi}
+El lector puede corroborar que esta idea es la misma que decir que $f=g$ como conjuntos de pares\\[0.5cm]
+Damos la notacion útil de restricción y corestricción que utilizaremos para funciones:\\
+\textbf{Notación:} Dada una función $f:A \rightarrow B$, y subconjuntos $C \subseteq A$ y $D \subseteq B$, cuando hacemos referencia a la función que vale lo mismo que $f$ pero con dominio $C$ escribimos $f \vert_C$ y la llamamos restricción de $f$ a $C$, esto podemos realizarlo para cualquier función y obviamente tenemos que $f \vert_C : C \rightarrow B$ y $f \vert_C (x) = f(x)$ para todo $x \in C$. De la misma manera podemos plantearnos la noción de correstricción donde la función correstringida es escencialmente igual que la función original pero con un codominio más chico, escribimos en este caso $f \vert^D$ y tenemos que $f \vert^D :A \rightarrow D$ y $f \vert^D(x) = f(x)$. Para que la correstricción esté bien definida, debe suceder que $f(x) \in D$ para todo $x$ en el dominio, de lo contrario no tendría sentido.\\
+Si queremos combinar las dos nociones escribimos $f \vert_C^D := f \vert_C \vert^D : C \rightarrow D$.\\[0.5cm]
+\textbf{Notación} A la función de un conjunto $X$ en si mismo que manda cada elemento en si mismo la llamamos función identidad, la notamos por $\Id_X : X \rightarrow X$ y $\Id_X(x)=x$. Cuando el conjunto $X$ en cuestión está claro del contexto notamos simplemente $\Id$.
+Definimos composición de funciones:
+\begin{defi} Dadas funciones $f:A \rightarrow B$ y $g: B \rightarrow C$, definimos la composición $g \circ f:A \rightarrow C$ como $g\circ f(x) = g(f(x))$
+\end{defi}
+\textbf{Notación:} A veces para definir una función $f:A \rightarrow B$ escribimos:
+\begin{align*}
+A &\overset{f}{\longrightarrow} B \\
+a &\longmapsto f(a)
+\end{align*}
+Donde ''$\mapsto$'' simboliza ''a través de $f$ va a parar en''. Si no requerimos darle un nombre a la función a veces no escribimos la ''$f$'' sobre la flecha superior.\\[0.5cm]
+Definimos ahora la imagen de una función.
+\begin{defi} Si $f: A \rightarrow B$ es una función definimos la imagen de $f$ como el conjunto
+$$ \Ima(f)=\{ f(x) \,\vert\, x \in A\} \subseteq B$$
+En general, dado un subconjunto $C\subseteq A$ definimos $f(C) = \{ f(x) \,\vert\, x \in C\}$, de esta manera $\Ima(f) = f(A)$.
+\end{defi}
+Análogamente definimos la preimagen de un conjunto
+\begin{defi}Si $f: A \rightarrow B$ es una función y $C \subset B$ definimos la preimagen de $C$ vía $f$ como el conjunto:
+$$ f^{-1}(C) = \{  x \in A \,\vert\, f(x) \in C\}$$
+\end{defi}
+\textbf{Notación:} Si queremos hacer referencia a todas las funciones de $A$ en $B$ escribimos:
+$$ B^A = \{ f \,\vert\, f:A \rightarrow B\}$$
+Damos ahora algunas definiciones acerca de propiedades de funciones:
+\begin{defi}
+Dada una función $f:A \rightarrow B$ decimos que:
+\begin{itemize}
+\item $f$ es inyectiva si sucede que $f(x) = f(y)$ si y sólo si $x = y$.
+\item $f$ es suryectiva (o a veces sobreyectiva) si dado un elemento $y \in B$, existe $x \in A$ tal que $f(x)=y$.
+\item $f$ es biyectiva si es inyectiva y sobreyectiva
+\end{itemize}
+\end{defi}
+\begin{ej} Dada una función $f:A \rightarrow B$ probar que
+\begin{itemize}
+\item $f$ es sobreyectiva si y sólo si $\Ima(f)=B$
+\item $f\vert^{\Ima(f)}$ es sobreyectiva.
+\item Si $Y\subseteq X$ la función, $i:Y \rightarrow X$ dada por $i(y)=y$ es inyectiva. Llamamos a esta función, la función inclusión de $Y$ en $X$.
+\item Si $f$ es biyectiva existe una única función $g$ tal que $g \circ f = \Id_A$ y $f \circ g = \Id_B$. Notamos a $g$ como $f^{-1}$. No confundir con la notación de preimagen, aunque, sugestivamente, cuando la función es biyectiva ambos conjuntos coinciden.
+\item Si $f$ es inyectiva, entonces existe una función $g:B \rightarrow A$ (no necesariamente única) tal que $g \circ f = Id_A$. Llamamos a esta $g$ la inversa a izquierda de $f$.
+\end{itemize} 
+\end{ej}
+Ahora que tenemos elementos teóricos acerca de funciones podemos dar la generalización de un producto cartesiano:
+\begin{defi} %Producto cartesiano general
+Dada una familia de conjuntos $ A_j : j \in J $ (no necesariamente finita) definimos el producto cartesiano como:
+$$ \prod_{j \in J} A_j = \lbrace f: J \rightarrow \bigcup_{j \in J} A_j \,\vert\, f(j) \in A_j \forall j\in J \} $$
+\end{defi}
+
+\textbf{Observación:} ¿Por qué definimos el caso finito e infinito de manera diferente? En primer lugar veamos que en el caso finito ambas definiciones son consistentes: Dados $A_1 , \ldots , A_k$ y su producto cartesiano como en la primera definición, tomando un elemento de la forma $(a_1, \ldots,a_k)$ podemos crear una función que cumpla con los requerimientos de la segunda definición donde $ J = \{1 , \ldots , k\}$ y $f(i)=a_i$, además es claro que de esta manera la función que toma estos valores es única; de manera recíproca, dada una función $g$ que cumpla la segunda definición, se representa como la upla $(g(1), \ldots , g(k))$, por lo que vemos que escencialmente ambas definiciones dan el mismo resultado.\\
+Ahora, la razón de porqué en el caso general se define de esta manera es debido a que en algunos casos dar una ''upla'' infinita no queda exactamente claro y es más engorroso de definir concretamente, esto se debe a cuestiones con la cardinalidad de la familia de conjuntos (que abordaremos en esa sección de este capítulo); usando la segunda definición, el producto queda definido de una manera concisa y clara y después se utiliza por lo general la notación en ''uplas infinitas'' para representar las funciones.\\Otra observación pertinente es que, a priori, en un producto cartesiano arbitrario (bajo la segunda definición), nadie nos garantiza que exista una función que cumpla esas propiedades; sabemos que en el caso finito existe (construyéndola por inducción) pero no lo sabemos en otros casos. \\[0.5cm]	
+Asociado al concepto de producto cartesiano, viene la idea de proyección, que es muy útil y de suma importancia ya que se puede demostrar (no lo haremos aquí) que caracteriza al producto cartesiano (en el sentido de que si hay otro conjunto, con un juego de funciones que actúan como proyecciones, entonces hay una única función biyectiva entre ese conjunto y el producto cartesiano, a esta propiedad se la llama Propiedad Universal del Producto Cartesiano).
+\begin{defi}
+Si $\{A_i \,\vert\, i \in I\}$ es una familia de conjuntos (finita o infinita) y $A = \prod_{i \in I} A_i$ es su producto cartesiano, llamamos a la proyección $i$-ésima a la función $\pi_i:A \rightarrow A_i$ dada por:
+$$ \pi_i(f) = f(i)$$
+Sino también considerando a los elementos de $A$ como uplas: 
+$$ \pi_i((x_i)_{i\in I}) = x_i$$
+\end{defi}
+
+Veamos algunas clasificaciones de propiedades de relaciones:
+\begin{defi} % Reflexividad, simetría, ...
+Dada una relación $\mathcal{R} \subseteq A \times A$, se dice que una relación es:
+\begin{enumerate}
+\item Reflexiva si para cualquier $a \in A$, siempre $(a,a) \in \mathcal{R}$.
+\item Simétrica si dado un par $(a,b)\in \mathcal{R}$ entonces también $(b,a) \in \mathcal{R}$
+\item Antisimétrica si dados los pares $(a,b),(b,a)\in \mathcal{R}$ resulta que $a = b$
+\item Transitiva si dados los pares $(a,b),(b,c) \in \mathcal{R}$, tenemos que $(a,c) \in \mathcal{R}$
+\end{enumerate}
+\end{defi}
+
+Ahora usaremos estas propiedades para dar ciertos tipos de relaciones que poseen propiedades útiles e importantes.
+
+\begin{defi}(Tipos de relaciones)
+Una relación $\mathcal{R} \subseteq A \times A$ se dice:
+\begin{itemize}
+\item De equivalencia si es reflexiva, simétrica y transitiva.
+\item Un preorden si es reflexiva y transitiva.
+\item Un orden si es un preorden y es antisimétrica.
+\end{itemize}
+\end{defi}
+
+No haremos mucho enfasis en el uso general de las relaciones, nos centraremos en el uso de las relaciones de orden que nos serán utiles para manipular la teoría detras de las equivalencias del Axioma de Elección en la sección siguiente y resultados acerca de cardinalidad. Por lo que, como no las expondremos aquí porque no las utilizaremos, vale aclarar que las relaciones de equivalencia poseen muchas propiedades interesantes como por ejemplo, la de caracterizar una partición del conjunto.
+
+\textbf{Notación:} Si $\mathcal{R}$ es una relación, en ciertas ocaciones escribimos $a \mathcal{R} b$ en vez de $(a,b) \in \mathcal{R}$.\\[0.5cm]
+Desde ahora, nos concentraremos en propiedades de conjuntos ordenados, que pasamos a definir.
+
+\begin{defi} %Def de poset
+Si $A$ es un conjunto con un orden $\leq$, denominamos al par $(A,\leq)$ como un poset (del inglés ''partially ordered set'').
+\end{defi}
+
+Algunos nombres útiles.
+
+\begin{defi} % Mínimo, máximo, etc
+Sea $(A,\leq)$ un poset. Dado $ X \subseteq A$ definimos:
+\begin{itemize}
+\item Un elemento $x \in X$ es máximo si para todo $y \in X $ sucede que $ y \leq x$.
+\item Un elemento $x \in X$ es mínimo si para todo $y \in X $ sucede que $ x \leq y$.
+\item Un elemento $x \in X$ es maximal si dado un $ y \in X $ tal que $ x \leq y$, entonces $ x = y$.
+\item Un elemento $x \in X$ es minimal si dado un $ y \in X $ tal que $ y \leq x$, entonces $ x = y$.
+\item Un elemento $a \in A$ es una cota superior de $X$ si $x \leq a$ , para todo $x \in X$.
+\item Un elemento $a \in A$ es una cota inferior de $X$ si $a \leq x$ , para todo $x \in X$.
+\end{itemize}
+\end{defi}
+
+\begin{defi} %Totalmente ordenado
+Un poset $(A,\leq)$ se dice totalmente ordenado si para todo $a,b \in A$ sucede que $a \leq b$ ó $b \leq a$.
+\end{defi}
+
+\begin{defi} %Cadena
+Una cadena de un poset $(A,\leq)$ es un subconjunto de $A$ que con el orden $\leq$ es totalmente ordenado.
+\end{defi}
+
+\begin{defi} %Bien ordenado
+Un poset $(A,\leq)$ es bien ordenado si para todo $B \in \mathcal{P}(A)$, suecede que $B$ posee mínimo (con el orden restringido).
+\end{defi}
+
+\textbf{Notación:} Generalmente notamos a una relacion de orden como $\leq$ o en algunas ocasiones como $\unlhd$. Cuando queremos decir que $x \leq y$ y además $x \neq y$, muchas veces escribimos $x < y$ o a veces $x \lneq y$, de la misma manera si queremos decir $x \unlhd y$ y $x \neq y$ escribimos $x \lhd y$.
+
+Una proposición importante:
+\begin{prop} % Bien ord implica totalmente ord
+Todo conjunto bien ordenado es totalmente ordenado.
+\begin{proof}
+Sea $(A,\leq)$ un conjunto bien ordenado, entonces o bien $A$ posee un único elemento (en el cual, es claro que es un conjunto totalmente ordenado) o tiene por lo menos dos elementos. Si es este el caso, sean $a,b \in A$. Entonces $\{ a,b \} \in \mathcal{P}(A)$, por lo que, como $A$ es bien ordenado, este conjunto posee mínimo, entonces debe suceder que $a \leq b$ o $b \leq a$.
+\end{proof}
+\end{prop}
+Algunos ejercicios sencillos:
+\begin{ej} Dado un poset $(X,\leq)$
+\begin{itemize}
+\item Todo subconjunto de una cadena es una cadena.
+\item Todo subconjunto de un conjunto bien ordenado está bien ordenado.
+\end{itemize}
+\end{ej}
+\textbf{ Ejemplos:} 
+\begin{itemize}
+\item El ejemplo canónico de conjunto bien ordenado es $ \mathbb{N}$ que puede demostrarse fácilmente usando inducción.
+\item Ejemplos de conjuntos totalmente ordenados: $\N$, $\Z$, $\Q$ ,$\R$.
+\item El conjunto de partes de un conjunto arbirtario, junto con la relación de inclusión es un conjunto ordenado, no total.
+\item Un conjunto totalmente ordenado no es necesariamente bien ordenado, mostrando que la reciproca de la proposición anterior es falsa: En $\R$ el conjunto $\{ x \in \R \,\vert\,  0 < x \} = (0;+\infty)$ no posee mínimo, ya que dado un número real positivo $x$, $\frac{x}{2}$ es menor estricto que $x$ y positivo. Sin embargo $\R$ posee conjuntos bien ordenados ($\N \subseteq \R$).
+\end{itemize}
+ 
+\ifx\isEmbedded\undefined
+\end{document}
+\else
+\fi

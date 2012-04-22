@@ -1,0 +1,245 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Topología de los espacios métricos}
+Los espacios métricos pueden ser vistos como casos especiales de espacios más generales llamados espacios topológicos que generalizan aún más la noción de función continua y se centran en un tipo de subconjuntos del espacio llamados abiertos, con las que se caracterizan las funciones continuas como veremos en esta sección. En el caso de los espacios métricos, uno desearía que la noción de continuidad de una función se asemeje de manera natural a la noción de continuidad en el caso de $\R^n$ que uno conoce y manipula, de esta manera, buscamos de dar una definición de conjunto abierto que refleje la misma noción de continuidad que buscamos en el caso de $\R^n$ y que se sea adaptable a la generalización de espacios topológicos.
+\begin{defi}
+Dado espacio métrico $X$, decimos que un conjunto $A \subseteq X$ es abierto si, para todo punto $x\in A$, existe $r>0$ tal que $B_r(x) \subseteq A$.
+\end{defi}
+\begin{ej} Probar que los siguientes enunciados:
+\begin{itemize}
+\item $\emptyset$ es abierto en cualquier espacio métrico $X$.
+\item Si $X$ es un espacio métrico, entonces $X$ es abierto.
+\item En $\R$ los intervalos de la forma $(a,b)$ donde $a$ o $b$ son finitos ó infinitos, son abiertos (con la métrica usual).
+\item En $\R^n$ los conjuntos $(a_1,b_1) \times \ldots \times (a_n,b_n)$, donde los extremos de los intervalos son finitos o infinitos, son abiertos (con cualquier métrica).
+\item En un espacio métrico $X$, un punto $x$ y $r>0$, $B_r(x)$ es abierto.
+\end{itemize}
+\end{ej}
+Continuamos demostrando algunas propiedades de los conjuntos abiertos:
+\begin{prop}
+Dado un espacio métrico $(X,d)$ tenemos:
+\begin{itemize}
+\item[1] Si $(U_i)_{i \in I}$ es una familia de conjuntos abiertos de $X$, entonces $\bigcup_{i \in I} U_i$ es abierto.
+\item[2] Si $U_1, \ldots, U_n$ son conjuntos abiertos de $X$, $\bigcap_{k = 1}^n U_k$ es abierto
+\end{itemize}
+\begin{proof}
+(1)Sea $x \in \bigcup_{i \in I} U_i$, entonces existe algún $i$ tal que $x \in U_i$, debido a que éste es abierto, existe $r >0$ tal que $B_r(x) \subseteq U_i \subseteq \bigcup_{i \in I} U_i$, por lo que $\bigcup_{i \in I} U_i$ es abierto.\\
+(2) Sea $x\in \bigcap_{k = 1}^n U_k$, entonces, como cada uno es abierto, existen $r_k >0$ tal que $B_{r_k}(x) \subseteq U_k$, ahora, tomando $r = \min \{r_k \sep 1 \leq k \leq n\}$, de esta manera $r>0$ y tenemos que $B_r(x)\subseteq U_k$ para todo $k$, por lo que $B_k(x) \subseteq \bigcap_{k = 1}^n U_k$, y por lo tanto éste es abierto.
+\end{proof}
+\end{prop}
+\textbf{Observación:} De la demostración se puede ver porque la intersección arbitraria de abiertos no resulta necesariamente un abierto, esto es, porque el ínfimo de un conjunto elementos positivos puede ser 0. Para dar un contraejemplo claro de porque esto no vale, consideremos en $\R$, $B_n = B_{\frac{1}{n}}(0) = (-1/n,1/n)$, es bastante claro que $\bigcap_{\inn{n}} B_n = \{0\}$ que el lector puede rápidamente verificar que no es abierto.\\[0.5cm]
+Damos un teorema que caracteriza los conjuntos abiertos en el caso de $\R$ como espacio métrico.
+\begin{teo}
+Dado un conjunto $A \subseteq \R$, $A$ es abierto si y sólo si existen únicos intervalos abiertos disjuntos $I_i$ tal que $\bigcup_{i \in \Lambda} I_i = A$, donde $\Lambda$ es contable.
+\begin{proof}
+($\Leftarrow$) Esto es claro, ya que los intervalos abiertos son abiertos y la unión de abiertos es un abierto.\\
+($\Rightarrow$) Consideremos para cada punto $x \in A$, el conjunto 
+$$U_x = \{(a,b) \sep x \in (a,b)\subseteq A \}$$
+Como $A$ es abierto, $U_x$ es no vacío. Si tomamos $I_x = \bigcup U_x$, este es un conjunto abierto no vacío y $I_x \subseteq A$. Consideremos $a_x = \inf I_x$ y $b_x = \sup I_x$, mostraremos que el intervalo $(a_x, b_x) = I_x$ (observemos que $a_x \neq b_x$, con lo que éste es un intervalo propio y no un punto). Como $a_x$ y $b_x$ son el ínfimo y el supremo respectivamente, la inclusión $I_x \subseteq (a_x,b_x)$ es clara. Consideremos $y \in (a_x,b_x)$, supongamos sin pérdida de generalidad que $x \leq y$, y consideramos para todo $\varepsilon >0$ el intevalo $(x-\varepsilon,y+\varepsilon)$. Si para todo $\varepsilon$ este intervalo no pertenece a $U_x$, significa que existe  $z \in [x,y]$, tal que $z \notin A$, por lo que además todo intervalo en $U_x$ no contiene a $z$ y por consiguiente nadie que sea mayor que él, pero esto implica que $\sup I_x \leq z \leq y < \sup I_x$, lo que es absurdo, entonces debe ser que $I_x = (a_x,b_x)$. De esta manera nos aseguramos que $I_x$ es el intervalo máximo contenido en $A$ que contiene a $x$.\\
+Ahora para dos $x,y \in A$ supongamos que $I_x \cap I_y$ es no vacío, y tomemos $z \in I_x \cap I_y$. Como $z\in I_x$ podemos tomar un intervalo $J_1 \subseteq A$ que contenga a $x$ y a $z$, pero también como $z \in I_y$, podemos considerar un intervalo $J_2 \subseteq A$ que contenga a $y$ y a $z$, así $J=J_1 \cup J_2$ es un intervalo que contiene a los puntos $x,y,z$ y está contenido en $A$, pero esto implica que $J \subseteq I_x,I_y$, por lo que $x \in I_y$ y $y \in I_x$, pero entonces por su correspondiente maximalidad $I_x = I_y$; esto nos dice que los intervalos  maximales $I_x$ son iguales o disjuntos para cada punto de $A$. Ahora consideremos la familia $(I_x)_{x \in A}$, debido a la observación anterior en esta familia existen muchos elementos repetidos, entonces por cada $I_x$ distinto, vía AC, elegimos algún $x_i$ contenido en él, De esta manera conseguimos elementos $(x_i)_{i \in \Lambda}$ tal que si $i \neq j$ entonces $I_{x_i} \cap I_{x_j} = \emptyset$ y además, como para todo $y \in A$ debe existir algún $I_{x_i}$ tal que $I_y = I_{x_i}$ $ A = \bigcup_{i \in \Lambda} I_{x_i}$.\\
+Veamos que es $\Lambda$ es contable. Por cada $x_i$ tenemos los correspondientes $a_{x_i}$ y $b_{x_i}$ distintos, entonces un racional $a_{x_i}< q_i < b_{x_i}$, además para cada $i$ este $q_i$ debe ser distinto, por lo que existe una función inyectiva de $\Lambda$ a $\Q$ ($ i \mapsto q_i$), de esta manera $\sharp \Lambda \leq \a0$.\\
+Veamos ahora la unicidad, supongamos que $A$ es unión de intervalos $\tilde{I_n}$, entonces para cada uno de ellos debe existir algún (en realidad existe un único) $I_k \subseteq \tilde{I_n}$, pero por maximalidad de los $I_k$ esto implica que son iguales, de manera que $\tilde{I_n}$ es sólo una reordenación de los $I_k$ originales.
+\end{proof}
+\end{teo}
+El hecho de que la unión de abiertos sea abierto, nos permite siempre dar el abierto más grande (en el sentido de la inclusión) que cumpla alguna propiedad. Usando esto definimos un concepto útil que es el interior de un conjunto.
+\begin{defi} Dado un espacio métrico $X$ y $A \subseteq X$, definimos el interior de $A$ como
+$$ A^\circ = \bigcup \{ U \subseteq A \sep A \mbox{ es abierto}\}$$
+\end{defi}
+Ahora damos algunas propiedades:
+\begin{prop}
+Dado $X$ un espacio métrico y $A \subseteq X$, tenemos que:
+\begin{itemize}
+\item[1] $A^\circ$ es abierto
+\item[2] $A^\circ \subseteq A$
+\item[3] $A$ es abierto si y sólo si $A = A^\circ$
+\item[4] $(A^\circ)^\circ = A^\circ$
+\item[5] Si $B \subseteq A$, entonces $B^\circ \subseteq A^\circ$
+\item[6] $\left(\bigcap_{k = 0}^n U_k\right)^\circ = \bigcap_{k = 0}^n U_k^\circ$
+\item[7] $\bigcup_{i \in I} U_i^\circ \subseteq \left(\bigcup_{i \in I} U_i\right)^\circ$
+\end{itemize}
+\begin{proof}
+(1) De la definición se sigue que es unión de abiertos, por lo que es abierto.\\
+(2) También de la definición es la unión de subconjuntos de $A$, por lo que está incluido en $A$.\\
+(3) Si $A$ es abierto entonces $A \in \{ U \subseteq A : A \mbox{ es abierto}\}$, por lo que $A \subseteq A^\circ$ y entonces $A = A^\circ$. Reciprocamente si $A=A^\circ$, este último siempre es abierto, por lo que $A$ también lo es.
+(4) De (3) se sigue de como $A^\circ$ es abierto $(A^\circ)^\circ = A^\circ$.\\
+(5) $B^\circ$ es un subconjunto abierto de $A$, por lo que $B^\circ \subseteq A^\circ$.\\
+(6) De acuerdo al item anterior tenemos que $\left(\bigcap_{k = 0}^n U_k\right)^\circ \supseteq \bigcap_{k = 0}^n U_k^\circ$, pero como $\left(\bigcap_{k = 0}^n U_k\right) \subseteq U_k$ para todo $k$, también $\left(\bigcap_{k = 0}^n U_k\right)^\circ \subseteq U_k^\circ$, por lo que $\left(\bigcap_{k = 0}^n U_k\right)^\circ \subseteq \bigcap_{k = 0}^n U_k^\circ$.\\
+(7) Como $U_i^\circ \subseteq U_i$, se tiene $\bigcup_{i \in I} U_i^\circ \subseteq \bigcup_{i \in I} U_i$, como el primer conjunto es abierto, debe ser que $\bigcup_{i \in I} U_i^\circ \subseteq \left(\bigcup_{i \in I} U_i\right)^\circ$.
+\end{proof}
+\end{prop}
+\textbf{Observación:} La inclusión en el último caso es por lo general estricta, incluso con finitas uniones, para dar un ejemplo, en $\R$ no es muy dificil mostrar que $\Q^\circ = (\R \setminus \Q)^\circ = \emptyset$, sin embargo $(\Q \cup \R \setminus \Q)^\circ = \R^\circ = \R$.
+\begin{defi} 
+Dado un espacio métrico $X$ y punto $x$, un entorno de $x$ es un conjunto $V$ tal que $x \in V^\circ$.\\
+El conjunto $V$ en cuestión no tiene por que ser abierto, pero puede tomarse abierto, por lo general cuando nos refiramos a un entorno de un punto lo asumiremos abierto.
+\end{defi}
+Sobre esta definición, damos un resultado útil, que refleja que la noción de entorno es efectivamente la intuitiva, es decir que lo rodea.
+\begin{prop}
+Dado un espacio métrico $X$, punto $x \in X$ y un entorno $V$ (no necesariamente abierto) de $x$, si existe una sucesion $(x_n)_\inn{n}$ que converge a $x$, entonces existe un $n_0 \in \N$ para el cual $x_n \in V$ para todo $n \geq n_0$
+\begin{proof}
+Como $V$ es un entorno de $x$ existe un $\varepsilon$ tal que $B_\varepsilon(x) \subseteq V$, ahora, como $x_n$ converge a $x$, entonces existe $n_0 \in \N$ tal que $d(x_n,x)< \varepsilon$ para todo $n \geq n_0$, por lo que $x_n \in B_\varepsilon(x) \subseteq V$, lo que concluye la demostración.
+\end{proof}
+\end{prop}
+De manera complementaria a los abiertos definimos los conjuntos cerrados que tienen caracteristicas opuestas.
+\begin{defi}
+Dado un espacio métrico $X$ y un conjunto $A$, decimos que $A$ es cerrado si $X \setminus A = A^c$ es abierto.
+\end{defi}
+\begin{ej} Probar que los siguientes enunciados:
+\begin{itemize}
+\item $\emptyset$ es cerrado en cualquier espacio métrico.
+\item Si $X$ es un espacio métrico, $X$ es cerrado.
+\item En $\R$ los intervalos de la forma $[a,b]$,$[a, +\infty)$,$(-\infty,b]$ con $a,b$ finitos, son cerrados.
+\item En $\R^n$ los productos de intervalos de la forma del item anterior son cerrados.
+\item Las bolas cerradas en cualquier espacio métrico son cerrados.
+\end{itemize}
+\end{ej}
+Como hicimos con los abiertos, damos las propiedades básicas de los cerrados.
+\begin{prop}
+Dado un espacio métrico $X$ tenemos:
+\begin{enumerate}
+\item Si $(C_i)_{i \in I}$ es una familia de conjuntos cerrados de $X$, entonces $\bigcap_{i \in I} C_i$ es cerrado.
+\item Si $C_1, \ldots, C_n$ son cerrados de $X$, entonces $\bigcup_{k = 1}^n C_k$ es cerrado.
+\end{enumerate}
+\begin{proof}
+(1) $$ \left(\bigcap_{i \in I} C_i\right)^c = \bigcup_{i \in I} C_i^c$$
+Como los $C_i^c$ son abiertos ya que los $C_i$ son cerrados, $\bigcup_{i \in I} C_i^c$ es abierto por ser unión de abiertos, entonces $\bigcap_{i \in I} C_i$ es cerrado por ser complemento de un abierto.\\
+(2) $$\left(\bigcup_{k = 1}^n C_k\right)^c = \bigcap_{k = 1}^n C_k^c$$
+Como los $C_i^n$ son abiertos, $\bigcap_{k = 1}^n C_k^c$ resulta abierto por ser intersección finita de abiertos, así, al igual que antes, $\bigcup_{k = 1}^n C_k$ es cerrado.
+\end{proof}
+\end{prop}
+\begin{ej} Dar un ejemplo de unión infinita de cerrados que no sea cerrada.\end{ej}
+Como en el caso de los conjuntos abiertos, pero de manera opuesta, el hecho de que la intersección de cerrados sea cerrada nos permite dar el conjunto cerrado más chico que cumpla alguna propiedad. Con esto en mente damos la siguiente definición:
+\begin{defi} Dado un espacio métrico $X$ y $A \subseteq X$, definimos la clausura (o a veces adherencia) de $A$ como:
+$$ \cl{A} = \bigcap \{ C \supseteq A \sep C \mbox{ es cerrado}\}$$
+\end{defi}
+Dejamos las propiedades de la clausura como ejercicio ya que son análogas al caso del interior:
+\begin{ej} Dado un espacio métrico $X$ y $A \subseteq X$ probar que:
+\begin{enumerate}
+\item $\cl{A}$ es cerrado.
+\item $A \subseteq \cl{A}$.
+\item $A$ es cerrado si y sólo si $A = \cl{A}$
+\item $\cl{\cl{A}} = \cl{A}$
+\item Si $B \subseteq A$, entonces $\cl{B} \subseteq \cl{A}$
+\item $\cl{ \left(\bigcup_{k = 0}^n C_i  \right)} = \bigcup_{k = 0}^n \cl{C_i}$
+\item $\cl{\left(\bigcap_\ini{i} C_i\right)} \subseteq \bigcap_\ini{i} \cl{C_i}$
+\end{enumerate}
+\end{ej}
+Daremos una caracterización más util de los cerrados, que reflejan otras propiedades en relación a la métrica, más que ser simplemente complemento de algún abierto.
+\begin{prop} Dado un espacio métrico $X$ y $A \subseteq X$ conjunto cerrado, son equivalentes:
+\begin{itemize}
+\item $x \in A$.
+\item Para todo $\varepsilon > 0$, $B_\varepsilon(x) \cap A \neq \emptyset$.
+\item $d(x,A)=0$
+\item Existe una sucesión $(x_n)_\inn{n}$ de elementos de $A$ que converge a $x$.
+\end{itemize}
+\begin{proof}
+(1 $\Rightarrow$ 2) Como $x \in A$ es trivial.\\
+(2 $\Rightarrow$ 3) Sea $\varepsilon >0$ entonces existe $z \in B_\varepsilon(x) \cap A$ (ya que por hipótesis no es vacío), pero entonces $d(x,A) \leq d(x,z) < \varepsilon$, como $\varepsilon$ es arbitrario $d(x,A) = 0$\\
+(3 $\Rightarrow$ 4) Como $d(x,A)=0$ entonces para todo $\inn{n}$, existe $x_n \in A$ tal que $d(x_n,x) < 1/n$, pero entonces $\lim_{n \to \infty} d(x_n,x) = 0$ por lo que $(x_n)_\inn{n}$ converge a $x$.\\
+(4 $\Rightarrow$ 1) Si $(x_n)_\inn{n}$ es la sucesión que converge a $x$ y $x \notin A$, resulta que $x \in A^c$ que, como $A$ es cerrado, resulta abierto, por lo que existe una bola $B_r(x) \subseteq A^c$, pero no existe ningún $x_n \in B_r(x)$ (de lo contrario $A \cap A^c \neq \emptyset$, que no puede suceder), pero de esta manera no puede ser que $x_n$ converga a $x$, nuevamente absurdo. Entonces debe ser que $x \in A$
+\end{proof}
+\end{prop}
+Esto desencadena varios corolarios útiles
+\begin{cor} Si $X$ es un espacio métrico y $A$ es un conjunto cerrado de $X$ si y sólo si vale que:
+$$ A = \{ x \in X \sep d(x,A)=0\}$$
+\begin{proof}
+($\Rightarrow$) Como vimos en el teorema anterior, $x \in A$ si y sólo si $d(x,A)=0$, por lo que los conjuntos son iguales.\\
+($\Leftarrow$) Tenemos que probar que $A^c = \{ x \in X \sep d(x,A)>0\}$ es abierto, pero si tomamos $x \in X$ tal que $d(x,A)=\delta > 0$, entonces si consideramos $B_{\delta/2}(x)$, tenemos que para todo $y \in B_{\delta/2}(x)$ y para todo $a \in A$:
+\begin{align*}
+\delta \leq d(x,a) \leq d(x,y) + d(a,y) &\leq \delta/2 + d(a,y)\\
+\delta - \delta/2 = \delta/2 &\leq d(a,y)
+\end{align*}
+Por lo que $d(y,A) \geq \delta/2 >0$ y entonces $y \in A^c$. Esto muestra que $B_{\delta/2}(x) \subseteq A^c$, lo que prueba que éste ultimo es abierto y por lo tanto $A$ es cerrado.
+\end{proof}
+\end{cor}
+\begin{cor}
+Si $X$ es un espacio métrico y $A$ es un conjunto cerrado de $X$ si y sólo si vale que:
+$$A = \{ x \in X \sep \exists (x_n)_\inn{n} \subseteq A \mbox{ tal que } x_n \rightarrow x\}$$
+\end{cor}
+\begin{cor} Si $X$ es un espacio métrico y $A \subseteq X$ los siguentes conjuntos son cerrados:
+\begin{itemize}
+\item $\{ x \in X \sep d(x,A)=0\}$
+\item $\{ x \in X \sep \exists (x_n)_\inn{n} \subseteq A \mbox{ tal que } x_n \rightarrow x\}$
+\end{itemize}
+\end{cor}
+\begin{cor}
+$$ \cl{A} = \{ x \in X \sep d(x,A)=0\} =\{ x \in X \sep \exists (x_n)_\inn{n} \subseteq A \mbox{ tal que } x_n \rightarrow x\} $$
+\begin{proof}
+La inclusión $\subseteq$ deduce de que ambos conjuntos son cerrados que contienen a $A$. La inclusión opuesta se deduce de que si $C$ es un cerrado que contiene a $A$ entonces:
+$$ \{ x \in X \sep d(x,A)=0\} \subseteq \{ x \in X \sep d(x,C)=0\} = C$$
+Y de la misma manera con el otro conjunto. Como están incluidos en todos los cerrados que contienen a $A$, están en su intersección y por lo tanto en $\cl{A}$
+\end{proof}
+\end{cor} 
+Estos corolarios nos aseguran de que la clausura de un conjunto $A$, son los elementos que están ''pegados'' a $A$, es más, esto caracteriza como son los cerrados en un espacio métrico, es decir, son aquellos conjuntos que contienen los que está pegados a ellos. \\
+Desde el punto de vista de los espacios métricos, debido a la noción de distancia, resulta tal vez mas intuitivo definir los cerrados primero como los conjuntos donde las sucesiones convergentes no se ''escapan'' del conjunto y luego definir los abiertos como su correspondiente complemento, pero esta es la manera más usual de introducirlos y esto se debe a la generalización en espacios topológicos.\\[0.5cm]
+Con los conjuntos interior y clausura podemos dar el conjunto de los elementos que están pegados a $A$ pero no están en $A$.
+\begin{defi} Dado un espacio métrico $X$ y un conjunto $A \subseteq X$ definimos la frontera de $A$ como:
+$$ \partial A = \cl{A} \setminus A^\circ$$
+\end{defi}
+\begin{ej} Dado un espacio métrico $X$ y $A \subseteq X$, probar los siguientes enunciados:
+\begin{itemize}
+\item $\cl{A} = A \cup \partial A$.
+\item $A^\circ = A \setminus \partial A$.
+\item $A$ es cerrado si y sólo si $\partial A \subseteq A$.
+\item $A$ es abierto si y solo si $A \cap \partial A = \emptyset$.
+\end{itemize}
+\end{ej}
+Daremos algunas definiciones que refieren a como es la estructura del espacio métrico en cuestión.
+\begin{defi} Dado $X$ un espacio métrico y $A$ un conjunto de $X$:
+\begin{itemize}
+\item Decimos que un punto $x \in A$ es aislado en $A$ si existe $r>0$ tal que $B_r(x) \cap A = \{x\}$.
+\item Dado un conjunto $A$, decimos que $x \in X$ es un punto de acumulación en $A$ si $B^*_r(x) \cap A \neq \emptyset$ para todo $r>0$.
+\item Notamos al conjunto de todos los puntos asislados de $A$ como $Aisl(A)$.
+\item Notamos al conjunto de todos los puntos de acumulación de $A$ (a veces también llamado conjunto derivado) como $A'$.
+\item Decimos que un conjunto es perfecto si $A' = A$.
+\item Decimos que $x \in X$ es un punto de condensación de $A$ si para todo $r>0$, $\sharp B_r(x) \cap A > \a0$. 
+\end{itemize}
+\end{defi}
+\begin{ej} Si $X$ es un espacio métrico probar que:
+\begin{itemize}
+\item $x \in Aisl(X)$ si y sólo si $\{x\}^\circ = \{x\}$.
+\item $x \in A'$ si y sólo si $x \notin Aisl(A)$.
+\item $A' = \emptyset$ si y sólo si $A$ es cerrado y $A = Aisl(A)$.
+\item $A$ es perfecto si y sólo si $A$ es cerrado y $Aisl(A)=\emptyset$.
+\item $x \in \cl{A} \setminus A$ si y sólo si $x \in A'$
+\item $\cl{A} = A \cup A'$
+\end{itemize}
+\end{ej}
+Ahora daremos en resultado que permite indicar exactamente cuales son los abiertos de un subespacio métrico (y por lo tanto también los cerrados).
+\begin{prop} Sea $X$ un espacio métrico e $Y$ un subespacio métrico entonces, $A$ es un conjunto abierto de $Y$ si y sólo si existe $\tilde{A}\subseteq X$ abierto de $X$ tal que $A = Y \cap \tilde{A}$
+\begin{proof}
+($\Rightarrow$)\\
+En primer lugar observemos que:
+$$B_r^Y(y) = B_r^X \cap X$$
+De esta manera, para cada $y \in A$, existe $r_y>0$ tal que $B_{r_y}^Y(y) \subseteq A$ entonces tenemos:
+$$ A = \bigcup_{y \in A} B_{r_y}^Y(y) = \bigcup_{y \in A} (B_{r_y}^X(y) \cap Y) = \left(\bigcup_{y \in A} B_{r_y}^X(y )\right) \cap Y$$
+Como $\bigcup_{y \in A} B_{r_y}^X(y) = \tilde{A}$ es abierto por ser unión de abiertos tenemos lo que buscabamos.\\
+($\Leftarrow$)\\
+Tomemos $y \in \tilde{A} \cap Y$ como $\tilde{A}$ es abierto, entonces existe $r>0$ tal que $B_r^X(y) \subseteq \tilde{A}$, entonces tenemos que $B_r^Y(y) = B_r^X \cap Y \subseteq \tilde{A} \cap Y$, por lo que $\tilde{A} \cap Y$ es abierto.
+\end{proof}
+\end{prop}
+\begin{cor} Sea $X$ un espacio métrico e $Y$ un subespacio métrico entonces, $A$ es un conjunto cerrado de $Y$ si y sólo si existe $\tilde{A}\subseteq X$ cerrado de $X$ tal que $A = Y \cap \tilde{A}$
+\end{cor}
+
+\ifx\isEmbedded\undefined
+
+
+\end{document}
+\else
+\fi

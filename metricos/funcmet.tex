@@ -1,0 +1,223 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+
+\section{Funciones entre espacios métricos}
+En esta sección comenzaremos el estudio de las funciones continuas. En el caso de los espacios topológicos éstas son las funciones que preservan las propiedades de los abiertos, pero en el caso de los espacios métricos nos interesarán más casos particulares de funciones continuas que preservan más propiedades de éstos y no sólo propiedades de los abiertos, como ser por ejemplo, propiedades de sucesiones convergentes. En esta sección nos limitaremos a introducir los conceptos detrás de este tipo de funciones y por eso no daremos muchos resultados, veremos otros a medida que introduzcamos nuevos conceptos:
+
+\begin{defi}
+Dados espacios métricos $X$ e $Y$ decimos que una función $f:X \rightarrow Y$ es continua en un punto $x_0 \in X$ si, para todo $\varepsilon > 0$, existe un $\delta > 0$ (que depende de $\varepsilon$ y del $x_0$ en cuestión) tal que para todo $y \in Y$ que cumpla que $d(x,y)<\delta$ entonces $d(f(y),f(x))<\varepsilon$. Para expresarlo lógicamente:
+$$ \forall \varepsilon>0, \exists \delta>0 \slash \forall y \in X,\, d(x,y)<\delta \Rightarrow d(f(x),f(y))<\varepsilon$$
+\end{defi}
+Procedemos a dar caracterizaciones equivalentes de continuidad en un punto.
+\begin{teo}
+Dados $X,Y$ espacios métricos y una función $f:X \rightarrow Y$, son equivalentes:
+\begin{enumerate}
+\item $f$ es continua en $x_0 \in X$
+\item Para todo $\varepsilon > 0$, existe $\delta>0$ (que depende de $\varepsilon$ y de $x_0$) tal que:
+$$ f\left( B_\delta(x_0) \right) \subseteq B_\varepsilon(f(x_0))$$
+\item Para cualquier abierto $V \subseteq Y$ que contenga a $f(x_0)$, existe un abierto $W \subseteq X$ tal que $f(W)\subseteq X$
+\item Si $U \subseteq Y$ es un entorno de $f(x_0)$ entonces $f^{-1}(U)$ es un entorno de $x_0$
+\item Si $(x_n)_\inn{n}$ es una sucesión que tiende a $x_0$ entonces $(f(x_n))_\inn{n}$ es una sucesión que tiende a $f(x_0)$
+\end{enumerate}
+\begin{proof}
+(1 $\Rightarrow$ 2)\\
+Si dado $\varepsilon$ tomamos el $\delta$ que surge de la definición de continuidad, tenemos que para $y \in B_\delta(x_0)$, $d(y,x_0)<\delta$ por lo que $d(f(y),f(x_0))<\varepsilon$ y así $f(y) \in B_\varepsilon(f(x_0))$. Entonces tenemos la inclusión deseada.\\
+(2 $\Rightarrow$ 3)\\
+Si $V$ es un abierto, entonces existe $\varepsilon >0$ tal que $B_\varepsilon(f(x_0)) \subseteq V$, entonces existe $B_\delta(x_0)\subseteq X$ tal que $f\left( B_\delta(x_0) \right) \subseteq B_\varepsilon(f(x_0)) \subseteq V$, sólo falta notar que $B_\delta(x_0)  = W$ es abierto, por lo que cumple la condición que buscamos.\\
+(3 $\Rightarrow$ 4)\\
+Si $U$ es un entorno de $f(x_0)$ entonces $U^\circ$ contiene a $f(x_0)$, entonces por hipótesis existe un abierto $V$ que contiene a $x_0$ (y que por lo tanto es un entorno de $x_0$) tal que $f(V)\subseteq U^\circ \subseteq U$, pero de esta manera $V \subseteq f^{-1}(U)$, por lo que $f^{-1}(U)$ es un entorno de $x_0$.\\
+(4 $\Rightarrow$ 5)\\
+Si consideramos $r>0$ arbitrario y $U=B_r(f(x_0))$ que es un entorno de $f(x_0)$, entonces $f^{-1}(U)$ es, por hipótesis un entorno de $x_0$, esto implica que debe existir algún $n_0 \in N$ tal que $x_n \in f^{-1}(U)$ para todo $n \geq n_0$, pero entonces $f(x_n) \in U$ para todo $n \geq n_0$, lo que dice que $d(f(x_n),f(x_0)) < r$. Como $r$ era arbitrario, concluimos que $f(x_n) \rightarrow f(x_0)$.\\
+(5 $\Rightarrow$ 1)\\
+Supongamos que $f$ no fuese continua en $x_0$ a pesar de que cumple la condición 5. Como no es continua en $x_0$, existe un $\varepsilon >0$, tal que para todo $n \in \N$ existe un $y_n \in X$ que cumple que $d(x_0,y_n)<1/n$ y $d(f(y_n),f(x_0))\geq \varepsilon$, entonces (vía AC), podemos considerar la sucesión $(y_n)_\inn{n}$. Por construcción $y_n \rightarrow x_0$, pero como $d(f(y_n),f(x_0))\geq \varepsilon$, no puede ser que $f(y_n) \rightarrow f(x_0)$, lo que contradice la hipótesis y por lo tanto $f$ debe ser continua en $x_0$.
+\end{proof}
+\end{teo}
+\begin{defi}
+Dados espacios métricos $X$ e $Y$ decimos que una función $f:X \rightarrow Y$ es continua en $U \subseteq X$, si es continua para todos los puntos de $U$. Si como $U$ tomamos todo el dominio $X$, decimos simplemente que $f$ es continua.
+\end{defi}
+El lector puede observar que esta definición de continuidad es la misma que suele darse para funciones de números reales, pero vemos que en las equivalencias puede establecerse la definición de continuidad usando sólo conjuntos abiertos, lo que nos permite generalizar a espacios toplógicos.\\
+Damos caracterizaciones equivalentes para que una función sea continua en todo su dominio:
+\begin{teo}Dados $X,Y$ espacios métricos y una función $f:X \rightarrow Y$, son equivalentes:
+\begin{enumerate}
+\item $f$ es continua.
+\item Dado $U$ abierto de $Y$, $f^{-1}(U)$ es abierto en $X$.
+\item Dado $C$ cerrado de $Y$, $f^{-1}(C)$ es cerrado en $X$.
+\item Para todo $B \subseteq X$, $f(\cl{B})\subseteq \cl{f(B)}$.
+\end{enumerate}
+\begin{proof}
+(1 $\Rightarrow$ 2)\\
+Dado un abierto $U$, todos sus puntos $x$ son interiores y $f$ es continua, $f^{-1}(U)$ posee entornos abiertos de todos sus puntos, por lo que es abierto.\\
+(2 $\Rightarrow$ 3)\\
+Si $C$ es cerrado, entonces $Y \setminus C$ es abierto, por lo que $f^{-1}(Y \setminus C )$ también lo es, pero:
+$$ f^{-1}(Y \setminus C) = X \setminus f^{-1}(C)$$
+Por lo que $f^{-1}(C)$ es cerrado.
+(3 $\Rightarrow$ 4)\\
+Es claro que $B \subseteq f^{-1} ( \cl{f(B)} )$, para todo $B$, pero $\cl{f(B)}$ es cerrado, por lo que $f^{-1} ( \cl{f(B)})$ también lo es, y de esta manera:
+$$\cl{B} \subseteq \cl{f^{-1} \left( \cl{f(B)} \right)} = f^{-1} \left( \cl{f(B)} \right)$$
+Y así $f(\cl{B}) \subseteq \cl{f(B)}$.\\
+(4 $\Rightarrow$ 1)\\
+Consideremos $x \in X$ y una sucesión $(x_n)_\inn{n}$ tal que $x_n \rightarrow x$, tomemos una subsucesión $(x_{n_k})_\inn{k}$ y el conjunto $A= \{x_{n_k}\sep k \in \N\}$, tenemos entonces que $x \in \cl{A}$, por lo que $f(x) \in \cl{f(A)}$, por lo que existe una subsubsucesión $f(x_{n_{k_j}}) \rightarrow f(x)$. Pero entonces toda subsucesión de $f(x_n)$ posee una subsubsucesión que converge a $f(x)$. Si llegara a ser que $f(x_n)$ no converge a $f(x)$, entonces existe $\varepsilon>0$ tal que para todo $n \in \N$, existe $n_k \in \N$ tal que $d(f(x_{n_k}),f(x)) \geq \varepsilon$, entonces (vía AC) nos construimos una subsucesión $f(x_{n_k})$ que está alejada $\varepsilon$ de $f(x)$, pero entonces esta no puede tener una subsubsucesión que converga a $f(x)$, que contradice lo que acabamos de probar, y por lo tanto $f$ es continua en $x$. Como $x$ era arbitrario, $f$ es continua en todo $X$.
+\end{proof}
+\end{teo}
+Como ejemplos de funciones continuas, los ejemplos clásicos de funciones de $\R^n$ a $\R$ sirven, como pueden ser los polinomios (en una o varias variables), la función exponencial, la función módulo, etc.
+Como observación importante dejamos el siguiente ejercicio:
+\begin{ej}
+Dado $X$ espacio métrico y $x \in X$ probar que la función $f:X \rightarrow \R$ dada por $f(y)=d(y,x)$ es continua para todo $x$.
+\end{ej}
+Damos una proposición que es muy útil:
+\begin{prop}
+Dados espacios métricos $X,Y,Z$ y funciones $f:X \rightarrow Y$, $g:Y \rightarrow Z$, si $f$ es continua en $x$ y $g$ es continua en $f(x)$ entonces $g \circ f$ es continua en $x$.
+\begin{proof} Dado un entorno $U$ de $g\circ f(x)$, entonces $g^{-1}(U)$ es un entorno de $f(x)$ por lo que $f^{-1}(g^{-1}(U))=(g \circ f)^{-1}(U)$ es un entorno de $x$, lo que prueba la continuidad en $x$.
+\end{proof}
+\end{prop}
+\begin{cor} La composición de funciones continuas resulta una función continua
+\end{cor}
+
+Hay casos especiales de funciones continuas que piden condiciones más fuertes sobre éstas, veremos algunas aquí y que luego veremos que son importantes para observar algunas de las propiedades que preservan, por ejemplo, ya vimos que las funciones continuas preservan las sucesiones convergentes y que el espacio métrico imagen ''hereda'' los abiertos del dominio (vía $f$) y más aun, estas condiciones indican que la función en cuestión debe ser continua.
+\begin{defi}
+Dados espacios métricos $X$ e $Y$ decimos que una función $f:X \rightarrow Y$ es uniformemente continua si, para todo $\varepsilon > 0$, existe un $\delta > 0$ (que depende de $\varepsilon$) tal que para todos $x,y \in Y$ que cumplan que $d(x,y)<\delta$ entonces $d(f(y),f(x))<\varepsilon$. Para expresarlo lógicamente:
+$$ \forall \varepsilon>0, \exists \delta>0 \slash \forall x,y \in X,\, d(x,y)<\delta \Rightarrow d(f(x),f(y))<\varepsilon$$
+\end{defi}
+Observemos que la diferencia entre una función continua y una función uniformemente continua es muy sutil, en este último caso pedimos que el $\delta$ elegido sirva \underline{simultaneamente} para $x$ y para $y$, en el caso que $f$ es simplemente continua, $\delta$ se construye a partir de $x$ y sirve para $y$. Dejamos entonces el siguiente ejercicio:
+\begin{ej} Probar que:
+\begin{itemize}
+\item Si $f$ es uniformemente continua, entonces es continua.
+\item $f:\R \rightarrow \R$ dada por$f(x)=x^2$ es continua pero no uniformente continua.
+\end{itemize}
+\end{ej}
+Considerando las funciones uniformemente continuas, podemos especificar más dar una clase de funciones más particulares aún:
+\begin{defi}
+Dados espacios métricos $X$ e $Y$ decimos que una función $f:X \rightarrow Y$ es Lipschitz si existe $L>0$ (a veces llamada constante de Lipschitz) tal que:
+$$ d(f(x),f(y)) \leq L d(x,y)$$
+\end{defi}
+Entonces tenemos el siguiente resultado:
+\begin{prop} Una función Lipschitz es uniformemente continua
+\begin{proof}
+Dado $\varepsilon>0$ tomando $\delta = \varepsilon/L$ resulta que si $d(x,y)< \delta$:
+$$ d(f(x),f(y)) \leq L d(x,y) < L \varepsilon/L= \varepsilon$$
+Por lo que cumple la condición de continuidad uniforme.
+\end{proof}
+\end{prop}
+Sin embargo dejamos como contrajemplo de la recíproca el siguiente ejercicio:
+\begin{ej}
+$f:[0;1] \rightarrow \R$ dada por $f(x)=\sqrt{x}$ es uniformemente continua pero no Lipschitz
+\end{ej}
+\begin{defi} Una función Lipschitz $f$ con constante de Lipschitz $L <1$ se dice que es una contracción.\\
+Si $L=1$ pero siempre vale que $d(f(x),f(y)) < d(x,y)$ se dice que es una contracción débil.
+\end{defi}
+Ahora definimos la última clase de funciones que utilizaremos:
+\begin{defi}
+Dados espacios métricos $X$ e $Y$ decimos que una función $f:X \rightarrow Y$ es una isometría si 
+$$ d(f(x),f(y)) = d(x,y)$$
+\end{defi}
+Claramente las isometrías son funciones Lipschitz, pero además tienen la particularidad de que son inyectivas.\\
+Ahora con estas clases de funciones podemos dar la siguiente definición:
+\begin{defi}
+Dados dos espacios métricos $X$ e $Y$ y una función $f:X \rightarrow Y$, decimos que:
+\begin{itemize}
+\item $X$ es homeomorfo a $Y$ si $f$ es biyectiva, continua y su función inversa también es continua. En cuyo caso decimos que $f$ es un homeomorfismo.
+\item $X$ es uniformemente homeomorfo a $Y$ si $f$ es biyectiva, uniformemente continua y su inversa es uniformente continua. En cuyo caso decimos que $f$ es un homeomorfismo uniforme.
+\item $X$ es isométrico a $Y$, si $f$ es biyectiva, una isometría y su inversa es una isometría.
+\end{itemize}
+\end{defi}
+Considerando la definición anterior, buscamos darle sentido a qué significa que dos espacios son homeomorfos, respectivamente uniformemente, isométricos. Muchas de estas preguntas las responderemos más adelante, pero dejamos el siguiente ejercicio que muestra una de las propiedades que caracterizan a  los homeomorfimos
+\begin{ej} Si $X$ e $Y$ son espacios métricos homemorfos, vía $f:X \rightarrow Y$ entonces, dado un abierto $U$ de $X$, $f(U)$ es abierto en $Y$. La recíproca (dado un abierto $V$ de $Y$, $f^{-1}(V)$ es abierto en $X$) también es cierta por continuidad.\\
+Observar que si en este ejercicio cambiamos ''abierto'' por ''cerrado'', sigue valiendo
+\end{ej}
+Observando esto damos la siguiente definición:
+\begin{defi} Dados espacios métricos $X$ e $Y$ y $f:X\rightarrow Y$ decimos que:
+\begin{itemize}
+\item $f$ es abierta, si $f(U)$ es abierto en $Y$ para todo $U$ abierto de $X$.
+\item $f$ es cerrada, si $f(C)$ es cerrado en $Y$ para todo $C$ cerrado en $X$.
+\end{itemize}
+\end{defi}
+Considerando el ejercicio anterior tenemos el siguiente teorema:
+\begin{teo} Dados $X$,$Y$ espacios métricos y una función biyectiva $f:X \rightarrow Y$, son equivalentes:
+\begin{enumerate}
+\item $f$ es un homeomorfismo.
+\item $f$ es abierta y continua.
+\item $f$ es cerrada y continua.
+\end{enumerate}
+\begin{proof}
+Es inmediato del hecho que $f$ es biyectiv, de la caracterización de las funciones continuas y del ejercicio anterior.
+\end{proof}
+\end{teo}
+Consideraremos ahora el conjunto de funciones de un espacio métrico que nos permitirá más adelante tener resultados interesantes:
+\begin{defi} Dado un conjunto $Z$ y un espacio métrico definimos el conjunto de funciones acotadas de $Z$ a $X$ como:
+$$ \mathrm{B}(Z;X) = \{ f \in X^Z \sep diam(\Ima(f)) < \infty \}$$
+\end{defi}
+El hecho interesante es que este conjunto, forma un espacio métrico.
+\begin{teo} Dado $Z$ un conjunto y $X$ un espacio métrico, $\mathrm{B}(Z;X)$ es un espacio métrico con la distancia dada por:
+$$ d_\infty(f,g) = \sup \{ d_X(f(z),g(z)) \sep z \in Z\}$$
+\begin{proof}
+Primero veamos que la distancia está bien definida:\\
+Observemos que tanto $f$ como $g$ tienen imagen acotada, entonces si tomamos un $z_0 \in Z$ arbitrario, tenemos que:
+\begin{align*}
+d_X(f(z),g(z)) &\leq d_X(f(z),f(z_0)) + d_X(f(z_0),g(z_0)) + d_X(g(z_0),g(z)) \\
+&\leq diam(\Ima(f)) + diam(\Ima(g)) + d(f(z_0),g(z_0))
+\end{align*} 
+Por lo que el conjunto $\{ d_X(f(z),g(z)) \sep z \in Z\}$ está acotado superiormente y por lo tanto tiene supremo, de esa manera $d_\infty$ está bien definida.\\
+Ahora tenemos que ver que cumple las propiedades de distancia. Es claro que $d_\infty(f,g) \geq 0$ y que es simétrica. Si $d_\infty(f,g)=0$, entonces $d_X(f(z),g(z))=0$ para todo $z$, entonces $f(z)=g(z)$, por lo que $f=g$. Veamos la desigualdad triangular, ya sabemos (debido a que $d_X$ es distancia) que $d_X(f(z),g(z)) \leq d_X(f(z),h(z)) + d_X(h(z),g(z))$, entonces como el supremo de la suma es igual que la suma de los supremos (al ser números positivos):
+\begin{align*}
+d_\infty(f,g) &\leq \sup_{z \in Z} \{d(f(z),h(z)) + d(h(z),g(z))\}\\
+&\leq \sup_{z \in Z} \{d_X(f(z),h(z))\} + \sup_{z \in Z} \{d_X(h(z),g(z))\}\\
+&\leq d_\infty(f,h) + d_\infty(h,g)
+\end{align*}
+Por lo que la desigualdad triangular vale y eso implica que $d_\infty$ es una distancia.
+\end{proof}
+\end{teo}
+Como $\mathrm{B}(Z;X)$ es un espacio métrico podemos definir el subespacio de aquellas que son continuas si $Z$ también fuese métrico:
+\begin{defi}
+Dados espacios métricos $X,Y$, definimos el espacio métrico de las funciones continuas y acotadas como:
+$$ \mathrm{C}(X;Y)=\{f \in \mathrm{B}(X;Y) \sep f \mbox{ es continua}\}$$
+Con la distancia heredada de $(\mathrm{B}(X,Y),d_\infty)$
+\end{defi}
+Damos las siguientes definiciones que refieren a como se comporta la métrica de estos espacios:
+\begin{defi}
+ Dada $(f_n)_\inn{n}$ una sucesión de funciones entre un conjunto $Z$ y un espacio métrico $X$, decimos que converge puntualmente a una función $f:Z \rightarrow X$ si, para cada $z \in Z$ sucede que $f_n(z) \rightarrow f(z)$
+\end{defi}
+\begin{defi} Dada $(f_n)_\inn{n}$ una sucesión de funciones entre un conjunto $Z$ y un espacio métrico $X$, decimos que converge uniformemente a una función $f:Z \rightarrow X$ si, para todo $\varepsilon >0$, existe un $n_0 \in \N$ tal que $ d(f(z),f_n(z)) < \varepsilon$ para todo $n \geq n_0$.
+\end{defi}
+Ahora dejamos como ejercicios los siguientes resultados:
+\begin{ej} Si $(f_n)_\inn{n}$ una sucesión de funciones entre un conjunto $Z$ y un espacio métrico $X$ converge uniformemente a $f:Z \rightarrow X$, entonces converge puntualmente. Mostrar un contraejemplo donde la reciproca no sea cierta.
+\end{ej}
+\begin{ej}
+Dados $Z$ un conjunto y $X$ un espacio métrico, si $(f_n)_\inn{n}$ es una sucesión de funciones en $\mathrm{B}(Z;X)$ entonces $f_n$ converge uniformente a $f \in \mathrm{B}(Z;X)$ si y sólo si converge con la distancia $d_\infty$.
+\end{ej}
+Este resultado nos dice que la distancia $d_\infty$ es exactamente la noción de convergencia uniforme.\\[0.5cm]
+Damos este último resultado que nos dice como se comportan las funciones continuas con respecto al límite uniforme.
+\begin{teo} Dados $X,Y$ un espacios métricos, si $(f_n)_\inn{n}$ es una sucesión de funciones en $\mathrm{C}(X;Y)$ que convergen a $f\in \mathrm{B}(X,Y)$ (con $d_\infty$), entonces $f \in \mathrm{C}(X;Y)$
+\begin{proof}
+Debemos demostrar que $f$ es continua. Tomemos $x \in X$ y $\varepsilon > 0$ por desigualdad triangular tenemos:
+$$d(f(x),f(y)) \leq d(f(x),f_n(x)) + d(f_n(x),f_n(y))+ d(f_n(y),f(y))$$
+Ahora como $f_n$ converge a $f$ entonces existe un $n \in \N$ tal que $d(f_n(x),f(x)) \leq \varepsilon/3$ para todo $x \in X$, además para esa $f_n$, como es continua (por hipótesis), existe un $\delta>0$  tal que si $d(x,y)<\delta$ entonces $d(f_n(x),f_n(y))<\varepsilon/3$, entonces con ese delta:
+$$d(f(x),f(y)) \leq d(f(x),f_n(x)) + d(f_n(x),f_n(y))+ d(f_n(y),f(y))< 3 \varepsilon/3 = \varepsilon$$
+Por lo que $f$ es continua.
+\end{proof}
+\end{teo}
+\begin{cor}
+$\mathrm{C}(X;Y)$ es cerrado en $\mathrm{B}(X,Y)$
+\end{cor}
+
+\ifx\isEmbedded\undefined
+
+\end{document}
+\else
+\fi
