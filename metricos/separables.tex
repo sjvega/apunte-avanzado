@@ -17,23 +17,58 @@
 \begin{document}
 \else
 \fi
-
 \section{Espacios métricos separables}
-Dos resultados acerca de la cardinalidad de conjuntos separables.
+En esta sección veremos los espacios métricos separables, escencialmente, la separabilidad pone una restricción en que tan ''grande'' es el espacio métrico, no sólo en cardinalidad, sino también en su estructura.\\
+Empezamos definiendo que es un conjunto denso:
+\begin{defi}
+Dado un espacio métrico $X$, y subconjuntos $D$ y $U$, decimos que $D$ es denso en $U$ si $\cl{D} \supseteq U$. Si tomamos a $U$ como $X$, tenemos que $X = \cl{D}$ y decimos simplemente que $D$ es denso.
+\end{defi}
+Ahora definimos separable:
+\begin{defi}
+Dado un espacio métrico separable $X$, decimos que es separable si existe un conjunto denso $D$ que además es contable.
+\end{defi}
+Los ejemplos obvios de espacios separables son $\R^n$ para todo $n$ natural, con $\Q^n$ como conjuntos densos.\\[0.5cm]
+Ahora mostramos, como decíamos este resultado acerca de la cardinalidad de conjuntos separables.
 \begin{prop}
 Si $X$ es un espacio métrico separable entonces $\sharp X \leq \c$
 \begin{proof}
-Como $X$ es separable, significa que existe un conjunto $D \subseteq X$ tal que $ \overline{D} = X$ y que $\sharp D = \a0$, debido a que $D$ es denso significa que todo elemento en $X$ puede escribirse como sucesiones de $D$, por lo que existe una funcion inyectiva de $X$ a $D^{\N}$, lo que termina la demostración.
+Como $X$ es separable, significa que existe un conjunto $D \subseteq X$ tal que $ \cl{D} = X$ y que $\sharp D \leq \a0$, debido a que $D$ es denso significa que todo elemento en $X$ puede escribirse como sucesiones de $D$, por lo que existe una funcion inyectiva de $X$ a $D^{\N}$, lo que termina la demostración.
 \end{proof}
 \end{prop}
-\begin{prop}
-Si $X$ es separable y completo y además toda bola es infinita, entonces $\sharp X > \a0$
+Como contraejemplo de que en el resultado anterior no vale la recíproca, cualquier conjunto con cardinalidad $\c$ y la métrica discreta resultará no separable.\\[0.5cm]
+Veremos a continuación que la condición que un espacio sea separable no sólo restringe su cardinalidad, sino también la cantidad de abiertos que puede poseer y otras características en de éstos. Damos ahora algunas definiciones que luego vincularemos en un teorema.
+\begin{defi}
+Dado un espacio métrico $X$, una familia $\mathcal{B} = \{U_i\}_{i \in I}$ es una base de abiertos, si todos los elementos de la familia son subconjuntos abiertos de $X$ y además, dado un abierto $W$ de $X$, existe un subconjunto $J \subseteq I$ tal que $ W = \bigcup_{i \in J} U_i$.
+\end{defi}
+Por ejemplo en cualquier espacio métrico $X$, el conjunto $\mathcal{B} = \{ B_r(x)\sep x\in X, r \in \R\}$ forma una base, incluso $\mathcal{B} = \{ B_{\frac{1}{n}}(x) \sep x\in X,  n \in \N \}$, de cardinalidad aparentemente menor, también es base de abiertos.
+\begin{defi}
+Dado un espacio métrico $X$ y un conjunto $A \subseteq X$, una familia $\{W_j\}_{j \in J}$ es un cubrimiento de $A$ si $ \bigcup_{j \in J} W_j \supseteq A$.\\
+Decimos que el cubrimiento es abierto (respectivamente cerrado) si todos los elementos de la familia lo son.\\
+Un subcubrimiento es un subconjunto $I \subseteq J$ tal que la familia $\{W_j\}_{j \in I}$ sigue siendo un cubrimiento.
+\end{defi}
+\begin{defi}[Propiedad de Lindelöff]
+Decimos que un espacio métrico $X$ cumple la propiedad de Lindelöff si para todo todo cubrimiento por abiertos de $X$, existe un subcubimiento contable.
+\end{defi}
+Ahora damos el teorema que vincula estas definiciones:
+\begin{teo}
+Dado un espacio métrico $X$, son equivalentes:
+\begin{enumerate}
+\item $X$ es separable.
+\item Existe una base de abiertos de $X$ que es contable.
+\item $X$ tiene la propiedad de Lindelöff.
+\end{enumerate}
 \begin{proof}
-La demostración es bastante técnica y por eso la voy a obviar. Es fácil ver que $\sharp X > \a0$ debido a la completitud y usando que toda bola es infinita creando una sucesión de bolas cerradas encajadas, lo técnico es mostrar que el cardinal es exactamente $\c$. La idea intuitiva para esto, es que puede crearse una sucesión en ''binario'' de las bolas tomando una mitad de la primera y luego una mitad de la mitad y asi sucesivamente, creando una biyección entre $\{0,1\}^{\N}$ y $X$.
+(1 $\Rightarrow$ 2) Si tenemos un conjunto $D$ contable y denso en $X$, entonces el afirmamos que el conjunto $ \mathcal{B} = \{ B_{\frac{1}{n}}(x) \sep n \in \N, x \in D\}$ es una base de abiertos contable. Es contable por la clara biyección entre $\mathcal{B}$ y $\N \times D$. Mostremos ahora que es una base. Si mostramos que puede generar todas las bolas abiertas, automáticamente resulta base, ya que todas las bolas abiertas son base. Ahora tomemos un punto $z \in X$ y consideremos para algún $r >0$, $B_r(z)$, si tomamos $y \in B_r(z)$ y $m_y \in \N$ tal que $B_{\frac{2}{m_y}}(y) \subseteq B_r(z)$, debido a que $D$ es denso, existe algún $x_y \in D$ tal que $x_y \in B_{\frac{1}{m_y}}(y)$, ahora podemos asegurar que $ y \in B_{\frac{1}{m_y}}(x_y) \subseteq B_{\frac{2}{m_y}}(y) \subseteq B_r(z)$, entonces  resulta claro que 
+$$ B_r(z) = \bigcup_{y \in B_r(z)} B_{\frac{1}{m_y}}(x_y)$$
+Y los uniendos son elementos de $\mathcal{B}$, por lo que ésta familia genera las bolas abiertas y por lo tanto genera todos los abiertos de $X$.\\
+(2 $\Rightarrow$ 3) Si tenemos una base de abiertos $\mathcal{B}=\{U_n\}_\inn{n}$ y un cubrimiento por abiertos de $X$, $\{V_i\}_{i \in I}$, consideremos el subconjunto $\{U_{n_k}\}_\inn{k} \subseteq \mathcal{B}$, tal que para cada $U_{n_k}$ existe al menos un $i \in I$ tal que $U_{n_k} \subseteq V_i$, hagamos una elección de estos y llamemos para cada $n_k$, $i_k$ aquél que cumple esta condición. Ahora tenemos que:
+$$ \bigcup_{k \in \N} V_{i_k} \subseteq \bigcup_\inn{k} U_{n_k}$$
+Debido a que uno está incluído en el otro pero $\mathcal{B}$ es una base de abiertos, tenemos que para todo $j \in I$, $V_j = \bigcup\{U \in \mathcal{B} \sep U \subseteq V_j\} \subseteq \bigcup_\inn{k} U_{n_k}$, por lo que uniendo todo:
+$$ X = \bigcup_{i \in I} V_i \subseteq \bigcup_\inn{k} U_{n_k}$$
+Lo que muestra que la familia $V_{i_k}$ cubre a $X$, lo que muestra que es un subcubrimiento y además es contable.\\
+(3 $\Rightarrow$ 1) Si para cada $n \in \N$ consideramos el conjunto de abiertos $\mathcal{B}_n = \{ B_{\frac{1}{n}}(x) \sep x \in X\}$, como éste cubre todo $X$, debido a la propiedad de Lindelöff, tenemos un subcubrimiento finito $\tilde{\mathcal{B}}_n = \{ B_{\frac{1}{n}}(x^{(n)}_k) \sep \inn{k}\}$. Afirmamos que el conjunto $D=\{x^{(n)}_k \sep \inn{k},\inn{n}\}$ es denso, además de ser claramente contable. Sea $\varepsilon >0$ y $y \in X$, podemos tomar $n \in \N$ tal que $1/n < \varepsilon$ y por lo tanto tenemos que $\{ B_{\frac{1}{n}}(x^{(n)}_k) \sep \inn{k}\}$ cubre $X$, así debe existir $k \in \N$ tal que $y \in B_{1/n}(x^{(n)}_k)$ entonces $d(x^{(n)}_k,y)<1/n < \varepsilon$. Por lo tanto $D$ es denso.
 \end{proof}
-\end{prop}
-
-
+\end{teo}
 \ifx\isEmbedded\undefined
 \end{document}
 \else
