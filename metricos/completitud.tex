@@ -1,0 +1,143 @@
+\ifx\isEmbedded\undefined
+
+\documentclass[12pt,a4paper]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\linespread{1}	% double spaces lines
+
+\input{../definitions}
+
+\begin{document}
+\else
+\fi
+\section{Completitud}
+En esta sección definiremos los conceptos de completitud y daremos algunos teoremas interesantes al respecto de esta noción, pero antes requerimos de una definición y algunos resultados.
+\begin{defi}
+Dado un espacio métrico $X$, y una sucesión de puntos $(x_n)_\inn{n}$ en $X$, decimos que ésta es una sucesión de Cauchy si para todo $\varepsilon>0$, existe un $n_0 \in \inn{n}$, tal que para todo $n,m \geq n_0$, $d(x_n,x_m)<\varepsilon$. Es decir:
+$$ \forall \varepsilon > 0, \exists n_0 \in \N \slash \forall n,m \geq n_0 \Rightarrow d(x_n,x_m) < \varepsilon $$
+\end{defi}
+Observemos que esta condición acerca de una sucesión no habla acerca del límite de ésta, pero tenemos el siguiente resultado:
+\begin{prop}
+Si $X$ es un espacio métrico y $(x_n)_\inn{n}$ es una sucesión convergente de $X$, entonces es de Cauchy.
+\begin{proof}
+Sea $\varepsilon>0$, como $(x_n)$ tiene límite, llamemoslo $x$, existe un $n_0 \in \N$ tal que, $d(x_n,x)< \varepsilon/2$. Entonces si $n,m \geq n_0$:
+$$ d(x_n,x_m) \leq d(x_n,x) + d(x_m,x) < \varepsilon/2 + \varepsilon/2 = \varepsilon$$
+Como $\varepsilon$ es arbitrario, resulta que $(x_n)$ es de Cauchy.
+\end{proof}
+\end{prop}
+También tenemos el siguiente resultado:
+\begin{prop}
+Si $X$ es un espacio métrico y $(x_n)_\inn{n}$ es una sucesión de Cauchy de $X$, entonces es acotada.
+\begin{proof}
+Si tomamos como $\varepsilon = 1$ entonces existe un $n_0 \in \N$ tal que para todo $n,m \geq n_0$, $d(x_n,x_m)< 1$ entonces en particular $x_m \in B_1(x_{n_0})$, tomando $r = \max_{1 \leq m \leq n_0} \{ d(x_m,x_{n_0}) , 1 \}$, tenemos que toda la sucesión está incluida en $B_r(x_{n_0})$ y por lo tanto está acotada.
+\end{proof}
+\end{prop}
+La condición de que una sucesión sea de Cauchy nos dice que los elementos de la sucesión se van acercando arbitrariamente, pero esto no es condición suficiente para que ésta converga. Como contraejemplo sencillo, consideremos $(0,1)$ como espacio métrico con la distancia usual de $\R$, si tomamos una sucesión que converga a 1, incluida en $(0,1)$ esta será de Cauchy, pero no esta precisamente no convergerá en $(0,1)$. Como contraejemplo un poco más elaborado, si consideramos $\Q$ con la distancia restringida de $\R$ tomando una sucesión de números racionales que aproximan a algún irracional (como puede ser $\sqrt{2}$) esta convergerá en $\R$, pero no en $\Q$. Sin embargo vemos que en ambos ejemplos, hemos tomado sucesiones covergentes de $\R$, esto sucede porque es $\R$ es un espacio métrico completo (con la métrica usual):
+\begin{defi}
+Dado un espacio métrico $X$, decimos que es completo si toda sucesión de Cauchy de $X$ converge en $X$.
+\end{defi}
+La demostración que $\R$ es completo puede deducirse de su construcción (ya sea axiomática o a través de las cortaduras de Dedekind o sino de la mismísima construcción de Cauchy como límites de sucesiones racionales).\\[0.5cm]
+Veamos ahora una condición equivalente a que un espacio métrico sea completo:
+\begin{teo}
+Sea $X$ un espacio métrico, son equivalentes:
+\begin{enumerate}
+\item $X$ es completo.
+\item Para toda sucesión de conjuntos cerrados $(C_n)_\inn{n}$ de $X$, tales que $\displaystyle \lim_{n \to \infty} diam(C_n)=0$ y $C_{n+1} \subseteq C_n$, se tiene que existe un único $x \in X$ tal que  $x \in \bigcap_\inn{n} C_n$.
+\item Para toda sucesión de bolas cerradas $(B_n)_\inn{n}$ de $X$ tales que sus radios tienden a 0 y $B_{n+1} \subseteq B_n$, existe un único $x \in X$ tal que $x \in \bigcap_\inn{n} B_n$.
+\end{enumerate}
+\begin{proof}
+(1 $\Rightarrow$ 2) Para cada $\inn{n}$ tomemos un $x_n \in C_n$ (vía AC). Queremos ver que es de Cauchy.
+Sea $\varepsilon >0$, entonces existe un $n_0 \in \N$ tal que $diam(C_n)<\varepsilon$ si $n \geq n_0$, entonces para $n,m \geq n_0$, tenemos que $d(x_n,x_m)< \varepsilon$, entonces la sucesión converge a algún punto $x$. Como todos los  $C_n$ son cerrados y la sucesión está incluida en todos los $C_n$ a partir de algún momento, $x$ pertenece a todos los $C_n$, entonces $x \in \bigcap_\inn{n} C_n$. Ahora supongamos que existen $x,y$ en la intersección, entonces como pertenecen a todos los $C_n$, tenemos que $d(x,y)\leq diam(C_n)$, pero entonces $d(x,y) \leq \inf_{\inn{n}} diam(C_n) = 0$ lo que implica que $x=y$.\\
+(2 $\Rightarrow$ 3) Es inmediato ya que es un caso particular del punto anterior.\\
+(3 $\Rightarrow$ 1) Consideremos una sucesión de Cauchy $(x_n)_\inn{n}$, entonces, para cada $n \in \N$, existe un $m_n \in \N$ tal que $x_k \in \cl{B}_{1/2^n}(x_{m_n})=B_n$ para todo $k \geq m_n$. Entonces la sucesión $B_n$ de bolas cerradas, están encajadas y cumplen los requisitos de la hipótesis, por lo que existe un único elemento $x$ en la intersección de todas. Ahora, por construcción, para todo $\varepsilon >0$, tomando la bola $B_{n_0}$ con radio menor que $\varepsilon/2$, resulta que $d(x_k,x) < \varepsilon$ para todo $k \geq m_n$, por lo que la sucesión converge a $x$.
+\end{proof}
+\end{teo}
+Una observación importante es vincular como se relacionan los conceptos de cerrado y completo, ya que ambos refieren a sucesiones convergentes, para eso tenemos estos resultados:
+\begin{prop}
+Si $X$ es un espacio métrico, e $Y \subseteq X$ es un subespacio completo, entonces $Y$ es cerrado en $X$.
+\begin{proof}
+Si tenemos una sucesión convergente de $Y$, en particular será de Cauchy, como $Y$ es completo, ésta debe convergen a un punto de $Y$, lo que muestra que $\cl{Y} \subseteq Y$ y por lo tanto $Y$ es cerrado.
+\end{proof}
+\end{prop}
+\begin{prop}
+Si $X$ es un espacio métrico completo y $C \subseteq X$ es un subconjunto cerrado, entonces $C$ es completo.
+\begin{proof}
+Si tenemos una sucesión de Cauchy en $C$, también lo será en $X$, como éste es completo, convergerá a algún punto de $X$, pero como $C$ es cerrado, este punto debe pertenecer a $C$, por lo que $C$ es completo
+\end{proof}
+\end{prop}
+Ahora podemos analizar que relación juega la completitud con respecto a las funciones entre espacios métricos. Dejamos un ejercicio para luego utilizarlo en el siguiente resultado.
+\begin{ej}
+Si $X,Y$ son espacios métricos y $f:X \rightarrow Y$ es una función uniformemente continua, dada una sucesión de Cauchy $(x_n)_\inn{n}$, entonces $(f(x_n))_\inn{n}$ es una sucesión de Cauchy en $Y$.
+\end{ej}
+Teniendo en cuenta este ejercicio, nos preguntamos en que circunstancias podemos extender una función continua de un subespacio métrico a su clausura en todo el espacio de manera que permanezca continua, el siguiente resultado responde esta pregunta.
+\begin{teo}
+Sean $X,Y$ espacios métricos, $A \subseteq X$, y $f:A \rightarrow Y$ una función continua entonces:
+\begin{itemize}
+\item[i] Si existen $g,h:\cl{A} \rightarrow Y$ continuas, tales que $g\vert_A = h\vert_A = f$ entonces $g = h$.
+\item[ii] Si $f$ es uniformemente continua, e $Y$ es completo, entonces existe (y por el item anterior ésta es única) $g : \cl{A} \rightarrow Y$  uniformemente continua, de forma tal que $g\vert_A =f$. Además si $f$ es una isometría, también lo es $g$
+\end{itemize}
+\begin{proof}
+(i) Tomemos un punto $x \in \cl{A}$, entonces existe una sucesión $(x_n)_\inn{n}$ de elementos de $A$ tal que convergen a $x$, entonces por hipótesis $g(x_n)=f(x_n)=h(x_n)$, pero así pasando al límite, como $g$ y $h$ son continuas, $g(x) = \displaystyle \lim_{n\to \infty} g(x_n) = \lim_{n\to \infty} h(x_n) = h(x)$, por lo que $g=h$.\\
+(ii) Construiremos a $g$ a partir de $f$ de la manera más natural posible. Tomemos un punto $x \in \cl{A}$, entonces existe una sucesión de puntos de $A$, $(x_n)_\inn{n}$ tal que converge a $x$, como ésta converge, también resulta ser una sucesión de Cauchy, entonces, por el ejercicio anterior, $(f(x_n))_\inn{n}$ también es de Cauchy, y como $Y$ es completo, esta converge a un punto $y_x \in Y$. Queremos ver que $y_x$ no depende de la sucesión que hayamos elegido, así, consideremos otra sucesión de puntos distinta $(\tilde{x_n})_\inn{n}$ que también converge a $x$, si tomamos $\varepsilon >0$, como $f$ es uniformente continua tenemos un $\delta$ tal que si dos puntos distan menos que $\delta$, sus imágenes distan menos que $\varepsilon$, entonces considerando que $d(x_n,x)< \delta/2$ y $d(\tilde{x_m},x) < \delta/2$ a partir de algún momento, entonces $d(x_n,\tilde{x_m})<\delta$ y por lo tanto $d(f(x_n),f(\tilde{x_m}))<\varepsilon$, de esta manera tomando límite en $n$ (y porque la distancia es una función continua) $d(y_x,f(\tilde{x_m}))<\varepsilon$, por lo que $(f(\tilde{x_m}))$ también converge a $y_x$. Considerando esto, podemos definir $g:\cl{A} \rightarrow Y$ como $g(x) = y_x$.\\
+Ahora debemos ver que $g$ es uniformente continua. Sea $\varepsilon>0$ y tomemos el $\delta$ que sirve para $f$ de su continuidad uniforme, si consideramos dos puntos $x,y \in \cl{A}$ que $d(x,y)<\delta/2$ entonces si tomamos sucesiones $(x_n)_\inn{n}$ e $(y_n)_\inn{n}$ que convergen a $x$ y a $y$ respectivamente, tenemos que a partir de algún momento $d(x_n,y_n)< \delta$, entonces:
+$$ d(g(x),g(y)) = \lim_{n \to \infty} d(f(x_n),f(y_n)) \leq \varepsilon$$
+Lo que muestra que $g$ es uniformemente continua.\\
+Si $f$ fuese una isometría:
+$$d(g(x),g(y)) = \lim_{n \to \infty}d(f(x_n),f(y_n)) = \lim_{n \to \infty} d(x_n,y_n) = d(x,y)$$
+Por lo que $g$ también es una isometría
+\end{proof}
+\end{teo}
+Un caso interesante del teorema anterior es cuando el conjunto en cuestión es denso sobre todo el espacio métrico, en cuyo caso nos da una herramienta para extender la función a todo el espacio. Como corolario interesante dejamos el siguiente ejerecicio:
+\begin{ej} Si $A= \{ f \in \R^\R \sep f \mbox{ es continua}\}$ y $B = \{ f \in \R^\Q \sep f \mbox{ es continua}\}$, considerando la función entre $A$ y $B$ dada por $ f \mapsto f\vert_\Q$, calcular el cardinal de $A$.
+\end{ej}
+Otra consideración interesate es, considerando esto, tomando construcción de $\R$ a partir de $\Q$, ¿se puede generalizar la construcción a más espacios métricos? Es decir, ¿existe alguna manera de ''meter'' un espacio métrico $X$ en otro $Y$ y que $Y$ sea completo? Procedemos a responder la pregunta dando la definición formal de la idea que acabmos de formular:
+\begin{defi}
+Dado un espacio métrico $X$, una completación es un espacio métrico $X'$ y una isometría $i: X \rightarrow X'$ tal que $\Ima(i)$ es denso en $X'$ y además $X'$ es completo. Denotamos a la completación como el par $(X',i)$\\
+En sí, dar una completación es dar un espacio métrico $X'$ que cumpla la siguiente propiedad: para todo $Z$ espacio métrico completo y una función uniformemente continua $f:X \rightarrow Z$ existe una única función $\varphi:X' \rightarrow Z$ tal que $\varphi \circ i = f$, eso es, que el siguiente diagrama conmuta:
+
+\end{defi}
+Hemos hecho una pequeña aclaración en la ultima definición, que caracteriza a una completación como un elemento que cumple un tipo de propiedad (a las propiedades de este estilo se las llama ''universales''), específicamente podría haber más de una completación, pero la condición de la propiedad universal impone que dos completaciones serán isométricas. Aunque no demostraremos esto último aquí utilizando sólo su propiedad universal, como comentario al margen, el estudio de las ''propiedades universales'' es piedra fundamental de la teoría de Categorías; lo que hemos hecho aquí precisamente es dar una caracterización categórica de qué es una completación.\\[0.5cm]
+Si bien podemos generalizar la construcción de Cauchy sobre $\Q$ a $\R$ para cualquier espacio métrico, daremos dos resultados antes que nos permitirán hacer la demostración de que todo espacio métrico posee una completación de manera más sencilla, asumiendo que ya sabemos que $\R$ es completo.
+\begin{prop}
+Sea $X$ un espacio métrico completo y $Z$ un conjunto, entonces $\mathrm{B}(Z;X)$ es completo
+\begin{proof}
+Consideremos una sucesión de Cauchy en $\mathrm{B}(Z;X)$, $(f_n)_\inn{n}$. La condición de que esta sucesión sea de Cauchy nos dice que:
+$$\sup \{ d(f_n(z),f_m(z)) \sep z \in Z \} < \varepsilon$$
+Para todo $\varepsilon >0$ y $n,m$ apropiados, esto implica que para cada $z \in Z$, $(f_n(z))_\inn{n}$ es una sucesión de Cauchy en $X$, y por lo tanto tiene límite, llamemos $f:Z \rightarrow X$ a la función que a cada $z$ le asigna $\displaystyle \lim_{n \to \infty} f_n(z)$, veamos que $f_n$ converge a $f$ uniformemente: para cada $\varepsilon$ y $z \in Z$, existe un $n_z \in \N$ tal que $d(f_n(z),f(z))<\varepsilon/2$ si $n \geq n_z$, entonces, si consideramos $n_0 \in \N$ tal que $d(f_n,f_m)<\varepsilon/2$ para $n,m \geq n_0$ tenemos que si $n \geq n_0$ y $M_z = \max\{ n_0, n_z\}$ : 
+$$d(f_n(z),f(z)) \leq d(f_n(z),f_{M_z}(z)) + d(f_{M_z}(z),f(z))< \varepsilon$$
+Como esto vale para todo $z \in Z$, tenemos que $\sup_{z \in Z}\{d(f_n(z),f(z))\}<\varepsilon$, lo que implica que converge a $f$ uniformemente. Para terminar la demostración falta ver que en realidad $f$ es acotada, pero efectivamente, si tomamos $\varepsilon = 1$ y su $n \in \N$ correspondiente tal que $d(f_n,f)<1$,  tenemos que:
+\begin{align*}
+d(f(z),f(w)) &\leq d(f_n(z),f(z)) + d(f_n(w),f(w)) + d(f_n(z),f_n(w)) \\
+&< 2 + diam(\Ima(f_n))
+\end{align*} 
+Por lo que $f$ es acotada.
+\end{proof}
+\end{prop}
+\begin{cor}
+Si $X$ e $Y$ son espacio métricos, $Y$ es completo, entonces $\mathrm{C}(X,Y)$ es completo
+\begin{proof}
+Se deduce del hecho de que es cerrado en $B(X;Y)$.
+\end{proof}
+\end{cor}
+Ahora estamos en condiciones de demostrar el siguiente teorema
+\begin{teo}
+Si $X$ es un espacio métrico, entonces $X$ posee una completación. Más aún si $(X_1',i_1)$ y $(X_2',i_2)$ son completaciones de $X$, entonces existe una unica isometría biyectiva $\rho:X_1' \rightarrow X_2'$ tal que $\rho \circ i_1 = i_2$, en otras palabras, el siguiente diagrama conmuta:
+\begin{proof} 
+\end{proof}
+\end{teo}
+%teo completación
+% punto fijo de banach
+% Teo de picard
+
+\ifx\isEmbedded\undefined
+
+\end{document}
+\else
+\fi
