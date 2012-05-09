@@ -10,6 +10,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{graphicx}
+\usepackage[all]{xy}
 \linespread{1}	% double spaces lines
 
 \input{../definitions}
@@ -95,12 +96,20 @@ Por lo que $g$ también es una isometría
 \end{proof}
 \end{teo}
 Un caso interesante del teorema anterior es cuando el conjunto en cuestión es denso sobre todo el espacio métrico, en cuyo caso nos da una herramienta para extender la función a todo el espacio. Como corolario interesante dejamos el siguiente ejerecicio:
-\begin{ej} Si $A= \{ f \in \R^\R \sep f \mbox{ es continua}\}$ y $B = \{ f \in \R^\Q \sep f \mbox{ es continua}\}$, considerando la función entre $A$ y $B$ dada por $ f \mapsto f\vert_\Q$, calcular el cardinal de $A$.
+\begin{ej}
+Dados los conjuntos 
+$$A= \{ f \in \R^\R \sep f \mbox{ es continua}\}$$$$B = \{ f \in \R^\Q \sep f \mbox{ es continua}\}$$
+Y considerando la función entre $A$ y $B$ dada por $ f \mapsto f\vert_\Q$, calcular el cardinal de $A$.
 \end{ej}
-Otra consideración interesate es, considerando esto, tomando construcción de $\R$ a partir de $\Q$, ¿se puede generalizar la construcción a más espacios métricos? Es decir, ¿existe alguna manera de ''meter'' un espacio métrico $X$ en otro $Y$ y que $Y$ sea completo? Procedemos a responder la pregunta dando la definición formal de la idea que acabmos de formular:
+Otra consideración interesate es, tomando construcción de $\R$ a partir de $\Q$, ¿se puede generalizar la construcción a más espacios métricos? Es decir, ¿existe alguna manera de ''meter'' un espacio métrico $X$ en otro $Y$ y que $Y$ sea completo? Procedemos a responder la pregunta dando la definición formal de la idea que acabmos de formular:
 \begin{defi}
 Dado un espacio métrico $X$, una completación es un espacio métrico $X'$ y una isometría $i: X \rightarrow X'$ tal que $\Ima(i)$ es denso en $X'$ y además $X'$ es completo. Denotamos a la completación como el par $(X',i)$\\
 En sí, dar una completación es dar un espacio métrico $X'$ que cumpla la siguiente propiedad: para todo $Z$ espacio métrico completo y una función uniformemente continua $f:X \rightarrow Z$ existe una única función $\varphi:X' \rightarrow Z$ tal que $\varphi \circ i = f$, eso es, que el siguiente diagrama conmuta:
+$$\xymatrix{
+X \ar[dr]_f \ar[r]^i &X' \ar[d]^{\varphi}\\
+  &Z
+  }
+$$
 
 \end{defi}
 Hemos hecho una pequeña aclaración en la ultima definición, que caracteriza a una completación como un elemento que cumple un tipo de propiedad (a las propiedades de este estilo se las llama ''universales''), específicamente podría haber más de una completación, pero la condición de la propiedad universal impone que dos completaciones serán isométricas. Aunque no demostraremos esto último aquí utilizando sólo su propiedad universal, como comentario al margen, el estudio de las ''propiedades universales'' es piedra fundamental de la teoría de Categorías; lo que hemos hecho aquí precisamente es dar una caracterización categórica de qué es una completación.\\[0.5cm]
@@ -128,13 +137,75 @@ Se deduce del hecho de que es cerrado en $B(X;Y)$.
 \end{cor}
 Ahora estamos en condiciones de demostrar el siguiente teorema
 \begin{teo}
-Si $X$ es un espacio métrico, entonces $X$ posee una completación. Más aún si $(X_1',i_1)$ y $(X_2',i_2)$ son completaciones de $X$, entonces existe una unica isometría biyectiva $\rho:X_1' \rightarrow X_2'$ tal que $\rho \circ i_1 = i_2$, en otras palabras, el siguiente diagrama conmuta:
+Si $X$ es un espacio métrico, entonces $X$ posee una completación. Más aún si $(X_1',i_1)$ y $(X_2',i_2)$ son completaciones de $X$, entonces existe una única isometría biyectiva $\rho:X_1' \rightarrow X_2'$ tal que $\rho \circ i_1 = i_2$, en otras palabras, el siguiente diagrama conmuta:
+$$
+\xymatrix{
+X \ar[dr]_{i_2} \ar[r]^{i_1} &X_1' \ar[d]^{\rho} \\
+&X_2'
+}
+$$
 \begin{proof} 
+Mostremos primero que $X$ posee una completación. Fijemos un $a \in X$ y consideremos la siguiente función en dos variables $i_a: X \times X \rightarrow \R$ dada por:
+$$ i_a(x,y)=d(x,y) - d(a,y)$$
+Dado un $x \in X$ fijo, tenemos que $|i_a(x,y)| = | d(x,y) - d(a,y) | \leq d(x,a)$, por lo que si pensamos que $i_a(x, \_ ): X \rightarrow \R$, tenemos que $i_a(x, \_ ) \in \mathrm{B}(X,\R)$, de esta manera podemos pensar a $i_a$ como una función $i_a: X \rightarrow \mathrm{B}(X,\R)$. Observemos que:
+\begin{align*}
+d_{\infty}(i_a(x, \_ ), i_a(x', \_ )) &= \sup_{y \in X} {|i_a(x, y) - i_a(x',y )|} \\
+ &= \sup_{y \in X} {|d(x, y) - d(x',y )|} \\
+ &\leq d(x,x')
+\end{align*}
+Pero al mismo tiempo:
+\begin{align*}
+d_{\infty}(i_a(x, \_ ), i_a(x', \_ )) &\geq |i_a(x,x) - i_a(x',x)| \\
+&= |d(x,x) - d(a,x) - d(x,x') + d(a,x)| \\
+&= d(x,x')
+\end{align*}
+Por lo que $d_{\infty}(i_a(x, \_ ), i_a(x', \_ )) = d(x,x')$. Entonces $i_a$ es una isometría, como $\mathrm{B}(X,\R)$ es completo, $(\cl{i_a(X)}, i_a)$ es una completación de $X$.\\
+Consideremos ahora $(X_1',i_1)$ y $(X_2',i_2)$ completaciones de $X$, si consideramos $i_2 \circ i_1^{-1}: i_1(X) \rightarrow X_2'$, al ser composición de isometrías, es una isometría, y como $i_1(X)$ es denso en $X_1'$, existe una extensión isométrica de $i_2 \circ i_1^{-1}$ a todo $X_1'$, llamemosla $f:X_1' \rightarrow X_2'$, de la misma manera con $i_1 \circ i_2^{-1}: i_2(X) \rightarrow X_1$ construimos una isometría $g: X_2' \rightarrow X_1'$. Ahora $g \circ f$ restringida a $i_1(X)$ es la inclusión, debido a la extensión única sobre un denso, tenemos que $g \circ f = \Id_{X_1'}$, de la misma manera $g \circ f = \Id_{X_2'}$, por lo que $\rho = g \circ f$ es una isometría biyectiva. Además debido a la conmutatividad del diagrama ésta resulta única.
 \end{proof}
 \end{teo}
-%teo completación
-% punto fijo de banach
-% Teo de picard
+\subsection{Punto fijo de Banach}
+Dentro de los aspectos importantes de los espacios métricos completos, uno de los más útiles es el llamado ''Punto fijo de Banach'' o ''Punto fijo para contracciones''. En general, los teoremas que afirman la existencia de un ''punto fijo'' suelen ser muy útiles y pueden deducir resultados muy fuertes en otras áreas de la matemática.
+\begin{teo}[Punto Fijo de Banach]
+Sea $X$ espacios métrico completo y $f:X \rightarrow X$ una contracción, es decir una función que cumple que existe un $\lambda \in \R, 0<\lambda<1$ tal que:
+$$ d(f(x),f(y)) \leq \lambda d(x,y)$$
+Bajo estas condiciones, $f$ posee un único punto fijo, es decir, existe un único punto $z \in X$ tal que $z = f(z)$
+\begin{proof}
+Consideremos $x_0 \in X$ y definamos la sucesión $(x_n)_\inn{n}$ recursivamente por $x_n = f(x_{n-1})$, en otras palabras $x_n = f^n(x_0)$ donde por elevar a la $n$ nos referimos a componer $f$ $n$ veces. Demostraremos que ésta es una sucesión de Cauchy. Sea $\varepsilon > 0$ y tomemos $m \geq n$:
+\begin{align*}
+d(x_n,x_m) &= d(f^n(x_0),f^m(x_0)) \\
+ &\leq \lambda^n d(x_0, f^{m-n}(x_0)) \\
+ &\leq \lambda^n \sum_{k=0}^{m-n-1} d(f^k(x_0),f^{k+1}(x_0)) \\
+ &\leq \lambda^n \sum_{k=0}^{m-n-1} \lambda^k d(x_0,f(x_0)) \\
+ &\leq \frac{\lambda^n}{1 - \lambda} d(x_0,f(x_0)) 
+\end{align*}
+Tomando $n$ lo suficientemente grande, $ \lambda^n < \varepsilon \frac{1- \lambda}{d(x_0,f(x_0))}$, y por lo tanto $d(x_n,x_m)< \varepsilon$ entonces $(x_n)_\inn{n}$ es de Cauchy y por lo tanto converge a un punto $x$. Entonces tenemos:
+$$f(x) = f(\lim_{n \to \infty} x_n) = \lim_{n \to \infty} f(x_n) = \lim_{n \to \infty} f^{n+1}(x_0) = x$$
+Por lo que $x$ es punto fijo de $f$. Para ver la unicidad, si tanto $x$ como $y$ son puntos fijo entonces tenemos que:
+$$ d(x,y)=d(f(x),f(y)) \leq \lambda d(x,y) < d(x,y)$$
+Lo que sólo puede pasar si $d(x,y)=0$ y por lo tanto $x=y$.
+\end{proof}
+\end{teo}
+Existen varias aplicaciones interesantes de este teorema, como por ejemplo, la demostración del teorema de Picard para existencia y unicidad de ecuaciones diferenciales con funciones localmente Lipschitz, existencia y unicidad a otro tipo de ecuaciones integrales y también permite dar un método numérico para aproximar raíces de funciones reales con arbitraria presición ya que la demostración del teorema no sólo dice que el punto fijo existe, sino que brinda una sucesión concreta que lo aproxima y con qué error en cada paso.
+
+\subsection{Teorema de Categoría de Baire}
+Otro aspecto de los espacios métricos completos que resulta de interés, es el hecho de que cumplen lo que se llama la propiedad de Baire, que tiene consecuencias poco obvias:
+\begin{defi}
+Dado un espacio métrico $X$, decimos que cumple la propiedad de Baire si dada una sucesión $(C_n)_\inn{n}$ de cerrados de $X$, y que $C_n^\circ = \emptyset$ entonces:
+$$ \left(\bigcup_\inn{n} C_n \right)^\circ = \emptyset$$
+\end{defi}
+Escencialmente la definición nos dice que en estos espacios métricos, unir cosas muy ''dispersas'' sigue siendo un conjunto ''disperso'', eso motiva la siguiente definición:
+\begin{defi}
+Si $X$ es un espacio métrico, decimos que un conjunto $A  \subseteq X$ es de primera categoría si existen cerrados $C_n$ de interior vacío tal que $A = \bigcup_\inn{n} C_n$. En caso contrario decimos que $A$ es de segunda categoría.
+\end{defi}
+De esta definición se deduce que en un espacio con la propiedad de Baire, los conjuntos de primera categoría tienen interior vacío.\\[0.5cm]
+Ahora tenemos el siguiente resultado:
+\begin{teo}[Teorema de Baire]
+Si $X$ es un espacio métrico completo, entonces $X$ tiene la propiedad de Baire.
+\begin{proof}
+Si tenemos una sucesión de cerrados de interior vacío $C_n$
+\end{proof}
+\end{teo}
+
 
 \ifx\isEmbedded\undefined
 
